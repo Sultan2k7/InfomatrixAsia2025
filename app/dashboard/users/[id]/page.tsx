@@ -101,7 +101,7 @@ const DriverPage = () => {
           <div className="mt-6 flex justify-end space-x-2">
             <Button
               variant="outline"
-              onClick={() => router.push(`/dashboard/users/${id}/edit`)}
+              //onClick={() => router.push(`/dashboard/users/${id}/edit`)}
             >
               <Edit className="mr-2 h-4 w-4" /> Редактировать
             </Button>

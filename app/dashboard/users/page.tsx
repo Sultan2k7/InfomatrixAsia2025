@@ -34,13 +34,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 interface Driver {
   id: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  licenseNumber: string;
-  status: string;
-  vehicleAssigned: string;
-  createdAt: string;
+  name: string | null; // Allow null
+  email: string | null; // Allow null
+  phoneNumber: string | null; // Allow null
+  licenseNumber: string | null; // Allow null
+  status: string | null; // Allow null
+  vehicleAssigned: string | null; // Allow null
+  createdAt: string; // Keep as required
 }
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -52,30 +52,29 @@ const UsersPage = () => {
   const itemsPerPage = 10;
   const router = useRouter();
 
-  const {
-    data: drivers,
-    error,
-    isLoading,
-  } = useSWR<Driver[]>('/api/user', fetcher);
+  const { data: drivers, error, isLoading } = useSWR<Driver[]>('/api/user', fetcher);
 
   if (error) {
     console.error('Error fetching drivers:', error);
   }
 
   const filteredDrivers =
-    drivers?.filter(
-      (driver) =>
-        driver.name.toLowerCase().includes(search.toLowerCase()) ||
-        driver.email.toLowerCase().includes(search.toLowerCase()) ||
-        driver.phoneNumber.includes(search)
+    drivers?.filter((driver) =>
+      (driver.name?.toLowerCase().includes(search.toLowerCase()) || 
+       driver.email?.toLowerCase().includes(search.toLowerCase()) || 
+       driver.phoneNumber?.includes(search))
     ) || [];
 
   const sortedDrivers = [...filteredDrivers].sort((a, b) => {
-    if (sortBy === 'newest')
+    if (sortBy === 'newest') {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    if (sortBy === 'oldest')
+    }
+    if (sortBy === 'oldest') {
       return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-    if (sortBy === 'name') return a.name.localeCompare(b.name);
+    }
+    if (sortBy === 'name') {
+      return (a.name ?? '').localeCompare(b.name ?? ''); // Handle nulls for name
+    }
     return 0;
   });
 
@@ -154,20 +153,18 @@ const UsersPage = () => {
                 ))
             : paginatedDrivers.map((driver) => (
                 <TableRow key={driver.id}>
-                  <TableCell className="font-medium">{driver.name}</TableCell>
-                  <TableCell>{driver.email}</TableCell>
-                  <TableCell>{driver.phoneNumber}</TableCell>
-                  <TableCell>{driver.licenseNumber}</TableCell>
+                  <TableCell className="font-medium">{driver.name ?? '-'}</TableCell>
+                  <TableCell>{driver.email ?? '-'}</TableCell>
+                  <TableCell>{driver.phoneNumber ?? '-'}</TableCell>
+                  <TableCell>{driver.licenseNumber ?? '-'}</TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        driver.status === 'active' ? 'default' : 'secondary'
-                      }
+                      variant={driver.status === 'active' ? 'default' : 'secondary'}
                     >
-                      {driver.status}
+                      {driver.status ?? '-'}
                     </Badge>
                   </TableCell>
-                  <TableCell>{driver.vehicleAssigned || '-'}</TableCell>
+                  <TableCell>{driver.vehicleAssigned ?? '-'}</TableCell>
                   <TableCell>
                     <Link href={`/dashboard/users/${driver.id}`} passHref>
                       <Button variant="ghost" size="sm">

@@ -7,7 +7,7 @@ import { AboutUs } from '@/components/shared/about-us';
 export default function Home() {
   return (
     <div>
-      <Header />
+      <Header  />
       <Hero />
       <Features />
       <HowItWorks />

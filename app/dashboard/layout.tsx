@@ -21,6 +21,9 @@ import {
   Plus,
   List,
   Bomb,
+  Fuel,
+  Leaf,
+  Bot,
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
@@ -70,6 +73,26 @@ const menuItems = [
     icon: BarChart3,
     label: 'Аналитика',
     href: '/dashboard/analytics',
+    subItems: [
+      {
+        name: 'fuel',
+        icon: Fuel,
+        label: 'Топливо',
+        href: '/dashboard/analytics/fuel',
+      },
+      {
+        name: 'co2',
+        icon: Leaf,
+        label: 'Экология',
+        href: '/dashboard/analytics/co2',
+      },
+      {
+        name: 'assistant',
+        icon: Bot,
+        label: 'Ассистент',
+        href: '/dashboard/analytics/assistant'
+      },
+    ],
   },
   {
     name: 'users',
@@ -104,9 +127,10 @@ export default function DashboardLayout({
         case 'MANAGER':
           router.replace('/manager/dashboard');
           break;
-        case 'USER' && 'DRIVER':
-          // We're already on the correct page
-          break;
+        case 'USER':
+          break
+        case 'DRIVER':
+          break
         default:
           console.error('Unknown user role:', session.user.role);
       }
