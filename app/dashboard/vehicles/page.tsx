@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -55,72 +55,29 @@ interface Props {
 }
 
 const VehiclesPage: React.FC<Props> = ({ className }) => {
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('newest');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const router = useRouter();
 
-  // Hardcoded vehicles
-  const vehicles: Vehicle[] = [
-    {
-      id: '1',
-      driverId: '101',
-      phoneNumber: '555-1234',
-      vehicleNumber: 'ABC123',
-      currentMission: 'Delivery',
-      location: 'Almaty',
-      speed: 60,
-      malfunctions: 1,
-      vehicleType: 'Truck',
-      status: 'active',
-      createdAt: '2023-10-01',
-      updatedAt: '2023-10-10',
-      driver: {
-        id: '101',
-        name: 'John Doe',
-        email: 'john@example.com',
-      },
-    },
-    {
-      id: '2',
-      driverId: '102',
-      phoneNumber: '555-5678',
-      vehicleNumber: 'XYZ789',
-      currentMission: 'Transport',
-      location: 'Aktau',
-      speed: 50,
-      malfunctions: 0,
-      vehicleType: 'Van',
-      status: 'inactive',
-      createdAt: '2023-09-15',
-      updatedAt: '2023-10-05',
-      driver: {
-        id: '102',
-        name: 'Jane Smith',
-        email: 'jane@example.com',
-      },
-    },
-    {
-      id: '3',
-      driverId: '103',
-      phoneNumber: '555-9876',
-      vehicleNumber: 'LMN456',
-      currentMission: 'Inspection',
-      location: 'Astana',
-      speed: 40,
-      malfunctions: 2,
-      vehicleType: 'SUV',
-      status: 'active',
-      createdAt: '2023-08-20',
-      updatedAt: '2023-10-12',
-      driver: {
-        id: '103',
-        name: 'Alex Johnson',
-        email: 'alex@example.com',
-      },
-    },
-  ];
+  useEffect(() => {
+    fetchVehicles();
+  }, []);
+
+  const fetchVehicles = async () => {
+    try {
+      const response = await fetch('/api/vehicles');
+      if (!response.ok) {
+        throw new Error('Failed to fetch vehicles');
+      }
+      const data = await response.json();
+      setVehicles(data);
+    } catch (error) {
+      console.error('Error fetching vehicles:', error);
+    }
+  };
 
   const filteredVehicles = vehicles.filter(
     (vehicle) =>
@@ -181,7 +138,7 @@ const VehiclesPage: React.FC<Props> = ({ className }) => {
             <TableHead>Текущая миссия</TableHead>
             <TableHead>Локация</TableHead>
             <TableHead>Скорость</TableHead>
-            <TableHead>Кол-во ошибок</TableHead>
+            <TableHead>Кол-во неисправностей</TableHead>
             <TableHead>Вид транспорта</TableHead>
             <TableHead>Статус</TableHead>
             <TableHead>Действия</TableHead>
@@ -211,7 +168,7 @@ const VehiclesPage: React.FC<Props> = ({ className }) => {
               <TableCell>
                 <Link href={`/dashboard/vehicles/${vehicle.id}`} passHref>
                   <Button variant="ghost" size="sm">
-                    <ExternalLink className="h-4 w4 mr-2" />
+                    <ExternalLink className="h-4 w-4 mr-2" />
                     Подробнее
                   </Button>
                 </Link>

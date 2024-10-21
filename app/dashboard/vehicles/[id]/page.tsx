@@ -32,29 +32,6 @@ const carIcon = new Icon({
   popupAnchor: [0, -32],
 });
 
-interface OBDCheckData {
-  engineRpm: number;
-  fuelLevel: number;
-  engineLoad: number;
-  vehicle_id: string;
-  massAirFlow: number;
-  fuelPressure: number;
-  vehicleSpeed: number;
-  batteryVoltage: number;
-  oilTemperature: number;
-  distanceTraveled: number;
-  throttlePosition: number;
-  catalystTemperature: number;
-  fuelConsumptionRate: number;
-  oxygenSensorReading: number;
-  intakeAirTemperature: number;
-  diagnosticTroubleCode: string;
-  acceleratorPedalPosition: number;
-  engineCoolantTemperature: number;
-  evapEmissionControlPressure: number;
-}
-
-
 type OBDData = {
   engine_rpm: number;
   vehicle_speed: number;
@@ -118,35 +95,34 @@ const obdData: OBDData = {
 };
 
 const translationMap = {
-  vehicle_id: 'ID автомобиля',
-  engineRpm: 'Обороты двигателя',
-  vehicleSpeed: 'Скорость автомобиля',
-  throttlePosition: 'Положение дросселя',
-  fuelLevel: 'Уровень топлива',
-  engineLoad: 'Нагрузка двигателя',
-  intakeAirTemperature: 'Температура всасываемого воздуха',
-  massAirFlow: 'Расход воздуха',
-  fuelPressure: 'Давление топлива',
-  fuelConsumptionRate: 'Расход топлива',
-  engineCoolantTemperature: 'Температура охлаждающей жидкости',
-  oxygenSensorReading: 'Датчик кислорода',
-  catalystTemperature: 'Температура катализатора',
-  evapEmissionControlPressure: 'Давление в системе контроля испарений',
-  diagnosticTroubleCode: 'Коды неисправностей',
-  batteryVoltage: 'Напряжение батареи',
-  transmissionFluidTemperature: 'Температура трансмиссионной жидкости',
-  oilTemperature: 'Температура масла',
-  oilPressure: 'Давление масла',
-  brakePedalPosition: 'Положение педали тормоза',
-  steeringAngle: 'Угол поворота руля',
-  acceleratorPedalPosition: 'Положение педали акселератора',
-  absStatus: 'Статус ABS',
-  airbagDeploymentStatus: 'Статус подушек безопасности',
-  tirePressure: 'Давление в шинах',
-  gpsCoordinates: 'GPS координаты',
+  engine_rpm: 'Обороты двигателя',
+  vehicle_speed: 'Скорость автомобиля',
+  throttle_position: 'Положение дросселя',
+  fuel_level: 'Уровень топлива',
+  engine_load: 'Нагрузка двигателя',
+  intake_air_temperature: 'Температура всасываемого воздуха',
+  mass_air_flow: 'Расход воздуха',
+  fuel_pressure: 'Давление топлива',
+  fuel_consumption_rate: 'Расход топлива',
+  engine_coolant_temperature: 'Температура охлаждающей жидкости',
+  oxygen_sensor_reading: 'Датчик кислорода',
+  catalyst_temperature: 'Температура катализатора',
+  evap_emission_control_pressure: 'Давление в системе контроля испарений',
+  diagnostic_trouble_code: 'Коды неисправностей',
+  battery_voltage: 'Напряжение батареи',
+  transmission_fluid_temperature: 'Температура трансмиссионной жидкости',
+  oil_temperature: 'Температура масла',
+  oil_pressure: 'Давление масла',
+  brake_pedal_position: 'Положение педали тормоза',
+  steering_angle: 'Угол поворота руля',
+  accelerator_pedal_position: 'Положение педали акселератора',
+  abs_status: 'Статус ABS',
+  airbag_deployment_status: 'Статус подушек безопасности',
+  tire_pressure: 'Давление в шинах',
+  gps_coordinates: 'GPS координаты',
   altitude: 'Высота',
   heading: 'Курс',
-  distanceTraveled: 'Пройденное расстояние',
+  distance_traveled: 'Пройденное расстояние',
 };
 
 const tripData = [
@@ -176,7 +152,6 @@ const tripData = [
   },
 ];
 
-
 const dtcDescriptions: { [key: string]: string } = {
   P0100: 'Ошибка массового расхода воздуха',
   P0200: 'Ошибка в цепи форсунки',
@@ -189,11 +164,13 @@ const VehiclePage = () => {
     obdData.gps_coordinates
   );
   const router = useRouter();
-  const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null); // Single object
-  const [loading, setLoading] = useState(true);
+
+  const translatedObdData = Object.entries(obdData).map(([key, value]) => {
+    const label = translationMap[key as keyof typeof translationMap] || key;
+    return { label, value: Array.isArray(value) ? value.join(', ') : value };
+  });
 
   useEffect(() => {
-    fetchObdCheckData();
     const interval = setInterval(() => {
       const newLat = coordinates[0] + Math.random() * 0.001;
       const newLon = coordinates[1] + Math.random() * 0.001;
@@ -201,39 +178,6 @@ const VehiclePage = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, [coordinates]);
-  
-
-  const fetchObdCheckData = async () => {
-    try {
-      const response = await fetch(`/api/vehiclestest/`); // Fetch the single object
-      if (!response.ok) {
-        throw new Error('Failed to fetch OBD check data');
-      }
-      const data: OBDCheckData = await response.json(); // Single object
-      setObdCheckData(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching OBD check data:', error);
-      setLoading(false);
-    }
-  };
-
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!obdCheckData) {
-    return <div>No OBD check data found</div>;
-  }
-
-
-  const translatedObdData = Object.entries(obdCheckData).map(([key, value]) => {
-    const label = translationMap[key as keyof typeof translationMap] || key;
-    return { label, value: Array.isArray(value) ? value.join(', ') : value };
-  });
-
- 
 
   const filteredData = tripData.filter((trip) =>
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
