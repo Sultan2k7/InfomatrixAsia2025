@@ -15,7 +15,7 @@ export async function GET(req: Request) {
         }
       
         // Return the 'all' field of the first entry as JSON
-        return NextResponse.json(obdCheckData[0].all);
+        return NextResponse.json(obdCheckData[obdCheckData.length - 1].all);
       } catch (error) {
         console.error('Error fetching data:', error); // Log the error for debugging
         return NextResponse.json(

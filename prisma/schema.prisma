@@ -167,3 +167,11 @@ model Obd_check{
   all                          Json
   createdAt   DateTime @default(now())
 }
+
+
+
+model obd_checktest{
+  id                          Int @id @default(autoincrement())
+  all                         Json
+  createdAt    DateTime @default(now())
+}
