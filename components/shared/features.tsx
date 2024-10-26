@@ -29,7 +29,7 @@ const features = [
   },
   {
     title: 'Управление автопарком',
-    description:
+    description: 
       'Эффективное управление и обслуживание вашего автопарка для максимальной производительности.',
     icon: Truck,
   },
@@ -37,7 +37,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="py-20 bg-muted">
+    <section id ="features" className="py-20 bg-muted">
       <Container>
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">

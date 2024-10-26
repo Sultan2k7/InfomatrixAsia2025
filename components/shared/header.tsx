@@ -13,10 +13,10 @@ interface Props {
 }
 
 const navbarItems = [
-  { name: 'Главная', href: '/' },
-  { name: 'О нас', href: '/about' },
-  { name: 'Преимущества', href: '/benefits' },
-  { name: 'Контакты', href: '/contacts' },
+  { name: 'Главная', href: '#' },
+  { name: 'Преимущества', href: '#features' },
+  { name: 'Принцип Работы', href: '#how-it-works' },
+  { name: 'О нас', href: '#about-us' },
 ];
 
 export const Header: React.FC<Props> = ({ className }) => {

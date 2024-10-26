@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export function AboutUs() {
   return (
-    <section className="py-20 bg-muted">
+    <section id = "about-us" className="py-20 bg-muted">
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           <div className="space-y-6">
@@ -44,13 +44,13 @@ export function AboutUs() {
               ))}
             </ul>
             <Button className="group">
-              Узнать больше
+              <a href = "https://www.instagram.com/3gis_kazakhstan/">Узнать больше</a>
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </div>
           <div className="relative aspect-video lg:aspect-square">
             <Image
-              src="/placeholder.svg"
+              src="/truck.svg"
               alt="3GIS команда"
               fill
               className="object-cover rounded-lg transition-all duration-300 hover:scale-105"

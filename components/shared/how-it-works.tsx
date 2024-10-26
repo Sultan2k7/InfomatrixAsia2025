@@ -25,13 +25,13 @@ const steps = [
     title: 'Оповещения и реагирование',
     description:
       'Мгновенные уведомления о нарушениях и быстрое реагирование на инциденты.',
-    icon: BellIcon,
+    icon: BellIcon, 
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section className="py-20 bg-background">
+    <section id = "how-it-works" className="py-20 bg-background">
       <Container>
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl mb-4">
