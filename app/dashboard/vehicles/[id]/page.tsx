@@ -233,7 +233,15 @@ const VehiclePage = () => {
     return { label, value: Array.isArray(value) ? value.join(', ') : value };
   });
 
- 
+  const handleObdButtonClick = (label: string, value: any) => {
+    // Пример действия: перенаправление или отображение графика
+    console.log(`Кнопка нажата: ${label}, значение: ${value}`);
+    if (label === 'Обороты двигателя') {
+      // Отобразить график или модальное окно для оборотов двигателя
+    } else if (label === 'Уровень топлива') {
+      // Отобразить график уровня топлива или другое действие
+    }
+  };
 
   const filteredData = tripData.filter((trip) =>
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
@@ -331,13 +339,22 @@ const VehiclePage = () => {
                     .map((item, index) => (
                       <div key={index} className="flex justify-between">
                         <dt>{item.label}:</dt>
-                        <dd>{item.value}</dd>
+                        <dd>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleObdButtonClick(item.label, item.value)}>
+                            {item.value}
+                          </Button>
+                        </dd>
                       </div>
                     ))}
                 </dl>
               </CardContent>
             </Card>
           </div>
+
+          
 
           <div className="md:col-span-2 space-y-8">
             <Card>
