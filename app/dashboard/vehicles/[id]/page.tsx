@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon, LatLngTuple } from 'leaflet';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { LineChart } from '@/components/shared/line-chart-steal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -118,36 +118,37 @@ const obdData: OBDData = {
 };
 
 const translationMap = {
-  vehicle_id: 'ID автомобиля',
-  engineRpm: 'Обороты двигателя',
-  vehicleSpeed: 'Скорость автомобиля',
-  throttlePosition: 'Положение дросселя',
-  fuelLevel: 'Уровень топлива',
-  engineLoad: 'Нагрузка двигателя',
-  intakeAirTemperature: 'Температура всасываемого воздуха',
-  massAirFlow: 'Расход воздуха',
-  fuelPressure: 'Давление топлива',
-  fuelConsumptionRate: 'Расход топлива',
-  engineCoolantTemperature: 'Температура охлаждающей жидкости',
-  oxygenSensorReading: 'Датчик кислорода',
-  catalystTemperature: 'Температура катализатора',
-  evapEmissionControlPressure: 'Давление в системе контроля испарений',
-  diagnosticTroubleCode: 'Коды неисправностей',
-  batteryVoltage: 'Напряжение батареи',
-  transmissionFluidTemperature: 'Температура трансмиссионной жидкости',
-  oilTemperature: 'Температура масла',
-  oilPressure: 'Давление масла',
-  brakePedalPosition: 'Положение педали тормоза',
-  steeringAngle: 'Угол поворота руля',
-  acceleratorPedalPosition: 'Положение педали акселератора',
-  absStatus: 'Статус ABS',
-  airbagDeploymentStatus: 'Статус подушек безопасности',
-  tirePressure: 'Давление в шинах',
-  gpsCoordinates: 'GPS координаты',
-  altitude: 'Высота',
-  heading: 'Курс',
-  distanceTraveled: 'Пройденное расстояние',
+  vehicle_id: { en: 'vehicle_id', ru: 'ID автомобиля' },
+  engineRpm: { en: 'engineRpm', ru: 'Обороты двигателя' },
+  fuelLevel: { en: 'fuelLevel', ru: 'Уровень топлива' },
+  engineLoad: { en: 'engineLoad', ru: 'Нагрузка двигателя' },
+  vehicleSpeed: { en: 'vehicleSpeed', ru: 'Скорость автомобиля' },
+  massAirFlow: { en: 'massAirFlow', ru: 'Массовый расход воздуха' },
+  fuelPressure: { en: 'fuelPressure', ru: 'Давление топлива' },
+  batteryVoltage: { en: 'batteryVoltage', ru: 'Напряжение батареи' },
+  oilTemperature: { en: 'oilTemperature', ru: 'Температура масла' },
+  distanceTraveled: { en: 'distanceTraveled', ru: 'Пройденное расстояние' },
+  throttlePosition: { en: 'throttlePosition', ru: 'Положение дросселя' },
+  catalystTemperature: { en: 'catalystTemperature', ru: 'Температура катализатора' },
+  fuelConsumptionRate: { en: 'fuelConsumptionRate', ru: 'Расход топлива' },
+  oxygenSensorReading: { en: 'oxygenSensorReading', ru: 'Показания датчика кислорода' },
+  intakeAirTemperature: { en: 'intakeAirTemperature', ru: 'Температура всасываемого воздуха' },
+  diagnosticTroubleCode: { en: 'diagnosticTroubleCode', ru: 'Коды неисправностей' },
+  acceleratorPedalPosition: { en: 'acceleratorPedalPosition', ru: 'Положение педали акселератора' },
+  engineCoolantTemperature: { en: 'engineCoolantTemperature', ru: 'Температура охлаждающей жидкости' },
+  evapEmissionControlPressure: { en: 'evapEmissionControlPressure', ru: 'Давление в системе контроля испарений' },
+  transmissionFluidTemperature: { en: 'transmissionFluidTemperature', ru: 'Температура трансмиссионной жидкости' },
+  oilPressure: { en: 'oilPressure', ru: 'Давление масла' },
+  brakePedalPosition: { en: 'brakePedalPosition', ru: 'Положение педали тормоза' },
+  steeringAngle: { en: 'steeringAngle', ru: 'Угол поворота руля' },
+  absStatus: { en: 'absStatus', ru: 'Статус ABS' },
+  airbagDeploymentStatus: { en: 'airbagDeploymentStatus', ru: 'Статус подушек безопасности' },
+  tirePressure: { en: 'tirePressure', ru: 'Давление в шинах' },
+  gpsCoordinates: { en: 'gpsCoordinates', ru: 'GPS координаты' },
+  altitude: { en: 'altitude', ru: 'Высота' },
+  heading: { en: 'heading', ru: 'Курс' }
 };
+
 
 const tripData = [
   {
@@ -229,11 +230,16 @@ const VehiclePage = () => {
 
 
   const translatedObdData = Object.entries(obdCheckData).map(([key, value]) => {
-    const label = translationMap[key as keyof typeof translationMap] || key;
-    return { label, value: Array.isArray(value) ? value.join(', ') : value };
+    const label = translationMap[key as keyof typeof translationMap]?.ru || key;
+    const enkey = translationMap[key as keyof typeof translationMap]?.en || key;
+    return { label, enkey, value: Array.isArray(value) ? value.join(', ') : value };
   });
+  
+  const id = usePathname().split('/')[3];
 
- 
+  const handleObdButtonClick = (enKey: string, value: number) => {
+    router.push(`/dashboard/vehicles/${id}/${enKey}`);
+  };
 
   const filteredData = tripData.filter((trip) =>
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
@@ -331,13 +337,22 @@ const VehiclePage = () => {
                     .map((item, index) => (
                       <div key={index} className="flex justify-between">
                         <dt>{item.label}:</dt>
-                        <dd>{item.value}</dd>
+                        <dd>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleObdButtonClick(item.enkey, item.value)}>
+                            {item.value}
+                          </Button>
+                        </dd>
                       </div>
                     ))}
                 </dl>
               </CardContent>
             </Card>
           </div>
+
+          
 
           <div className="md:col-span-2 space-y-8">
             <Card>
