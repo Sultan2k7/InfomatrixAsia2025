@@ -2,6 +2,7 @@
 'use client';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Line } from 'react-chartjs-2';
+import { Button } from '@/components/ui/button';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -13,6 +14,13 @@ import {
     Legend,
 } from 'chart.js';
 import { useEffect, useState } from 'react';
+import {
+    ArrowLeft,
+    AlertTriangle,
+    Truck,
+    MapPin,
+    Database,
+  } from 'lucide-react';
 
 ChartJS.register(
     CategoryScale,
@@ -144,6 +152,13 @@ const LabelPage = () => {
     
     return (
         <div style={{ width: '80%', margin: '0 auto' }}>
+            <Button
+            onClick={() => router.back()}
+            className="mb-8"
+            variant="outline"
+            >
+            <ArrowLeft className="mr-2 h-4 w-4" /> Назад
+            </Button>
             <h1>График для метки: {labeel}</h1>
             <Line 
                 data={chartData} 
