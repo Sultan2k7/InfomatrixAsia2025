@@ -13,6 +13,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import { useEffect, useState } from 'react';
 import {
     ArrowLeft,
@@ -20,7 +21,7 @@ import {
     Truck,
     MapPin,
     Database,
-  } from 'lucide-react';
+} from 'lucide-react';
 
 ChartJS.register(
     CategoryScale,
@@ -29,9 +30,9 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    zoomPlugin  // Registering the zoom plugin
 );
-
 
 interface OBDCheckData {
     engineRpm: number;
@@ -86,8 +87,6 @@ const translationMap = {
     altitude: { en: 'altitude', ru: 'Высота' },
     heading: { en: 'heading', ru: 'Курс' }
 };
-  
-
 
 const LabelPage = () => {
     const router = useRouter();
@@ -95,48 +94,13 @@ const LabelPage = () => {
     const labeel = usePathname().split('/')[4];
     const id = usePathname().split('/')[3];
 
-    const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null); // Single object
+    const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        //fetchObdCheckData();
         return;
-    },);
+    }, []);
 
-    const fetchObdCheckData = async () => {
-        try {
-          const response = await fetch(`/api/vehiclestest/`); // Fetch the single object
-          if (!response.ok) {
-            throw new Error('Failed to fetch OBD check data');
-          }
-          const data: OBDCheckData = await response.json(); // Single object
-          setObdCheckData(data);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching OBD check data:', error);
-          setLoading(false);
-        }
-    };
-    
-    /*
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-    
-    if (!obdCheckData) {
-        return <div>No OBD check data found</div>;
-    }
-    
-
-    const translatedObdData = Object.entries(obdCheckData).map(([key, value]) => {
-        const label = translationMap[key as keyof typeof translationMap]?.ru || key;
-        const enkey = translationMap[key as keyof typeof translationMap]?.en || key;
-        return { label, enkey, value: Array.isArray(value) ? value.join(', ') : value };
-    });
-    */
-
-
-    // Жёстко закодированные данные для графика
     const chartData = {
         labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
         datasets: [
@@ -149,31 +113,45 @@ const LabelPage = () => {
         ],
     };
 
-    
     return (
         <div style={{ width: '80%', margin: '0 auto' }}>
             <Button
-            onClick={() => router.back()}
-            className="mb-8"
-            variant="outline"
+                onClick={() => router.back()}
+                className="mb-8"
+                variant="outline"
             >
-            <ArrowLeft className="mr-2 h-4 w-4" /> Назад
+                <ArrowLeft className="mr-2 h-4 w-4" /> Назад
             </Button>
             <h1>График для метки: {labeel}</h1>
-            <Line 
-                data={chartData} 
+            <Line
+                data={chartData}
                 options={{
                     responsive: true,
                     plugins: {
                         legend: {
-                            position: 'top',
+                            position: 'top' as const,
                         },
                         title: {
                             display: true,
                             text: `График для ${label} (ID: ${id})`,
                         },
+                        zoom: {
+                            pan: {
+                                enabled: true,
+                                mode: 'xy',
+                            },
+                            zoom: {
+                                wheel: {
+                                    enabled: true,
+                                },
+                                pinch: {
+                                    enabled: true,
+                                },
+                                mode: 'xy',
+                            },
+                        },
                     },
-                }} 
+                }}
             />
         </div>
     );
