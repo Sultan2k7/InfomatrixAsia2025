@@ -1,43 +1,72 @@
-// pages/dashboard/vehicles/[id]/[label].tsx
 'use client';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Line } from 'react-chartjs-2';
 import { Button } from '@/components/ui/button';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
+import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
-    ArrowLeft,
-    AlertTriangle,
-    Truck,
-    MapPin,
-    Database,
-  } from 'lucide-react';
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  zoomPlugin  // Registering the zoom plugin
 );
 
+const translations = {
+    vehicle_id: 'ID автомобиля',
+    engineRpm: 'Обороты двигателя',
+    fuelLevel: 'Уровень топлива',
+    engineLoad: 'Нагрузка двигателя',
+    vehicleSpeed: 'Скорость автомобиля',
+    massAirFlow: 'Массовый расход воздуха',
+    fuelPressure: 'Давление топлива',
+    batteryVoltage: 'Напряжение батареи',
+    oilTemperature: 'Температура масла',
+    distanceTraveled: 'Пройденное расстояние',
+    throttlePosition: 'Положение дросселя',
+    catalystTemperature: 'Температура катализатора',
+    fuelConsumptionRate: 'Расход топлива',
+    oxygenSensorReading: 'Показания датчика кислорода',
+    intakeAirTemperature: 'Температура всасываемого воздуха',
+    diagnosticTroubleCode: 'Коды неисправностей',
+    acceleratorPedalPosition: 'Положение педали акселератора',
+    engineCoolantTemperature: 'Температура охлаждающей жидкости',
+    evapEmissionControlPressure: 'Давление в системе контроля испарений',
+    transmissionFluidTemperature: 'Температура трансмиссионной жидкости',
+    oilPressure: 'Давление масла',
+    brakePedalPosition: 'Положение педали тормоза',
+    steeringAngle: 'Угол поворота руля',
+    absStatus: 'Статус ABS',
+    airbagDeploymentStatus: 'Статус подушек безопасности',
+    tirePressure: 'Давление в шинах',
+    gpsCoordinates: 'GPS координаты',
+    altitude: 'Высота',
+    heading: 'Курс',
+    timestamp: 'Дата/Время',
+  };
+  
 
 interface OBDCheckData {
+  id: number;
+  all: {
     engineRpm: number;
     fuelLevel: number;
     engineLoad: number;
-    vehicle_id: string;
     massAirFlow: number;
     fuelPressure: number;
     vehicleSpeed: number;
@@ -49,134 +78,140 @@ interface OBDCheckData {
     fuelConsumptionRate: number;
     oxygenSensorReading: number;
     intakeAirTemperature: number;
-    diagnosticTroubleCode: string;
     acceleratorPedalPosition: number;
     engineCoolantTemperature: number;
-    evapEmissionControlPressure: number;
+    evapEmissionControlPressure: number; 
+    timestamp: string; 
+    [key: string]: number | string;  // Adding index signature here
+  };
+  createdAt: string;
 }
 
-const translationMap = {
-    vehicle_id: { en: 'vehicle_id', ru: 'ID автомобиля' },
-    engineRpm: { en: 'engineRpm', ru: 'Обороты двигателя' },
-    fuelLevel: { en: 'fuelLevel', ru: 'Уровень топлива' },
-    engineLoad: { en: 'engineLoad', ru: 'Нагрузка двигателя' },
-    vehicleSpeed: { en: 'vehicleSpeed', ru: 'Скорость автомобиля' },
-    massAirFlow: { en: 'massAirFlow', ru: 'Массовый расход воздуха' },
-    fuelPressure: { en: 'fuelPressure', ru: 'Давление топлива' },
-    batteryVoltage: { en: 'batteryVoltage', ru: 'Напряжение батареи' },
-    oilTemperature: { en: 'oilTemperature', ru: 'Температура масла' },
-    distanceTraveled: { en: 'distanceTraveled', ru: 'Пройденное расстояние' },
-    throttlePosition: { en: 'throttlePosition', ru: 'Положение дросселя' },
-    catalystTemperature: { en: 'catalystTemperature', ru: 'Температура катализатора' },
-    fuelConsumptionRate: { en: 'fuelConsumptionRate', ru: 'Расход топлива' },
-    oxygenSensorReading: { en: 'oxygenSensorReading', ru: 'Показания датчика кислорода' },
-    intakeAirTemperature: { en: 'intakeAirTemperature', ru: 'Температура всасываемого воздуха' },
-    diagnosticTroubleCode: { en: 'diagnosticTroubleCode', ru: 'Коды неисправностей' },
-    acceleratorPedalPosition: { en: 'acceleratorPedalPosition', ru: 'Положение педали акселератора' },
-    engineCoolantTemperature: { en: 'engineCoolantTemperature', ru: 'Температура охлаждающей жидкости' },
-    evapEmissionControlPressure: { en: 'evapEmissionControlPressure', ru: 'Давление в системе контроля испарений' },
-    transmissionFluidTemperature: { en: 'transmissionFluidTemperature', ru: 'Температура трансмиссионной жидкости' },
-    oilPressure: { en: 'oilPressure', ru: 'Давление масла' },
-    brakePedalPosition: { en: 'brakePedalPosition', ru: 'Положение педали тормоза' },
-    steeringAngle: { en: 'steeringAngle', ru: 'Угол поворота руля' },
-    absStatus: { en: 'absStatus', ru: 'Статус ABS' },
-    airbagDeploymentStatus: { en: 'airbagDeploymentStatus', ru: 'Статус подушек безопасности' },
-    tirePressure: { en: 'tirePressure', ru: 'Давление в шинах' },
-    gpsCoordinates: { en: 'gpsCoordinates', ru: 'GPS координаты' },
-    altitude: { en: 'altitude', ru: 'Высота' },
-    heading: { en: 'heading', ru: 'Курс' }
-};
+const LabelPage = () => {
+  const router = useRouter();
+  const label = useSearchParams();
+  const labeel = usePathname().split('/')[4];
+  const id = usePathname().split('/')[3];
+  const neededVal = labeel.toString();
+  const labeelru = translations[labeel as keyof typeof translations] || labeel;
+
+  const [obdCheckDataArray, setObdCheckDataArray] = useState<OBDCheckData[]>([]);
+  const [chartValues, setChartValues] = useState<number[]>([]);
+  const [timedump, setTimedump] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchObdCheckData();
+  }, []);
+
+  const convertToUserTimeZone = (item: OBDCheckData) => {
+    // Check if 'timestamp' exists in 'item.all', otherwise use 'item.createdAt'
+    const timestamp = item.all.timestamp || item.createdAt;
+  
+    // Parse the chosen timestamp (either 'timestamp' or 'createdAt')
+    const date = new Date(timestamp);
+    
+    // Get the timezone offset in minutes
+    const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
+    
+    // Convert the timestamp to UTC, then adjust it by the local timezone offset
+    const userDate = new Date(date.getTime() - timeZoneOffset);
+    
+    // Return the formatted date as a string in the user's local timezone
+    return userDate.toLocaleString();
+  };
+  
   
 
+  const fetchObdCheckData = async () => {
+    try {
+      const response = await fetch('/api/vehicletest2/');
+      if (!response.ok) {
+        throw new Error('Failed to fetch OBD check data');
+      }
+      const data: OBDCheckData[] = await response.json();
 
-const LabelPage = () => {
-    const router = useRouter();
-    const label = useSearchParams();
-    const labeel = usePathname().split('/')[4];
-    const id = usePathname().split('/')[3];
+      // Filter out entries where the labeel value is null
+      const filteredData = data.filter(item => item.all[labeel] !== null && item.all[labeel] !== undefined );
 
-    const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null); // Single object
-    const [loading, setLoading] = useState(true);
+      // Map 'labeel' to specific chart field (e.g., engineRpm)
+      const values = filteredData.map(item => item.all[labeel]);
+      const timestamps = filteredData.map(item =>  convertToUserTimeZone(item));
 
-    useEffect(() => {
-        //fetchObdCheckData();
-        return;
-    },);
+      setObdCheckDataArray(filteredData);
+      setChartValues(values as number[]);
+      setTimedump(timestamps);
 
-    const fetchObdCheckData = async () => {
-        try {
-          const response = await fetch(`/api/vehiclestest/`); // Fetch the single object
-          if (!response.ok) {
-            throw new Error('Failed to fetch OBD check data');
-          }
-          const data: OBDCheckData = await response.json(); // Single object
-          setObdCheckData(data);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching OBD check data:', error);
-          setLoading(false);
-        }
-    };
-    
-    /*
-    if (loading) {
-        return <div>Loading...</div>;
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching OBD check data:', error);
+      setLoading(false);
     }
-    
-    if (!obdCheckData) {
-        return <div>No OBD check data found</div>;
-    }
-    
+  };
 
-    const translatedObdData = Object.entries(obdCheckData).map(([key, value]) => {
-        const label = translationMap[key as keyof typeof translationMap]?.ru || key;
-        const enkey = translationMap[key as keyof typeof translationMap]?.en || key;
-        return { label, enkey, value: Array.isArray(value) ? value.join(', ') : value };
-    });
-    */
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
+  if (obdCheckDataArray.length === 0) {
+    return <div>No OBD check data found</div>;
+  }
 
-    // Жёстко закодированные данные для графика
-    const chartData = {
-        labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-        datasets: [
-            {
-                label: `${labeel}`,
-                data: [12, 14, 0, 0, 9, 6, 10, 15],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+  // Prepare chart data for Line chart
+  const chartData = {
+    labels: timedump,  // X-axis is the timestamps
+    datasets: [
+      {
+        label: `${labeelru} (ID: ${id})`,
+        data: chartValues,  // Y-axis is the corresponding values (e.g., engineRpm)
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: false,
+      },
+    ],
+  };
+
+  return (
+    <div style={{ width: '80%', margin: '0 auto' }}>
+      <Button
+        onClick={() => router.back()}
+        className="mb-8"
+        variant="outline"
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
+      </Button>
+      <Line
+        data={chartData}
+        options={{
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top' as const,
             },
-        ],
-    };
-
-    
-    return (
-        <div style={{ width: '80%', margin: '0 auto' }}>
-            <Button
-            onClick={() => router.back()}
-            className="mb-8"
-            variant="outline"
-            >
-            <ArrowLeft className="mr-2 h-4 w-4" /> Назад
-            </Button>
-            <h1>График для метки: {labeel}</h1>
-            <Line 
-                data={chartData} 
-                options={{
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: `График для ${label} (ID: ${id})`,
-                        },
-                    },
-                }} 
-            />
-        </div>
-    );
+            title: {
+              display: false,
+              text: `График для ${labeelru} (ID: ${id})`,
+            },
+            zoom: {
+              pan: {
+                enabled: true,
+                mode: 'xy',
+              },
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+                pinch: {
+                  enabled: true,
+                },
+                mode: 'xy',
+              },
+            },
+          },
+        }}
+      />
+    </div>
+  );
 };
 
 export default LabelPage;
