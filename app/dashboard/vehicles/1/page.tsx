@@ -52,6 +52,7 @@ interface OBDCheckData {
   acceleratorPedalPosition: number;
   engineCoolantTemperature: number;
   evapEmissionControlPressure: number;
+  timestamp: string;
 }
 
 
@@ -146,7 +147,8 @@ const translationMap = {
   tirePressure: { en: 'tirePressure', ru: 'Давление в шинах' },
   gpsCoordinates: { en: 'gpsCoordinates', ru: 'GPS координаты' },
   altitude: { en: 'altitude', ru: 'Высота' },
-  heading: { en: 'heading', ru: 'Курс' }
+  heading: { en: 'heading', ru: 'Курс' },
+  timestamp: {en: 'timestamp', ru: 'Дата/Время'},
 };
 
 
@@ -240,6 +242,34 @@ const VehiclePage = () => {
   const handleObdButtonClick = (enKey: string, value: number) => {
     router.push(`/dashboard/vehicles/${id}/${enKey}`);
   };
+
+  const convertToUserTimeZone = (item: string) => {
+    // Check if 'timestamp' exists in 'item.all', otherwise use 'item.createdAt'
+    const timestamp = item;
+  
+    // Parse the chosen timestamp (either 'timestamp' or 'createdAt')
+    const date = new Date(timestamp);
+    
+    // Get the timezone offset in minutes
+    const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
+    
+    // Convert the timestamp to UTC, then adjust it by the local timezone offset
+    const userDate = new Date(date.getTime() - timeZoneOffset);
+    
+    // Return the formatted date as a string in the user's local timezone
+    return userDate.toLocaleString();
+  };
+
+  const isValidTimestamp = (value: string) => {
+    // Check if the first character is a number, the last character is "Z", 
+    // and the second last character is a number
+    return (
+      !isNaN(parseInt(value.charAt(0))) && 
+      value.charAt(value.length - 1) === 'Z' &&
+      !isNaN(parseInt(value.charAt(value.length - 2)))
+    );
+  };
+  
 
   const filteredData = tripData.filter((trip) =>
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
@@ -338,18 +368,29 @@ const VehiclePage = () => {
                       <div key={index} className="flex justify-between">
                         <dt>{item.label}:</dt>
                         <dd>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleObdButtonClick(item.enkey, item.value)}>
-                            {item.value}
-                          </Button>
+                          {typeof item.value === 'number' ? (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleObdButtonClick(item.enkey, item.value)}
+                            >
+                              {item.value}
+                            </Button>
+                          ) : (
+                            <span>
+                              {isValidTimestamp(item.value)
+                                ? convertToUserTimeZone(item.value)
+                                : item.value}
+                            </span>
+
+                          )}
                         </dd>
                       </div>
                     ))}
                 </dl>
               </CardContent>
             </Card>
+
           </div>
 
           
