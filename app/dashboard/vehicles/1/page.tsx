@@ -196,14 +196,32 @@ const VehiclePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchObdCheckData();
-    const interval = setInterval(() => {
-      const newLat = coordinates[0] + Math.random() * 0.001;
-      const newLon = coordinates[1] + Math.random() * 0.001;
-      setCoordinates([newLat, newLon]);
-    }, 5000);
+    // Function to update data and use coordinates from the fetched data
+    const updateData = async () => {
+      try {
+        // Fetch OBD data (if needed)
+        await fetchObdCheckData();
+  
+        // Fetch GPS data and use it to update coordinates
+        const gpsData = await fetchGPSData();
+        if (gpsData && gpsData.latitude && gpsData.longitude) {
+          setCoordinates([gpsData.latitude, gpsData.longitude]);
+          console.log([gpsData.latitude, gpsData.longitude])
+        }
+      } catch (error) {
+        console.error('Error updating data:', error);
+      }
+    };
+  
+    // Set up the interval to call updateData every 5 seconds (5000 ms)
+    const interval = setInterval(updateData, 5000);
+  
+    // Clear the interval when the component unmounts or dependencies change
     return () => clearInterval(interval);
-  }, [coordinates]);
+  }, []);
+  
+  
+  
   
 
   const fetchObdCheckData = async () => {
@@ -220,6 +238,21 @@ const VehiclePage = () => {
       setLoading(false);
     }
   };
+
+  const fetchGPSData = async (): Promise<{ latitude: number; longitude: number }> => {
+    try {
+      const response = await fetch('/api/vehicletest2/gps'); // Replace with your API endpoint
+      if (!response.ok) {
+        throw new Error('Failed to fetch GPS data');
+      }
+      const data = await response.json();
+      return data; // Return the data
+    } catch (error) {
+      console.error('Error fetching GPS data:', error);
+      throw error; // Re-throw the error to handle it in the calling function
+    }
+  };
+  
 
 
   if (loading) {
