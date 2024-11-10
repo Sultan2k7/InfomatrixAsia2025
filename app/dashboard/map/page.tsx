@@ -252,6 +252,8 @@ export default function MapPage() {
             position: [gpsItem.latitude, gpsItem.longitude] as LatLngTuple,
             speed: matchingObdItem ? matchingObdItem.speed : 0, // Use speed from OBD data or default to 0
             route : [],
+            startPoint: [43.222, 76.8512], // Almaty
+            endPoint: [51.1605, 71.4704], // Astana
           };
         });
 
@@ -365,7 +367,7 @@ export default function MapPage() {
               <VehicleMarker
                 key={vehicle.id}
                 vehicle={vehicle}
-                onClick={() => handleVehicleClick(vehicle)}
+                onClick={() => handleVehicleClick(vehicle)} //не будет работать если нет стартовой и конечной позиции
                 isSelected={selectedVehicle?.id === vehicle.id}
               />
             ))}
