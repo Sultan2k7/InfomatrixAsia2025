@@ -99,10 +99,59 @@ const LabelPage = () => {
   const [chartValues, setChartValues] = useState<number[]>([]);
   const [timedump, setTimedump] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [timePeriod, setTimePeriod] = useState<'day' | 'week' | 'month' | '3month'>('day'); 
+
 
   useEffect(() => {
     fetchObdCheckData();
-  }, []);
+  }, [timePeriod]);
+
+  const filterDataByTimePeriod = (data: OBDCheckData[], period: 'day' | 'week' | 'month' | '3month') => {
+    const now = new Date(); // Current date
+    let filteredData = data;
+  
+    switch (period) {
+      case 'day':
+        const oneDayAgo = new Date();
+        oneDayAgo.setDate(now.getDay());
+        filteredData = data.filter(item => {
+          const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+          return timestamp >= oneDayAgo && timestamp <= now;
+        });
+        break;
+      case 'week':
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(now.getDay() - 6);
+        filteredData = data.filter(item => {
+          const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+          const dayOfWeek = timestamp.getDate(); // Get day of the month
+          return timestamp >= oneWeekAgo && timestamp <= now;
+        });
+        break;
+      case 'month':
+        const oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(now.getMonth() - 1);
+        filteredData = data.filter(item => {
+          const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+          return timestamp >= oneMonthAgo && timestamp <= now;
+        });
+        break;
+      case '3month':
+        const threeMonthsAgo = new Date();
+        threeMonthsAgo.setMonth(now.getMonth() - 3); // Set the date to 3 months ago
+        filteredData = data.filter(item => {
+          const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+          return timestamp >= threeMonthsAgo && timestamp <= now;  // Include data from the last 3 months
+        });
+        break;
+      default:
+        break;
+    }
+  
+    return filteredData;
+  };
+  
+  
 
   const convertToUserTimeZone = (item: OBDCheckData) => {
     // Check if 'timestamp' exists in 'item.all', otherwise use 'item.createdAt'
@@ -134,9 +183,12 @@ const LabelPage = () => {
       // Filter out entries where the labeel value is null
       const filteredData = data.filter(item => item.all[labeel] !== null && item.all[labeel] !== undefined );
 
+      const filteredData1 = filterDataByTimePeriod(filteredData, timePeriod);
+
+
       // Map 'labeel' to specific chart field (e.g., engineRpm)
-      const values = filteredData.map(item => item.all[labeel]);
-      const timestamps = filteredData.map(item =>  convertToUserTimeZone(item));
+      const values = filteredData1.map(item => item.all[labeel]);
+      const timestamps = filteredData1.map(item =>  convertToUserTimeZone(item));
 
       setObdCheckDataArray(filteredData);
       setChartValues(values as number[]);
@@ -180,6 +232,38 @@ const LabelPage = () => {
       >
         <ArrowLeft className="mr-2 h-4 w-4" /> Назад
       </Button>
+
+      <div className="mb-4">
+        <Button
+          onClick={() => setTimePeriod('day')}
+          variant={timePeriod === 'day' ? 'default' : 'outline'}
+          className="mr-2"
+        >
+
+          Day
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('week')}
+          variant={timePeriod === 'week' ? 'default' : 'outline'}
+          className="mr-2">
+          Week
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('month')}
+          variant={timePeriod === 'month' ? 'default' : 'outline'}
+          className="mr-2">
+          Month
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('3month')}
+          variant={timePeriod === '3month' ? 'default' : 'outline'}
+          className="mr-2">
+          3 Month
+        </Button>
+      </div>
+
+
+
       <Line
         data={chartData}
         options={{
@@ -195,7 +279,7 @@ const LabelPage = () => {
             zoom: {
               pan: {
                 enabled: true,
-                mode: 'xy',
+                mode: 'x',
               },
               zoom: {
                 wheel: {
@@ -204,10 +288,16 @@ const LabelPage = () => {
                 pinch: {
                   enabled: true,
                 },
-                mode: 'xy',
+                mode: 'x',
+                scaleMode: 'x',
               },
             },
           },
+          scales: {
+            y: {
+              min: 0,
+            }
+          }
         }}
       />
     </div>
