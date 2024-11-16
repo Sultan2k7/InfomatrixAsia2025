@@ -15,6 +15,7 @@ import {
   Legend,
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import { color } from 'framer-motion';
 
 ChartJS.register(
   CategoryScale,
@@ -102,6 +103,49 @@ const LabelPage = () => {
   const [timePeriod, setTimePeriod] = useState<'day' | 'week' | 'month' | '3month'>('day'); 
 
 
+  const [selectedTimeframe, setSelectedTimeframe] = useState('Day');
+
+  const renderBack = () => (
+    <div className="button-group">
+      <Button
+        onClick={() => router.back()}
+        className="mb-8"
+        variant="outline">
+        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
+      </Button>      
+    </div>
+  );
+  const renderButtons = () => (
+    <div className="mb-4">
+        <Button
+          onClick={() => setTimePeriod('day')}
+          variant={timePeriod === 'day' ? 'default' : 'outline'}
+          className="mr-2">
+          Day
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('week')}
+          variant={timePeriod === 'week' ? 'default' : 'outline'}
+          className="mr-2">
+          Week
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('month')}
+          variant={timePeriod === 'month' ? 'default' : 'outline'}
+          className="mr-2">
+          Month
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('3month')}
+          variant={timePeriod === '3month' ? 'default' : 'outline'}
+          className="mr-2">
+          3 Month
+        </Button> 
+        <p style={{color: "gray"}}>Wait a bit after choosing...</p>
+
+      </div>
+  )
+
   useEffect(() => {
     fetchObdCheckData();
   }, [timePeriod]);
@@ -121,7 +165,7 @@ const LabelPage = () => {
         break;
       case 'week':
         const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(now.getDay() - 6);
+        oneWeekAgo.setDate(now.getDate() - 6);
         filteredData = data.filter(item => {
           const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
           const dayOfWeek = timestamp.getDate(); // Get day of the month
@@ -180,13 +224,14 @@ const LabelPage = () => {
       }
       const data: OBDCheckData[] = await response.json();
 
-      // Filter out entries where the labeel value is null
+      //  filter out existing ones and get rid of nulls or undefined ones
       const filteredData = data.filter(item => item.all[labeel] !== null && item.all[labeel] !== undefined );
 
+      //  filter by date
       const filteredData1 = filterDataByTimePeriod(filteredData, timePeriod);
 
 
-      // Map 'labeel' to specific chart field (e.g., engineRpm)
+      // output exactly the labeeled ones
       const values = filteredData1.map(item => item.all[labeel]);
       const timestamps = filteredData1.map(item =>  convertToUserTimeZone(item));
 
@@ -223,83 +268,57 @@ const LabelPage = () => {
     ],
   };
 
+  const hasData = (chartValues.length === 0);
+
+
   return (
     <div style={{ width: '80%', margin: '0 auto' }}>
-      <Button
-        onClick={() => router.back()}
-        className="mb-8"
-        variant="outline"
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
-      </Button>
-
-      <div className="mb-4">
-        <Button
-          onClick={() => setTimePeriod('day')}
-          variant={timePeriod === 'day' ? 'default' : 'outline'}
-          className="mr-2"
-        >
-
-          Day
-        </Button>
-        <Button
-          onClick={() => setTimePeriod('week')}
-          variant={timePeriod === 'week' ? 'default' : 'outline'}
-          className="mr-2">
-          Week
-        </Button>
-        <Button
-          onClick={() => setTimePeriod('month')}
-          variant={timePeriod === 'month' ? 'default' : 'outline'}
-          className="mr-2">
-          Month
-        </Button>
-        <Button
-          onClick={() => setTimePeriod('3month')}
-          variant={timePeriod === '3month' ? 'default' : 'outline'}
-          className="mr-2">
-          3 Month
-        </Button>
-      </div>
-
-
-
-      <Line
-        data={chartData}
-        options={{
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top' as const,
-            },
-            title: {
-              display: false,
-              text: `График для ${labeelru} (ID: ${id})`,
-            },
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: 'x',
+      {renderBack()}
+      {renderButtons()}
+        
+      {hasData ? (
+        <div className="no-data">
+          <p>No Data Found</p>
+        </div>) : (
+          <Line
+          data={chartData}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top' as const,
+              },
+              title: {
+                display: false,
+                text: `График для ${labeelru} (ID: ${id})`,
               },
               zoom: {
-                wheel: {
+                pan: {
                   enabled: true,
+                  mode: 'x',
                 },
-                pinch: {
-                  enabled: true,
+                zoom: {
+                  wheel: {
+                    enabled: true,
+                  },
+                  pinch: {
+                    enabled: true,
+                  },
+                  mode: 'x',
+                  scaleMode: 'x',
                 },
-                mode: 'x',
-                scaleMode: 'x',
               },
             },
-          },
-          scales: {
-            y: {
-              min: 0,
+            scales: {
+              y: {
+                min: 0,
+              }
             }
-          }
-        }}
-      />
+          }}
+        />
+        )
+      }
+      
     </div>
   );
 };
