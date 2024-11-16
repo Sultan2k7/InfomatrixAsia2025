@@ -192,6 +192,8 @@ const VehiclePage = () => {
   const router = useRouter();
   const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null); // Single object
   const [loading, setLoading] = useState(true);
+  const id = usePathname().split('/')[3];
+
 
   useEffect(() => {
     fetchObdCheckData();
@@ -235,7 +237,6 @@ const VehiclePage = () => {
     return { label, enkey, value: Array.isArray(value) ? value.join(', ') : value };
   });
   
-  const id = usePathname().split('/')[3];
 
   const handleObdButtonClick = (enKey: string, value: number) => {
     router.push(`/dashboard/vehicles/${id}/${enKey}`);
