@@ -52,6 +52,7 @@ interface OBDCheckData {
   acceleratorPedalPosition: number;
   engineCoolantTemperature: number;
   evapEmissionControlPressure: number;
+  timestamp: string;
 }
 
 
@@ -146,7 +147,8 @@ const translationMap = {
   tirePressure: { en: 'tirePressure', ru: 'Давление в шинах' },
   gpsCoordinates: { en: 'gpsCoordinates', ru: 'GPS координаты' },
   altitude: { en: 'altitude', ru: 'Высота' },
-  heading: { en: 'heading', ru: 'Курс' }
+  heading: { en: 'heading', ru: 'Курс' },
+  timestamp: {en: 'timestamp', ru: 'Дата/Время'},
 };
 
 
@@ -195,14 +197,32 @@ const VehiclePage = () => {
   const id = usePathname().split('/')[3];
   
   useEffect(() => {
-    fetchObdCheckData();
-    const interval = setInterval(() => {
-      const newLat = coordinates[0] + Math.random() * 0.001;
-      const newLon = coordinates[1] + Math.random() * 0.001;
-      setCoordinates([newLat, newLon]);
-    }, 5000);
+    // Function to update data and use coordinates from the fetched data
+    const updateData = async () => {
+      try {
+        // Fetch OBD data (if needed)
+        await fetchObdCheckData();
+  
+        // Fetch GPS data and use it to update coordinates
+        const gpsData = await fetchGPSData();
+        if (gpsData && gpsData.latitude && gpsData.longitude) {
+          setCoordinates([gpsData.latitude, gpsData.longitude]);
+          console.log([gpsData.latitude, gpsData.longitude])
+        }
+      } catch (error) {
+        console.error('Error updating data:', error);
+      }
+    };
+  
+    // Set up the interval to call updateData every 5 seconds (5000 ms)
+    const interval = setInterval(updateData, 5000);
+  
+    // Clear the interval when the component unmounts or dependencies change
     return () => clearInterval(interval);
-  }, [coordinates]);
+  }, []);
+  
+  
+  
   
 
   const fetchObdCheckData = async () => {
@@ -219,6 +239,21 @@ const VehiclePage = () => {
       setLoading(false);
     }
   };
+
+  const fetchGPSData = async (): Promise<{ latitude: number; longitude: number }> => {
+    try {
+      const response = await fetch('/api/vehicletest2/gps'); // Replace with your API endpoint
+      if (!response.ok) {
+        throw new Error('Failed to fetch GPS data');
+      }
+      const data = await response.json();
+      return data; // Return the data
+    } catch (error) {
+      console.error('Error fetching GPS data:', error);
+      throw error; // Re-throw the error to handle it in the calling function
+    }
+  };
+  
 
 
   if (loading) {
@@ -240,6 +275,34 @@ const VehiclePage = () => {
   const handleObdButtonClick = (enKey: string, value: number) => {
     router.push(`/dashboard/vehicles/${id}/${enKey}`);
   };
+
+  const convertToUserTimeZone = (item: string) => {
+    // Check if 'timestamp' exists in 'item.all', otherwise use 'item.createdAt'
+    const timestamp = item;
+  
+    // Parse the chosen timestamp (either 'timestamp' or 'createdAt')
+    const date = new Date(timestamp);
+    
+    // Get the timezone offset in minutes
+    const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
+    
+    // Convert the timestamp to UTC, then adjust it by the local timezone offset
+    const userDate = new Date(date.getTime() - timeZoneOffset);
+    
+    // Return the formatted date as a string in the user's local timezone
+    return userDate.toLocaleString();
+  };
+
+  const isValidTimestamp = (value: string) => {
+    // Check if the first character is a number, the last character is "Z", 
+    // and the second last character is a number
+    return (
+      !isNaN(parseInt(value.charAt(0))) && 
+      value.charAt(value.length - 1) === 'Z' &&
+      !isNaN(parseInt(value.charAt(value.length - 2)))
+    );
+  };
+  
 
   const filteredData = tripData.filter((trip) =>
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
@@ -346,18 +409,29 @@ const VehiclePage = () => {
                       <div key={index} className="flex justify-between">
                         <dt>{item.label}:</dt>
                         <dd>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleObdButtonClick(item.enkey, item.value)}>
-                            {item.value}
-                          </Button>
+                          {typeof item.value === 'number' ? (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleObdButtonClick(item.enkey, item.value)}
+                            >
+                              {item.value}
+                            </Button>
+                          ) : (
+                            <span>
+                              {isValidTimestamp(item.value)
+                                ? convertToUserTimeZone(item.value)
+                                : item.value}
+                            </span>
+
+                          )}
                         </dd>
                       </div>
                     ))}
                 </dl>
               </CardContent>
             </Card>
+
           </div>
 
           

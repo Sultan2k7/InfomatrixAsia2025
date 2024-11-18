@@ -1,21 +1,20 @@
-// pages/dashboard/vehicles/[id]/[label].tsx
 'use client';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Line } from 'react-chartjs-2';
 import { Button } from '@/components/ui/button';
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { useEffect, useState } from 'react';
 import { color } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import {
     ArrowLeft,
     AlertTriangle,
@@ -43,7 +42,6 @@ interface OBDCheckData {
     engineRpm: number;
     fuelLevel: number;
     engineLoad: number;
-    vehicle_id: string;
     massAirFlow: number;
     fuelPressure: number;
     vehicleSpeed: number;
@@ -55,10 +53,9 @@ interface OBDCheckData {
     fuelConsumptionRate: number;
     oxygenSensorReading: number;
     intakeAirTemperature: number;
-    diagnosticTroubleCode: string;
     acceleratorPedalPosition: number;
     engineCoolantTemperature: number;
-    evapEmissionControlPressure: number; 
+    evapEmissionControlPressure: number;
     timestamp: string; 
     [key: string]: number | string;  // Adding index signature here
   };
@@ -106,7 +103,6 @@ const LabelPage = () => {
     const id = usePathname().split('/')[3];
     const neededVal = labeel.toString();
     const labeelru = translations[labeel as keyof typeof translations] || labeel;
-
 
   const [obdCheckDataArray, setObdCheckDataArray] = useState<OBDCheckData[]>([]);
   const [chartValues, setChartValues] = useState<number[]>([]);
@@ -158,57 +154,57 @@ const LabelPage = () => {
       </div>
   )
 
-  useEffect(() => {
-    fetchObdCheckData();
-  }, [timePeriod]);
+    useEffect(() => {
+        //fetchObdCheckData();
+        return;
+    },);
 
-  const filterDataByTimePeriod = (data: OBDCheckData[], period: 'day' | 'week' | 'month' | '3month') => {
-    const now = new Date(); // Current date
-    let filteredData = data;
+    const filterDataByTimePeriod = (data: OBDCheckData[], period: 'day' | 'week' | 'month' | '3month') => {
+      const now = new Date(); // Current date
+      let filteredData = data;
+    
+      switch (period) {
+        case 'day':
+          const oneDayAgo = new Date();
+          oneDayAgo.setDate(now.getDay());
+          filteredData = data.filter(item => {
+            const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+            return timestamp >= oneDayAgo && timestamp <= now;
+          });
+          break;
+        case 'week':
+          const oneWeekAgo = new Date();
+          oneWeekAgo.setDate(now.getDate() - 6);
+          filteredData = data.filter(item => {
+            const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+            const dayOfWeek = timestamp.getDate(); // Get day of the month
+            return timestamp >= oneWeekAgo && timestamp <= now;
+          });
+          break;
+        case 'month':
+          const oneMonthAgo = new Date();
+          oneMonthAgo.setMonth(now.getMonth() - 1);
+          filteredData = data.filter(item => {
+            const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+            return timestamp >= oneMonthAgo && timestamp <= now;
+          });
+          break;
+        case '3month':
+          const threeMonthsAgo = new Date();
+          threeMonthsAgo.setMonth(now.getMonth() - 3); // Set the date to 3 months ago
+          filteredData = data.filter(item => {
+            const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+            return timestamp >= threeMonthsAgo && timestamp <= now;  // Include data from the last 3 months
+          });
+          break;
+        default:
+          break;
+      }
+    
+      return filteredData;
+    };
   
-    switch (period) {
-      case 'day':
-        const oneDayAgo = new Date();
-        oneDayAgo.setDate(now.getDate() - 1);
-        filteredData = data.filter(item => {
-          const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
-          return timestamp >= oneDayAgo && timestamp <= now;
-        });
-        break;
-      case 'week':
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(now.getDate() - 6);
-        filteredData = data.filter(item => {
-          const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
-          const dayOfWeek = timestamp.getDate(); // Get day of the month
-          return timestamp >= oneWeekAgo && timestamp <= now;
-        });
-        break;
-      case 'month':
-        const oneMonthAgo = new Date();
-        oneMonthAgo.setMonth(now.getMonth() - 1);
-        filteredData = data.filter(item => {
-          const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
-          return timestamp >= oneMonthAgo && timestamp <= now;
-        });
-        break;
-      case '3month':
-        const threeMonthsAgo = new Date();
-        threeMonthsAgo.setMonth(now.getMonth() - 3); // Set the date to 3 months ago
-        filteredData = data.filter(item => {
-          const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
-          return timestamp >= threeMonthsAgo && timestamp <= now;  // Include data from the last 3 months
-        });
-        break;
-      default:
-        break;
-    }
-  
-    return filteredData;
-  };
-  
-  
-
+    
   const convertToUserTimeZone = (item: OBDCheckData) => {
     // Check if 'timestamp' exists in 'item.all', otherwise use 'item.createdAt'
     const timestamp = item.all.timestamp || item.createdAt;
@@ -225,8 +221,6 @@ const LabelPage = () => {
     // Return the formatted date as a string in the user's local timezone
     return userDate.toLocaleString();
   };
-  
-  
 
   const fetchObdCheckData = async () => {
     try {
