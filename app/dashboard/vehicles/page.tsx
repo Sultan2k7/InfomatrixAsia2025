@@ -50,11 +50,7 @@ interface Vehicle {
   };
 }
 
-interface Props {
-  className?: string;
-}
-
-const VehiclesPage: React.FC<Props> = ({ className }) => {
+export default function VehiclesPage() {
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('newest');
   const [currentPage, setCurrentPage] = useState(1);
@@ -146,7 +142,7 @@ const VehiclesPage: React.FC<Props> = ({ className }) => {
   );
 
   return (
-    <div className={`p-6 ${className}`}>
+    <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Транспорт</h1>
         <Button onClick={() => router.push('/dashboard/vehicles/create')}>
@@ -261,6 +257,4 @@ const VehiclesPage: React.FC<Props> = ({ className }) => {
       </div>
     </div>
   );
-};
-
-export default VehiclesPage;
+}
