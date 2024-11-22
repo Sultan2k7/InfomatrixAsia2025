@@ -2,8 +2,6 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Line } from 'react-chartjs-2';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,51 +13,28 @@ import {
   Legend,
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import { color } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import {
+    ArrowLeft,
+    AlertTriangle,
+    Truck,
+    MapPin,
+    Database,
+  } from 'lucide-react';
+
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  zoomPlugin  // Registering the zoom plugin
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    zoomPlugin  // Registering the zoom plugin
 );
 
-const translations = {
-    vehicle_id: 'ID автомобиля',
-    engineRpm: 'Обороты двигателя',
-    fuelLevel: 'Уровень топлива',
-    engineLoad: 'Нагрузка двигателя',
-    vehicleSpeed: 'Скорость автомобиля',
-    massAirFlow: 'Массовый расход воздуха',
-    fuelPressure: 'Давление топлива',
-    batteryVoltage: 'Напряжение батареи',
-    oilTemperature: 'Температура масла',
-    distanceTraveled: 'Пройденное расстояние',
-    throttlePosition: 'Положение дросселя',
-    catalystTemperature: 'Температура катализатора',
-    fuelConsumptionRate: 'Расход топлива',
-    oxygenSensorReading: 'Показания датчика кислорода',
-    intakeAirTemperature: 'Температура всасываемого воздуха',
-    diagnosticTroubleCode: 'Коды неисправностей',
-    acceleratorPedalPosition: 'Положение педали акселератора',
-    engineCoolantTemperature: 'Температура охлаждающей жидкости',
-    evapEmissionControlPressure: 'Давление в системе контроля испарений',
-    transmissionFluidTemperature: 'Температура трансмиссионной жидкости',
-    oilPressure: 'Давление масла',
-    brakePedalPosition: 'Положение педали тормоза',
-    steeringAngle: 'Угол поворота руля',
-    absStatus: 'Статус ABS',
-    airbagDeploymentStatus: 'Статус подушек безопасности',
-    tirePressure: 'Давление в шинах',
-    gpsCoordinates: 'GPS координаты',
-    altitude: 'Высота',
-    heading: 'Курс',
-    timestamp: 'Дата/Время',
-  };
-  
 
 interface OBDCheckData {
   id: number;
@@ -80,30 +55,156 @@ interface OBDCheckData {
     intakeAirTemperature: number;
     acceleratorPedalPosition: number;
     engineCoolantTemperature: number;
-    evapEmissionControlPressure: number; 
+    evapEmissionControlPressure: number;
     timestamp: string; 
     [key: string]: number | string;  // Adding index signature here
   };
   createdAt: string;
 }
 
+const translations = {
+    vehicle_id: { en: 'vehicle_id', ru: 'ID автомобиля' },
+    engineRpm: { en: 'engineRpm', ru: 'Обороты двигателя' },
+    fuelLevel: { en: 'fuelLevel', ru: 'Уровень топлива' },
+    engineLoad: { en: 'engineLoad', ru: 'Нагрузка двигателя' },
+    vehicleSpeed: { en: 'vehicleSpeed', ru: 'Скорость автомобиля' },
+    massAirFlow: { en: 'massAirFlow', ru: 'Массовый расход воздуха' },
+    fuelPressure: { en: 'fuelPressure', ru: 'Давление топлива' },
+    batteryVoltage: { en: 'batteryVoltage', ru: 'Напряжение батареи' },
+    oilTemperature: { en: 'oilTemperature', ru: 'Температура масла' },
+    distanceTraveled: { en: 'distanceTraveled', ru: 'Пройденное расстояние' },
+    throttlePosition: { en: 'throttlePosition', ru: 'Положение дросселя' },
+    catalystTemperature: { en: 'catalystTemperature', ru: 'Температура катализатора' },
+    fuelConsumptionRate: { en: 'fuelConsumptionRate', ru: 'Расход топлива' },
+    oxygenSensorReading: { en: 'oxygenSensorReading', ru: 'Показания датчика кислорода' },
+    intakeAirTemperature: { en: 'intakeAirTemperature', ru: 'Температура всасываемого воздуха' },
+    diagnosticTroubleCode: { en: 'diagnosticTroubleCode', ru: 'Коды неисправностей' },
+    acceleratorPedalPosition: { en: 'acceleratorPedalPosition', ru: 'Положение педали акселератора' },
+    engineCoolantTemperature: { en: 'engineCoolantTemperature', ru: 'Температура охлаждающей жидкости' },
+    evapEmissionControlPressure: { en: 'evapEmissionControlPressure', ru: 'Давление в системе контроля испарений' },
+    transmissionFluidTemperature: { en: 'transmissionFluidTemperature', ru: 'Температура трансмиссионной жидкости' },
+    oilPressure: { en: 'oilPressure', ru: 'Давление масла' },
+    brakePedalPosition: { en: 'brakePedalPosition', ru: 'Положение педали тормоза' },
+    steeringAngle: { en: 'steeringAngle', ru: 'Угол поворота руля' },
+    absStatus: { en: 'absStatus', ru: 'Статус ABS' },
+    airbagDeploymentStatus: { en: 'airbagDeploymentStatus', ru: 'Статус подушек безопасности' },
+    tirePressure: { en: 'tirePressure', ru: 'Давление в шинах' },
+    gpsCoordinates: { en: 'gpsCoordinates', ru: 'GPS координаты' },
+    altitude: { en: 'altitude', ru: 'Высота' },
+    heading: { en: 'heading', ru: 'Курс' }
+};
+  
+
+
 const LabelPage = () => {
-  const router = useRouter();
-  const label = useSearchParams();
-  const labeel = usePathname().split('/')[4];
-  const id = usePathname().split('/')[3];
-  const neededVal = labeel.toString();
-  const labeelru = translations[labeel as keyof typeof translations] || labeel;
+    const router = useRouter();
+    const label = useSearchParams();
+    const labeel = usePathname().split('/')[4];
+    const id = usePathname().split('/')[3];
+    const neededVal = labeel.toString();
+    const labeelru = translations[labeel as keyof typeof translations] || labeel;
 
   const [obdCheckDataArray, setObdCheckDataArray] = useState<OBDCheckData[]>([]);
   const [chartValues, setChartValues] = useState<number[]>([]);
   const [timedump, setTimedump] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [timePeriod, setTimePeriod] = useState<'day' | 'week' | 'month' | '3month'>('day'); 
 
-  useEffect(() => {
-    fetchObdCheckData();
-  }, []);
 
+  const [selectedTimeframe, setSelectedTimeframe] = useState('Day');
+
+  const renderBack = () => (
+    <div className="button-group">
+      <Button
+        onClick={() => router.back()}
+        className="mb-8"
+        variant="outline">
+        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
+      </Button>      
+    </div>
+  );
+  const renderButtons = () => (
+    <div className="mb-4">
+        <Button
+          onClick={() => setTimePeriod('day')}
+          variant={timePeriod === 'day' ? 'default' : 'outline'}
+          className="mr-2">
+          Day
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('week')}
+          variant={timePeriod === 'week' ? 'default' : 'outline'}
+          className="mr-2">
+          Week
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('month')}
+          variant={timePeriod === 'month' ? 'default' : 'outline'}
+          className="mr-2">
+          Month
+        </Button>
+        <Button
+          onClick={() => setTimePeriod('3month')}
+          variant={timePeriod === '3month' ? 'default' : 'outline'}
+          className="mr-2">
+          3 Month
+        </Button> 
+        <p style={{color: "gray"}}>Wait a bit after choosing...</p>
+
+      </div>
+  )
+
+    useEffect(() => {
+        //fetchObdCheckData();
+        return;
+    },);
+
+    const filterDataByTimePeriod = (data: OBDCheckData[], period: 'day' | 'week' | 'month' | '3month') => {
+      const now = new Date(); // Current date
+      let filteredData = data;
+    
+      switch (period) {
+        case 'day':
+          const oneDayAgo = new Date();
+          oneDayAgo.setDate(now.getDay());
+          filteredData = data.filter(item => {
+            const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+            return timestamp >= oneDayAgo && timestamp <= now;
+          });
+          break;
+        case 'week':
+          const oneWeekAgo = new Date();
+          oneWeekAgo.setDate(now.getDate() - 6);
+          filteredData = data.filter(item => {
+            const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+            const dayOfWeek = timestamp.getDate(); // Get day of the month
+            return timestamp >= oneWeekAgo && timestamp <= now;
+          });
+          break;
+        case 'month':
+          const oneMonthAgo = new Date();
+          oneMonthAgo.setMonth(now.getMonth() - 1);
+          filteredData = data.filter(item => {
+            const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+            return timestamp >= oneMonthAgo && timestamp <= now;
+          });
+          break;
+        case '3month':
+          const threeMonthsAgo = new Date();
+          threeMonthsAgo.setMonth(now.getMonth() - 3); // Set the date to 3 months ago
+          filteredData = data.filter(item => {
+            const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+            return timestamp >= threeMonthsAgo && timestamp <= now;  // Include data from the last 3 months
+          });
+          break;
+        default:
+          break;
+      }
+    
+      return filteredData;
+    };
+  
+    
   const convertToUserTimeZone = (item: OBDCheckData) => {
     // Check if 'timestamp' exists in 'item.all', otherwise use 'item.createdAt'
     const timestamp = item.all.timestamp || item.createdAt;
@@ -120,8 +221,6 @@ const LabelPage = () => {
     // Return the formatted date as a string in the user's local timezone
     return userDate.toLocaleString();
   };
-  
-  
 
   const fetchObdCheckData = async () => {
     try {
@@ -131,12 +230,16 @@ const LabelPage = () => {
       }
       const data: OBDCheckData[] = await response.json();
 
-      // Filter out entries where the labeel value is null
+      //  filter out existing ones and get rid of nulls or undefined ones
       const filteredData = data.filter(item => item.all[labeel] !== null && item.all[labeel] !== undefined );
 
-      // Map 'labeel' to specific chart field (e.g., engineRpm)
-      const values = filteredData.map(item => item.all[labeel]);
-      const timestamps = filteredData.map(item =>  convertToUserTimeZone(item));
+      //  filter by date
+      const filteredData1 = filterDataByTimePeriod(filteredData, timePeriod);
+
+
+      // output exactly the labeeled ones
+      const values = filteredData1.map(item => item.all[labeel]);
+      const timestamps = filteredData1.map(item =>  convertToUserTimeZone(item));
 
       setObdCheckDataArray(filteredData);
       setChartValues(values as number[]);
@@ -171,45 +274,57 @@ const LabelPage = () => {
     ],
   };
 
+  const hasData = (chartValues.length === 0);
+
+
   return (
     <div style={{ width: '80%', margin: '0 auto' }}>
-      <Button
-        onClick={() => router.back()}
-        className="mb-8"
-        variant="outline"
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
-      </Button>
-      <Line
-        data={chartData}
-        options={{
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top' as const,
-            },
-            title: {
-              display: false,
-              text: `График для ${labeelru} (ID: ${id})`,
-            },
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: 'xy',
+      {renderBack()}
+      {renderButtons()}
+        
+      {hasData ? (
+        <div className="no-data">
+          <p>No Data Found</p>
+        </div>) : (
+          <Line
+          data={chartData}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top' as const,
+              },
+              title: {
+                display: false,
+                text: `График для ${labeelru} (ID: ${id})`,
               },
               zoom: {
-                wheel: {
+                pan: {
                   enabled: true,
+                  mode: 'x',
                 },
-                pinch: {
-                  enabled: true,
+                zoom: {
+                  wheel: {
+                    enabled: true,
+                  },
+                  pinch: {
+                    enabled: true,
+                  },
+                  mode: 'x',
+                  scaleMode: 'x',
                 },
-                mode: 'xy',
               },
             },
-          },
-        }}
-      />
+            scales: {
+              y: {
+                min: 0,
+              }
+            }
+          }}
+        />
+        )
+      }
+      
     </div>
   );
 };

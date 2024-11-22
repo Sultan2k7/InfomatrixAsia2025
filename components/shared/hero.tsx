@@ -39,7 +39,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.6 }}
           className="flex justify-center"
         >
-          <Link href="/register">
+          <Link href="/login">
             <Button size="lg" className="text-lg">
               Начать работу
               <ArrowRight className="ml-2 h-5 w-5" />

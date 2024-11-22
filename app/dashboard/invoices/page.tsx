@@ -37,10 +37,6 @@ const requestSchema = z.object({
 
 type RequestFormValues = z.infer<typeof requestSchema>;
 
-interface Props {
-  className?: string;
-}
-
 async function sendRequest(url: string, { arg }: { arg: RequestFormValues }) {
   const response = await fetch(url, {
     method: 'POST',
@@ -57,7 +53,7 @@ async function sendRequest(url: string, { arg }: { arg: RequestFormValues }) {
   return response.json();
 }
 
-const DriverRequestPage: React.FC<Props> = ({ className }) => {
+export default function DriverRequestPage() {
   const form = useForm<RequestFormValues>({
     resolver: zodResolver(requestSchema),
     defaultValues: {
@@ -91,7 +87,7 @@ const DriverRequestPage: React.FC<Props> = ({ className }) => {
   };
 
   return (
-    <div className={`max-w-2xl mx-auto p-6 ${className}`}>
+    <div className="max-w-2xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Отправить запрос</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -194,6 +190,4 @@ const DriverRequestPage: React.FC<Props> = ({ className }) => {
       </Form>
     </div>
   );
-};
-
-export default DriverRequestPage;
+}

@@ -30,83 +30,91 @@ import {
   ExternalLink,
 } from 'lucide-react';
 
-interface Incident {
+interface Invoice {
   id: string;
-  type: string;
-  location: string;
-  date: string;
-  time: string;
-  status: string;
-  severity: string;
-  reportedBy: string;
+  invoiceNumber: string;
+  amount: number;
+  status: 'paid' | 'pending' | 'overdue';
+  dueDate: string;
+  clientName: string;
   createdAt: string;
-  updatedAt: string;
 }
 
-interface Props {
-  className?: string;
-}
-
-const IncidentsPage: React.FC<Props> = ({ className }) => {
-  const [incidents, setIncidents] = useState<Incident[]>([]);
+export default function InvoicesPage() {
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('newest');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const router = useRouter();
 
   useEffect(() => {
-    fetchIncidents();
+    fetchInvoices();
   }, []);
 
-  const fetchIncidents = async () => {
+  const fetchInvoices = async () => {
     try {
-      const response = await fetch('/api/incidents');
+      const response = await fetch('/api/invoices');
       if (!response.ok) {
-        throw new Error('Failed to fetch incidents');
+        throw new Error('Failed to fetch invoices');
       }
       const data = await response.json();
-      setIncidents(data);
+      setInvoices(data);
     } catch (error) {
-      console.error('Error fetching incidents:', error);
+      console.error('Error fetching invoices:', error);
     }
   };
 
-  const filteredIncidents = incidents.filter(
-    (incident) =>
-      incident.type.toLowerCase().includes(search.toLowerCase()) ||
-      incident.location.toLowerCase().includes(search.toLowerCase()) ||
-      incident.status.toLowerCase().includes(search.toLowerCase()) ||
-      incident.reportedBy.toLowerCase().includes(search.toLowerCase())
+  const filteredInvoices = invoices.filter(
+    (invoice) =>
+      invoice.invoiceNumber.toLowerCase().includes(search.toLowerCase()) ||
+      invoice.clientName.toLowerCase().includes(search.toLowerCase()) ||
+      invoice.status.toLowerCase().includes(search.toLowerCase())
   );
 
-  const sortedIncidents = [...filteredIncidents].sort((a, b) => {
+  const sortedInvoices = [...filteredInvoices].sort((a, b) => {
     if (sortBy === 'newest')
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     if (sortBy === 'oldest')
       return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-    if (sortBy === 'status') return a.status.localeCompare(b.status);
+    if (sortBy === 'amount') return b.amount - a.amount;
+    if (sortBy === 'dueDate')
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
     return 0;
   });
 
-  const totalPages = Math.ceil(sortedIncidents.length / itemsPerPage);
-  const paginatedIncidents = sortedIncidents.slice(
+  const totalPages = Math.ceil(sortedInvoices.length / itemsPerPage);
+  const paginatedInvoices = sortedInvoices.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  const getStatusBadgeVariant = (status: Invoice['status']): "default" | "secondary" | "destructive" | "outline" => {
+    switch (status) {
+      case 'paid':
+        return 'default';
+      case 'pending':
+        return 'secondary';
+      case 'overdue':
+        return 'destructive';
+      default:
+        return 'outline';
+    }
+  };
+
   return (
-    <div className={`p-6 ${className}`}>
+    <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Дорожные инциденты</h1>
-        <Button onClick={() => router.push('/dashboard/incidents/create')}>
-          <Plus className="mr-2 h-4 w-4" /> Добавить инцидент
+        <h1 className="text-2xl font-bold">Счета</h1>
+        <Button onClick={() => router.push('/dashboard/invoices/create')}>
+          <Plus className="mr-2 h-4 w-4" /> Создать счет
         </Button>
       </div>
+
       <div className="flex justify-between mb-4">
         <Input
           className="max-w-sm"
-          placeholder="Поиск"
+          placeholder="Поиск по номеру счета или клиенту"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -117,45 +125,37 @@ const IncidentsPage: React.FC<Props> = ({ className }) => {
           <SelectContent>
             <SelectItem value="newest">Новые</SelectItem>
             <SelectItem value="oldest">Старые</SelectItem>
-            <SelectItem value="status">Статус</SelectItem>
+            <SelectItem value="amount">По сумме</SelectItem>
+            <SelectItem value="dueDate">По сроку оплаты</SelectItem>
           </SelectContent>
         </Select>
       </div>
+
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>ID инцидента</TableHead>
-            <TableHead>Тип</TableHead>
-            <TableHead>Местоположение</TableHead>
-            <TableHead>Дата</TableHead>
-            <TableHead>Время</TableHead>
+            <TableHead>Номер счета</TableHead>
+            <TableHead>Клиент</TableHead>
+            <TableHead>Сумма</TableHead>
             <TableHead>Статус</TableHead>
-            <TableHead>Серьезность</TableHead>
-            <TableHead>Кем сообщено</TableHead>
+            <TableHead>Срок оплаты</TableHead>
             <TableHead>Действия</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedIncidents.map((incident) => (
-            <TableRow key={incident.id}>
-              <TableCell>{incident.id}</TableCell>
-              <TableCell>{incident.type}</TableCell>
-              <TableCell>{incident.location}</TableCell>
-              <TableCell>{incident.date}</TableCell>
-              <TableCell>{incident.time}</TableCell>
+          {paginatedInvoices.map((invoice) => (
+            <TableRow key={invoice.id}>
+              <TableCell>{invoice.invoiceNumber}</TableCell>
+              <TableCell>{invoice.clientName}</TableCell>
+              <TableCell>₽{invoice.amount.toLocaleString()}</TableCell>
               <TableCell>
-                <Badge
-                  variant={
-                    incident.status === 'active' ? 'default' : 'secondary'
-                  }
-                >
-                  {incident.status}
+                <Badge variant={getStatusBadgeVariant(invoice.status)}>
+                  {invoice.status}
                 </Badge>
               </TableCell>
-              <TableCell>{incident.severity}</TableCell>
-              <TableCell>{incident.reportedBy}</TableCell>
+              <TableCell>{new Date(invoice.dueDate).toLocaleDateString()}</TableCell>
               <TableCell>
-                <Link href={`/dashboard/incidents/${incident.id}`} passHref>
+                <Link href={`/dashboard/invoices/${invoice.id}`} passHref>
                   <Button variant="ghost" size="sm">
                     <ExternalLink className="h-4 w-4 mr-2" />
                     Подробнее
@@ -166,6 +166,7 @@ const IncidentsPage: React.FC<Props> = ({ className }) => {
           ))}
         </TableBody>
       </Table>
+
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
@@ -207,6 +208,4 @@ const IncidentsPage: React.FC<Props> = ({ className }) => {
       </div>
     </div>
   );
-};
-
-export default IncidentsPage;
+}

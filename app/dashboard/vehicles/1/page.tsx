@@ -194,7 +194,8 @@ const VehiclePage = () => {
   const router = useRouter();
   const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null); // Single object
   const [loading, setLoading] = useState(true);
-
+  const id = usePathname().split('/')[3];
+  
   useEffect(() => {
     // Function to update data and use coordinates from the fetched data
     const updateData = async () => {
@@ -270,7 +271,6 @@ const VehiclePage = () => {
     return { label, enkey, value: Array.isArray(value) ? value.join(', ') : value };
   });
   
-  const id = usePathname().split('/')[3];
 
   const handleObdButtonClick = (enKey: string, value: number) => {
     router.push(`/dashboard/vehicles/${id}/${enKey}`);
@@ -308,16 +308,24 @@ const VehiclePage = () => {
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
+  const renderBack = () => (
+    <div className="button-group">
+      <Button
+        onClick={() => router.back()}
+        className="mb-8"
+        variant="outline">
+        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
+      </Button>      
+    </div>
+  );
+
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
-        <Button
-          onClick={() => router.back()}
-          className="mb-8"
-          variant="outline"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" /> Назад
-        </Button>
+        {renderBack()}
+        
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1 space-y-8">
