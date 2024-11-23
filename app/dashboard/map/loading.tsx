@@ -1,9 +1,6 @@
-// app/dashboard/map/page.tsx
-import dynamic from 'next/dynamic'
-
-const DynamicMapPage = dynamic(() => import('@/components/map/MapPageClient'), {
-  ssr: false,
-  loading: () => (
+// app/dashboard/map/loading.tsx
+export default function Loading() {
+  return (
     <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
       <div className="p-6">
         <h2 className="text-lg font-semibold mb-4">Карта транспорта</h2>
@@ -12,9 +9,5 @@ const DynamicMapPage = dynamic(() => import('@/components/map/MapPageClient'), {
         </div>
       </div>
     </div>
-  )
-})
-
-export default function MapPage() {
-  return <DynamicMapPage />
+  );
 }

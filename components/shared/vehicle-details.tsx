@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Vehicle } from '@/app/dashboard/map/page';
+import { Vehicle } from '@/types/vehicles';
 
 export const VehicleDetails = ({
   vehicle,

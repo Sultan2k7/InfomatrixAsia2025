@@ -59,14 +59,11 @@ async function main() {
       data: {
         userId: users[Math.floor(Math.random() * users.length)].id,
         title: `Request ${i + 1}`,
-        description: `This is a sample request description for request ${
-          i + 1
-        }`,
-        status:
-          requestStatuses[Math.floor(Math.random() * requestStatuses.length)],
+        description: `This is a sample request description for request ${i + 1}`,
+        status: requestStatuses[Math.floor(Math.random() * requestStatuses.length)],
         type: requestTypes[Math.floor(Math.random() * requestTypes.length)],
-        urgency:
-          requestUrgencies[Math.floor(Math.random() * requestUrgencies.length)],
+        urgency: requestUrgencies[Math.floor(Math.random() * requestUrgencies.length)],
+        media: {}, // Add a default value for the media field
       },
     });
   }
@@ -86,19 +83,13 @@ async function main() {
     await prisma.vehicle.create({
       data: {
         driverId: users.find((u) => u.role === Role.DRIVER)!.id,
-        phoneNumber: `+7 ${Math.floor(Math.random() * 1000000000)
-          .toString()
-          .padStart(9, '0')}`,
         vehicleNumber: `KZ ${Math.floor(Math.random() * 1000)}`,
         currentMission: Math.random() > 0.5 ? `Mission ${i + 1}` : null,
         location: `Location ${i + 1}`,
         speed: Math.floor(Math.random() * 120),
         malfunctions: Math.floor(Math.random() * 5),
-        vehicleType:
-          vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)],
-        status:
-          vehicleStatuses[Math.floor(Math.random() * vehicleStatuses.length)],
-        fuelAmount: Math.random() * 100,
+        vehicleType: vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)],
+        status: vehicleStatuses[Math.floor(Math.random() * vehicleStatuses.length)],
         latitude: startLat + (Math.random() - 0.5) * 2,
         longitude: startLon + (Math.random() - 0.5) * 2,
         startLatitude: startLat,

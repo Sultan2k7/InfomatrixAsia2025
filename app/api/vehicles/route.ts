@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import * as z from 'zod';
 import prisma from '@/prisma/prisma';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 
 const vehicleSchema = z.object({
   vehicleNumber: z.string().min(1, 'Номер транспортного средства обязателен'),
@@ -56,11 +56,9 @@ export async function POST(req: Request) {
 
     const newVehicle = await prisma.vehicle.create({
       data: {
-        vehicleNumber,
         vehicleType,
         currentMission,
         location,
-        phoneNumber,
         driverId: user.id,
       },
     });

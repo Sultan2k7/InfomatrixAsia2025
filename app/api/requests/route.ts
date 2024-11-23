@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import prisma from '@/prisma/prisma';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 
 const requestSchema = z.object({
   title: z.string().min(5, 'Title must be at least 5 characters'),
@@ -37,6 +37,7 @@ export const POST = async (req: Request) => {
         user: {
           connect: { id: user.id },
         },
+        media: {}, // providing an empty object as a default value
       },
       include: {
         user: {

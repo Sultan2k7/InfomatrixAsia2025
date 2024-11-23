@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import dynamic from 'next/dynamic';
 import { Icon, LatLngTuple } from 'leaflet';
 import { usePathname, useRouter } from 'next/navigation';
 import { LineChart } from '@/components/shared/line-chart-steal';
@@ -24,6 +23,15 @@ import {
   MapPin,
   Database,
 } from 'lucide-react';
+
+// Create a separate Map component
+const Map = dynamic(
+  () => import('./Map'), // You'll need to create this component
+  { 
+    ssr: false,
+    loading: () => <div className="h-64 bg-gray-100 dark:bg-gray-800 rounded-md flex items-center justify-center">Loading map...</div>
+  }
+);
 
 const carIcon = new Icon({
   iconUrl: '/truck.svg',
@@ -54,7 +62,6 @@ interface OBDCheckData {
   evapEmissionControlPressure: number;
   timestamp: string;
 }
-
 
 type OBDData = {
   engine_rpm: number;
@@ -151,7 +158,6 @@ const translationMap = {
   timestamp: {en: 'timestamp', ru: 'Дата/Время'},
 };
 
-
 const tripData = [
   {
     id: 1,
@@ -179,7 +185,6 @@ const tripData = [
   },
 ];
 
-
 const dtcDescriptions: { [key: string]: string } = {
   P0100: 'Ошибка массового расхода воздуха',
   P0200: 'Ошибка в цепи форсунки',
@@ -192,38 +197,27 @@ const VehiclePage = () => {
     obdData.gps_coordinates
   );
   const router = useRouter();
-  const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null); // Single object
+  const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null);
   const [loading, setLoading] = useState(true);
   const id = usePathname().split('/')[3];
-  
+
   useEffect(() => {
-    // Function to update data and use coordinates from the fetched data
     const updateData = async () => {
       try {
-        // Fetch OBD data (if needed)
         await fetchObdCheckData();
-  
-        // Fetch GPS data and use it to update coordinates
         const gpsData = await fetchGPSData();
         if (gpsData && gpsData.latitude && gpsData.longitude) {
           setCoordinates([gpsData.latitude, gpsData.longitude]);
-          console.log([gpsData.latitude, gpsData.longitude])
         }
       } catch (error) {
         console.error('Error updating data:', error);
       }
     };
-  
-    // Set up the interval to call updateData every 5 seconds (5000 ms)
+
+    updateData();
     const interval = setInterval(updateData, 5000);
-  
-    // Clear the interval when the component unmounts or dependencies change
     return () => clearInterval(interval);
   }, []);
-  
-  
-  
-  
 
   const fetchObdCheckData = async () => {
     try {
@@ -253,8 +247,6 @@ const VehiclePage = () => {
       throw error; // Re-throw the error to handle it in the calling function
     }
   };
-  
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -264,13 +256,11 @@ const VehiclePage = () => {
     return <div>No OBD check data found</div>;
   }
 
-
   const translatedObdData = Object.entries(obdCheckData).map(([key, value]) => {
     const label = translationMap[key as keyof typeof translationMap]?.ru || key;
     const enkey = translationMap[key as keyof typeof translationMap]?.en || key;
     return { label, enkey, value: Array.isArray(value) ? value.join(', ') : value };
   });
-  
 
   const handleObdButtonClick = (enKey: string, value: number) => {
     router.push(`/dashboard/vehicles/${id}/${enKey}`);
@@ -302,12 +292,10 @@ const VehiclePage = () => {
       !isNaN(parseInt(value.charAt(value.length - 2)))
     );
   };
-  
 
   const filteredData = tripData.filter((trip) =>
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
 
   const renderBack = () => (
     <div className="button-group">
@@ -320,13 +308,11 @@ const VehiclePage = () => {
     </div>
   );
 
-
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
         {renderBack()}
         
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1 space-y-8">
             <Card>
@@ -362,7 +348,8 @@ const VehiclePage = () => {
               </CardContent>
             </Card>
 
-            <Card>
+                        {/* Map Card */}
+                        <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <MapPin className="mr-2" />
@@ -371,24 +358,15 @@ const VehiclePage = () => {
               </CardHeader>
               <CardContent>
                 <div className="h-64 rounded-md overflow-hidden mb-4">
-                  <MapContainer
-                    center={coordinates}
-                    zoom={13}
-                    style={{ height: '100%', width: '100%' }}
-                  >
-                    <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    />
-                    <Marker position={coordinates} icon={carIcon} />
-                  </MapContainer>
+                  <Map coordinates={coordinates} />
                 </div>
                 <div className="text-sm">
                   <p>Широта: {coordinates[0].toFixed(6)}</p>
                   <p>Долгота: {coordinates[1].toFixed(6)}</p>
-                </div>
+                </div>  
               </CardContent>
             </Card>
+
 
             <Card>
               <CardHeader>
@@ -433,8 +411,6 @@ const VehiclePage = () => {
             </Card>
 
           </div>
-
-          
 
           <div className="md:col-span-2 space-y-8">
             <Card>

@@ -43,28 +43,39 @@ model Request {
 
 model Vehicle {
   id             String   @id @default(cuid())
-  driverId       String?
-  licensePlate   String?
+  driverId       String?  // Assuming driverId is a String based on previous context
+  driver         Driver?  @relation(fields: [driverId], references: [id])
+  vehicleNumber  String?  @default("UNKNOWN")
   currentMission String?
   location       String?
+  latitude       Float?
+  longitude      Float?
+  startLatitude  Float?
+  startLongitude Float?
+  endLatitude    Float?
+  endLongitude   Float?
   speed          Int?     @default(0)
-  maintenance    Json?
-  malfunctions   Json?
-  error_time     DateTime @default(now())
+  malfunctions   Int?     // Assuming malfunctions is an Int
   vehicleType    String?
-  status         String?   @default("active")
+  status         String?  @default("active")
+  route          Json?
+  routeIndex     Int?
+  bearing        Float?
+  weather        Json?
+  engineLoad     Int?
+  arrivalTime    String?  // Assuming arrivalTime is stored as a String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
 
 model Driver {
-  id                           Int      @id @default(autoincrement())
-  name                         String
-  department                   String
-  experience                   String
-  DateoOfBirth                 DateTime @default(now())
-  phoneNumber                  String
-
+  id             String   @id @default(cuid()) // Ensure this is also a String
+  name           String
+  department     String
+  experience     String
+  DateoOfBirth   DateTime @default(now())
+  phoneNumber    String
+  vehicles       Vehicle[] // Back-reference
 }
 
 model Report {
