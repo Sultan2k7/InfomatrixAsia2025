@@ -133,6 +133,7 @@ function VehicleMarker({
     iconSize: [32, 32],
     iconAnchor: [16, 16],
   });
+  
 
   return (
     <>
@@ -200,7 +201,7 @@ function MapEventHandler({
 }
 
 export default function MapPage() {
-  const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
+  //const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [mapCenter, setMapCenter] = useState<LatLngTuple>([48.0196, 66.9237]); // Center of Kazakhstan
 
@@ -212,6 +213,60 @@ export default function MapPage() {
       fetchRoute(vehicle.startPoint, vehicle.endPoint, vehicle.id);
     });
   }, []);
+
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch both OBD and GPS data
+        const [obdResponse, gpsResponse] = await Promise.all([
+          fetch('/api/vehicletest2'), // OBD data
+          fetch('/api/map/gps'), // GPS data
+        ]);
+
+        if (!obdResponse.ok || !gpsResponse.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const [obdData, gpsData] = await Promise.all([
+          obdResponse.json(),
+          gpsResponse.json(),
+        ]);
+
+        // Create a map to store the latest speed for each vehicleId
+        const latestSpeedMap = new Map();
+        obdData.forEach((obdItem: any) => {
+          const vehicleId = obdItem.vehicleId;
+          if (!latestSpeedMap.has(vehicleId) || new Date(obdItem.timestamp) > new Date(latestSpeedMap.get(vehicleId).timestamp)) {
+            latestSpeedMap.set(vehicleId, obdItem);
+          }
+        });
+
+        // Combine the GPS data with the latest OBD speed
+        const combinedData = gpsData.map((gpsItem: any) => {
+          const matchingObdItem = latestSpeedMap.get(gpsItem.vehicleId);
+          return {
+            id: gpsItem.vehicleId,
+            position: [gpsItem.latitude, gpsItem.longitude] as LatLngTuple,
+            speed: matchingObdItem ? matchingObdItem.speed : 0, // Use speed from OBD data or default to 0
+            route : [],
+            startPoint: [43.222, 76.8512], // Almaty
+            endPoint: [51.1605, 71.4704], // Astana
+          };
+        });
+
+        setVehicles(combinedData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []); // Run once on component mount
 
   const fetchRoute = useCallback(
     async (start: LatLngTuple, end: LatLngTuple, vehicleId: string) => {
@@ -276,6 +331,7 @@ export default function MapPage() {
   );
 
   const handleVehicleClick = useCallback((vehicle: Vehicle) => {
+    console.log(vehicle);
     setSelectedVehicle(vehicle);
   }, []);
 
@@ -286,6 +342,11 @@ export default function MapPage() {
   const handleMapDragEnd = useCallback((center: LatLngTuple) => {
     setMapCenter(center);
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
 
   return (
     <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
@@ -306,7 +367,7 @@ export default function MapPage() {
               <VehicleMarker
                 key={vehicle.id}
                 vehicle={vehicle}
-                onClick={() => handleVehicleClick(vehicle)}
+                onClick={() => handleVehicleClick(vehicle)} //не будет работать если нет стартовой и конечной позиции
                 isSelected={selectedVehicle?.id === vehicle.id}
               />
             ))}
