@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { LineChart } from '@/components/shared/line-chart-steal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import Modal from '@/components/shared/obd_chart_modal'; 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
@@ -201,6 +202,24 @@ const VehiclePage = () => {
   const [loading, setLoading] = useState(true);
   const id = usePathname().split('/')[3];
 
+  
+  //Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+
+  const openModal = (title: string) => {
+    setModalTitle(title);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalTitle('');
+  };
+
+
+
+
   useEffect(() => {
     const updateData = async () => {
       try {
@@ -263,7 +282,7 @@ const VehiclePage = () => {
   });
 
   const handleObdButtonClick = (enKey: string, value: number) => {
-    router.push(`/dashboard/vehicles/${id}/${enKey}`);
+    openModal(enKey);
   };
 
   const convertToUserTimeZone = (item: string) => {
@@ -485,6 +504,12 @@ const VehiclePage = () => {
           </div>
         </div>
       </div>
+       {/* Modal */}
+       <Modal
+        isOpen={isModalOpen}
+        title={modalTitle}
+        onClose={closeModal}
+      />
     </div>
   );
 };

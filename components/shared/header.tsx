@@ -60,7 +60,7 @@ export const Header: React.FC<Props> = ({ className }) => {
         </nav>
 
         <div className="flex items-center space-x-4">
-          <Link href="/register">
+          <Link href="/login">
             <Button>Начать</Button>
           </Link>
           <Sheet>

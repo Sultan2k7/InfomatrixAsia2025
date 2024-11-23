@@ -8,6 +8,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { LineChart } from '@/components/shared/line-chart-steal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import Modal from '@/components/shared/obd_chart_modal'; 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
@@ -195,17 +196,51 @@ const VehiclePage = () => {
   const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null); // Single object
   const [loading, setLoading] = useState(true);
   const id = usePathname().split('/')[3];
+  
+  //Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+
+  const openModal = (title: string) => {
+    setModalTitle(title);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalTitle('');
+  };
+
+
 
 
   useEffect(() => {
-    fetchObdCheckData();
-    const interval = setInterval(() => {
-      const newLat = coordinates[0] + Math.random() * 0.001;
-      const newLon = coordinates[1] + Math.random() * 0.001;
-      setCoordinates([newLat, newLon]);
-    }, 5000);
+    // Function to update data and use coordinates from the fetched data
+    const updateData = async () => {
+      try {
+        // Fetch OBD data (if needed)
+        await fetchObdCheckData();
+  
+        // Fetch GPS data and use it to update coordinates
+        const gpsData = await fetchGPSData();
+        if (gpsData && gpsData.latitude && gpsData.longitude) {
+          setCoordinates([gpsData.latitude, gpsData.longitude]);
+          console.log([gpsData.latitude, gpsData.longitude])
+        }
+      } catch (error) {
+        console.error('Error updating data:', error);
+      }
+    };
+  
+    // Set up the interval to call updateData every 5 seconds (5000 ms)
+    const interval = setInterval(updateData, 5000);
+  
+    // Clear the interval when the component unmounts or dependencies change
     return () => clearInterval(interval);
-  }, [coordinates]);
+  }, []);
+  
+  
+  
   
 
   const fetchObdCheckData = async () => {
@@ -222,6 +257,21 @@ const VehiclePage = () => {
       setLoading(false);
     }
   };
+
+  const fetchGPSData = async (): Promise<{ latitude: number; longitude: number }> => {
+    try {
+      const response = await fetch('/api/vehicletest2/gps'); // Replace with your API endpoint
+      if (!response.ok) {
+        throw new Error('Failed to fetch GPS data');
+      }
+      const data = await response.json();
+      return data; // Return the data
+    } catch (error) {
+      console.error('Error fetching GPS data:', error);
+      throw error; // Re-throw the error to handle it in the calling function
+    }
+  };
+  
 
 
   if (loading) {
@@ -241,7 +291,7 @@ const VehiclePage = () => {
   
 
   const handleObdButtonClick = (enKey: string, value: number) => {
-    router.push(`/dashboard/vehicles/${id}/${enKey}`);
+    openModal(enKey);
   };
 
   const convertToUserTimeZone = (item: string) => {
@@ -276,16 +326,24 @@ const VehiclePage = () => {
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
+  const renderBack = () => (
+    <div className="button-group">
+      <Button
+        onClick={() => router.back()}
+        className="mb-8"
+        variant="outline">
+        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
+      </Button>      
+    </div>
+  );
+
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
-        <Button
-          onClick={() => router.back()}
-          className="mb-8"
-          variant="outline"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" /> Назад
-        </Button>
+        {renderBack()}
+        
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1 space-y-8">
@@ -469,6 +527,12 @@ const VehiclePage = () => {
           </div>
         </div>
       </div>
+       {/* Modal */}
+       <Modal
+        isOpen={isModalOpen}
+        title={modalTitle}
+        onClose={closeModal}
+      />
     </div>
   );
 };

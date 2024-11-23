@@ -91,7 +91,8 @@ const translations = {
     tirePressure: { en: 'tirePressure', ru: 'Давление в шинах' },
     gpsCoordinates: { en: 'gpsCoordinates', ru: 'GPS координаты' },
     altitude: { en: 'altitude', ru: 'Высота' },
-    heading: { en: 'heading', ru: 'Курс' }
+    heading: { en: 'heading', ru: 'Курс' },
+    timestamp: {en: 'timestamp', ru: 'Дата/Время'},
 };
   
 
@@ -111,7 +112,6 @@ const LabelPage = () => {
   const [timePeriod, setTimePeriod] = useState<'day' | 'week' | 'month' | '3month'>('day'); 
 
 
-  const [selectedTimeframe, setSelectedTimeframe] = useState('Day');
 
   const renderBack = () => (
     <div className="button-group">
@@ -155,7 +155,7 @@ const LabelPage = () => {
   )
 
     useEffect(() => {
-        //fetchObdCheckData();
+        fetchObdCheckData();
         return;
     },);
 
@@ -166,7 +166,7 @@ const LabelPage = () => {
       switch (period) {
         case 'day':
           const oneDayAgo = new Date();
-          oneDayAgo.setDate(now.getDay());
+          oneDayAgo.setDate(now.getDate() - 1);
           filteredData = data.filter(item => {
             const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
             return timestamp >= oneDayAgo && timestamp <= now;
