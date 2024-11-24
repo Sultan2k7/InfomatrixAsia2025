@@ -147,7 +147,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
     useEffect(() => {
         fetchObdCheckData();
         return;
-    },[timePeriod]);
+    },[isOpen, timePeriod]);
 
     const filterDataByTimePeriod = (data: OBDCheckData[], period: 'day' | 'week' | 'month' | '3month') => {
         const now = new Date(); // Current date
