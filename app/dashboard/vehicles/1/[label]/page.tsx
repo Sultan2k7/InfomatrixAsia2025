@@ -317,7 +317,7 @@ const LabelPage = () => {
             },
             scales: {
               y: {
-                min: 0,
+                
               }
             }
           }}

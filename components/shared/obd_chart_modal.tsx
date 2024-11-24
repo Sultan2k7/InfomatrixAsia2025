@@ -102,7 +102,6 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
-    if (!isOpen) return null;
 
     const labeel = title;
     const labeelru = translations[labeel as keyof typeof translations] || labeel;
@@ -241,6 +240,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
           setLoading(false);
         }
     };
+    if (!isOpen) return null;
 
     if (loading) {
         return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -336,7 +336,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
                         },
                         scales: {
                         y: {
-                            min: 0,
                         }
                         }
                     }}/>

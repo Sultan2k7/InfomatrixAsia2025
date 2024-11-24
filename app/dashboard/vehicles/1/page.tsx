@@ -61,6 +61,7 @@ interface OBDCheckData {
   acceleratorPedalPosition: number;
   engineCoolantTemperature: number;
   evapEmissionControlPressure: number;
+  gps_coordinates: LatLngTuple;
   timestamp: string;
 }
 
@@ -266,13 +267,31 @@ const VehiclePage = () => {
       throw error; // Re-throw the error to handle it in the calling function
     }
   };
+  const renderBack = () => (
+    <div className="button-group">
+      <Button
+        onClick={() => router.back()}
+        className="mb-8"
+        variant="outline">
+        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
+      </Button>      
+    </div>
+  );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        {renderBack()}
+        Loading...</div>
+    );
   }
 
   if (!obdCheckData) {
-    return <div>No OBD check data found</div>;
+    return( 
+      <div>
+        {renderBack()}
+        No OBD check data found</div>
+    );
   }
 
   const translatedObdData = Object.entries(obdCheckData).map(([key, value]) => {
@@ -316,16 +335,7 @@ const VehiclePage = () => {
     trip.driver.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const renderBack = () => (
-    <div className="button-group">
-      <Button
-        onClick={() => router.back()}
-        className="mb-8"
-        variant="outline">
-        <ArrowLeft className="mr-2 h-4 w-4" /> Назад
-      </Button>      
-    </div>
-  );
+  
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 p-8">
@@ -367,8 +377,8 @@ const VehiclePage = () => {
               </CardContent>
             </Card>
 
-                        {/* Map Card */}
-                        <Card>
+            {/* Map Card */}
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <MapPin className="mr-2" />
