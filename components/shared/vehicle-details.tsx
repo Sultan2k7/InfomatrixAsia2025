@@ -13,7 +13,7 @@ export const VehicleDetails = ({
   <Card className="w-full lg:w-1/3 absolute top-0 left-0 h-full z-[1000] overflow-y-auto">
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium">
-        Toyota Prado #{vehicle.id}
+        Toyota Camry #{vehicle.id}
       </CardTitle>
       <Button variant="ghost" size="sm" onClick={onClose}>
         X
@@ -74,9 +74,15 @@ export const VehicleDetails = ({
         <div className="space-y-1">
           <p className="text-sm font-medium leading-none">Камеры</p>
           <div className="aspect-video bg-muted">
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="text-muted-foreground">Camera Feed</span>
-            </div>
+            <video 
+              className="w-full h-full" 
+              src="/vids/edet.mp4" 
+              autoPlay 
+              loop 
+              muted 
+            >
+              Your browser does not support the video tag.
+            </video>
           </div>
           <Link href={`/dashboard/vehicles/1`} passHref>
             <Button className="w-full mt-2" variant="outline">
@@ -84,12 +90,6 @@ export const VehicleDetails = ({
             </Button>
           </Link>
         </div> 
-        {/* <div className="space-y-1">
-          <p className="text-sm font-medium leading-none">Прибытие</p>
-          <p className="text-2xl font-bold">
-            {vehicle.arrivalTime || 'Нет данных'}
-          </p>
-        </div> */}
       </div>
     </CardContent>
   </Card>

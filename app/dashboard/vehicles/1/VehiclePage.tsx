@@ -8,6 +8,7 @@ import { LineChart } from '@/components/shared/line-chart-steal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Modal from '@/components/shared/obd_chart_modal';
+import Maintenance from '@/components/shared/maintenance';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
@@ -247,6 +248,12 @@ const VehiclePage = () => {
     setModalTitle('');
   };
 
+  const maintenanceData = [
+    { name: 'Смена масла', currentKm: 8012, maxKm: 10000 },
+    { name: 'Смена охлаждающей жидкости', currentKm: 32703, maxKm: 50000 },
+    { name: 'Проверка тормозов', currentKm: 15443, maxKm: 20000 },
+  ];
+
   useEffect(() => {
     const updateData = async () => {
       try {
@@ -385,7 +392,7 @@ const VehiclePage = () => {
                 <dl className="space-y-2">
                   <div className="flex justify-between">
                     <dt>Модель:</dt>
-                    <dd>Toyota Prado</dd>
+                    <dd>Toyota Camry</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Тип:</dt>
@@ -529,6 +536,15 @@ const VehiclePage = () => {
                     ))}
                   </TableBody>
                 </Table>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Тех. обслуживание</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Maintenance items={maintenanceData}/>
               </CardContent>
             </Card>
 
