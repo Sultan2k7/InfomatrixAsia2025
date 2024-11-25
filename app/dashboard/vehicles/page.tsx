@@ -68,52 +68,14 @@ export default function VehiclesPage() {
       location: 'Almaty',
       speed: 60,
       malfunctions: 1,
-      vehicleType: 'Truck',
+      vehicleType: 'Jeep',
       status: 'active',
       createdAt: '2023-10-01',
       updatedAt: '2023-10-10',
       driver: {
         id: '101',
-        name: 'John Doe',
+        name: 'Михаил Абай',
         email: 'john@example.com',
-      },
-    },
-    {
-      id: '2',
-      driverId: '102',
-      phoneNumber: '555-5678',
-      vehicleNumber: 'XYZ789',
-      currentMission: 'Transport',
-      location: 'Aktau',
-      speed: 50,
-      malfunctions: 0,
-      vehicleType: 'Van',
-      status: 'inactive',
-      createdAt: '2023-09-15',
-      updatedAt: '2023-10-05',
-      driver: {
-        id: '102',
-        name: 'Jane Smith',
-        email: 'jane@example.com',
-      },
-    },
-    {
-      id: '3',
-      driverId: '103',
-      phoneNumber: '555-9876',
-      vehicleNumber: 'LMN456',
-      currentMission: 'Inspection',
-      location: 'Astana',
-      speed: 40,
-      malfunctions: 2,
-      vehicleType: 'SUV',
-      status: 'active',
-      createdAt: '2023-08-20',
-      updatedAt: '2023-10-12',
-      driver: {
-        id: '103',
-        name: 'Alex Johnson',
-        email: 'alex@example.com',
       },
     },
   ];
@@ -145,9 +107,9 @@ export default function VehiclesPage() {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Транспорт</h1>
-        <Button onClick={() => router.push('/dashboard/vehicles/create')}>
+        {/* <Button onClick={() => router.push('/dashboard/vehicles/create')}>
           <Plus className="mr-2 h-4 w-4" /> Зарегистрировать транспорт
-        </Button>
+        </Button> */}
       </div>
       <div className="flex justify-between mb-4">
         <Input

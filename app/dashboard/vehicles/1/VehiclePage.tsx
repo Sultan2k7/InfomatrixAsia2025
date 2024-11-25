@@ -385,11 +385,11 @@ const VehiclePage = () => {
                 <dl className="space-y-2">
                   <div className="flex justify-between">
                     <dt>Модель:</dt>
-                    <dd>Камаз Model B</dd>
+                    <dd>Toyota Prado</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Тип:</dt>
-                    <dd>Дизель</dd>
+                    <dd>Бензин</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Номерной знак:</dt>
@@ -401,7 +401,7 @@ const VehiclePage = () => {
                   </div>
                   <div className="flex justify-between">
                     <dt>Пробег:</dt>
-                    <dd>10000км</dd>
+                    <dd>13400км</dd>
                   </div>
                 </dl>
               </CardContent>

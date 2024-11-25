@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import React, { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import { Icon, LatLngTuple } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -28,9 +28,24 @@ const Map: React.FC<MapProps> = ({ coordinates }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
+      <UpdateMapCenter coordinates={coordinates} />
       <Marker position={coordinates} icon={carIcon} />
     </MapContainer>
   );
+};
+
+interface UpdateMapCenterProps {
+  coordinates: LatLngTuple;
+}
+
+const UpdateMapCenter: React.FC<UpdateMapCenterProps> = ({ coordinates }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView(coordinates); // Update the center of the map
+  }, [coordinates, map]);
+
+  return null;
 };
 
 export default Map;
