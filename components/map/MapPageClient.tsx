@@ -45,7 +45,7 @@ export default function MapPageClient() {
   // Функция для получения новых позиций из API
   const fetchGpsPositions = useCallback(async () => {
     try {
-      const response = await fetch('/api/map/gps');
+      const response = await fetch('/api/map/1/gps');
       if (!response.ok) throw new Error('Failed to fetch GPS data');
       const data = await response.json();
 
