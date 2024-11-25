@@ -18,7 +18,7 @@ interface ReportCardProps {
 
 export default function ReportCard({ report }: ReportCardProps) {
   return (
-    <div className="rounded-lg border shadow-md bg-white p-4 max-w-md">
+    <div className="rounded-lg border shadow-md bg-card p-4 max-w-md">
       <h2 className="text-lg font-semibold text-gray-800 mb-2">
         Отчет: {report.type}
       </h2>
@@ -54,7 +54,7 @@ export default function ReportCard({ report }: ReportCardProps) {
       )}
       <button
         className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
-        onClick={() => alert(`Подробнее об отчете ID: ${report.id}`)}
+        onClick={() => window.open(`${report.media}`, '_blank') }
       >
         Подробнее
       </button>
