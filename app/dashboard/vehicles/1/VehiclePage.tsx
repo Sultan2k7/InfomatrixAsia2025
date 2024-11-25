@@ -347,7 +347,7 @@ const VehiclePage = () => {
     const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
 
     // Convert the timestamp to UTC, then adjust it by the local timezone offset
-    const userDate = new Date(date.getTime() - 2 * timeZoneOffset);
+    const userDate = new Date(date.getTime());
 
     // Return the formatted date as a string in the user's local timezone
     return userDate.toLocaleString();
