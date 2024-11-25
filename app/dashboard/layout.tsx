@@ -41,26 +41,7 @@ const menuItems = [
     name: 'vehicles',
     icon: Truck,
     label: 'Транспорт',
-    subItems: [
-      {
-        name: 'create-vehicle',
-        icon: Plus,
-        label: 'Создать транспорт',
-        href: '/dashboard/vehicles/create',
-      },
-      {
-        name: 'all-vehicles',
-        icon: List,
-        label: 'Все транспорты',
-        href: '/dashboard/vehicles',
-      },
-    ],
-  },
-  {
-    name: 'shipments',
-    icon: Boxes,
-    label: 'Заявки',
-    href: '/dashboard/invoices',
+    href: '/dashboard/vehicles',
   },
   {
     name: 'incidents',
@@ -85,12 +66,6 @@ const menuItems = [
         icon: Leaf,
         label: 'Экология',
         href: '/dashboard/analytics/co2',
-      },
-      {
-        name: 'assistant',
-        icon: Bot,
-        label: 'Ассистент',
-        href: '/dashboard/analytics/assistant'
       },
     ],
   },

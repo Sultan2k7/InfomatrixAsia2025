@@ -21,7 +21,7 @@ const mockVehicles: Vehicle[] = [
     startPoint: [43.222, 76.8512], // Almaty
     endPoint: [51.1605, 71.4704], // Astana
     status: 'В движении',
-    speed: 64,
+    speed: 0,
     location: 'Актау',
     weather: {
       temperature: 30,

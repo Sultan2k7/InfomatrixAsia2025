@@ -83,13 +83,13 @@ export const VehicleDetails = ({
               Посмотреть в реальном времени
             </Button>
           </Link>
-        </div>
-        <div className="space-y-1">
+        </div> 
+        {/* <div className="space-y-1">
           <p className="text-sm font-medium leading-none">Прибытие</p>
           <p className="text-2xl font-bold">
             {vehicle.arrivalTime || 'Нет данных'}
           </p>
-        </div>
+        </div> */}
       </div>
     </CardContent>
   </Card>

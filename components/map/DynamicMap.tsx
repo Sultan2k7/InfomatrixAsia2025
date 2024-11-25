@@ -75,41 +75,53 @@ export default function DynamicMap({
   onMapDragEnd,
   setVehicles,
 }: DynamicMapProps) {
-  // Calculate bearing between two coordinates
-  const calculateBearing = (from: LatLngTuple, to: LatLngTuple): number => {
-    // Проверка, что значения координат не являются undefined
-    if (!from || !to || from.length !== 2 || to.length !== 2) {
-      console.error('Invalid coordinates provided for bearing calculation:', from, to);
-      return 0; // Возвращаем 0 как значение по умолчанию
-    }
-  
-    const [lat1, lon1] = from.map((deg) => (deg ?? 0) * (Math.PI / 180)); // Установка значения по умолчанию
-    const [lat2, lon2] = to.map((deg) => (deg ?? 0) * (Math.PI / 180));   // Установка значения по умолчанию
-    const deltaLon = lon2 - lon1;
-  
-    const x = Math.sin(deltaLon) * Math.cos(lat2);
-    const y =
-      Math.cos(lat1) * Math.sin(lat2) -
-      Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLon);
-  
-    const bearing = (Math.atan2(x, y) * 180) / Math.PI; // Преобразование в градусы
-    return (bearing + 360) % 360; // Нормализация в диапазон [0, 360]
-  };
-  
+  // Функция для обновления только скорости из API
+  const fetchVehicleSpeed = useCallback(async () => {
+    try {
+      const response = await fetch('/api/vehiclestest/1/'); // Ваш API эндпоинт
+      if (!response.ok) throw new Error('Failed to fetch vehicle speed');
+      const data: {
+        vehicleSpeed: number;
+        timestamp: string;
+        engineLoad: number;
+        
+      } = await response.json();
 
+      const now = new Date();
+      const lastUpdate = new Date(data.timestamp);
+
+      // Проверка на задержку обновления (1 минута)
+      const isStale = (now.getTime() - lastUpdate.getTime()) / 1000 > 60;
+
+      setVehicles((prevVehicles) =>
+        prevVehicles.map((vehicle) => ({
+          ...vehicle,
+          speed: isStale ? 0 : data.vehicleSpeed, // Устанавливаем скорость в 0, если данные устарели
+          engineLoad: isStale ? 0 : Math.round(data.engineLoad), // Устанавливаем округленную нагрузку двигателя или 0
+        }))
+      );
+    } catch (error) {
+      console.error('Error fetching vehicle speed:', error);
+    }
+  }, [setVehicles]);
+
+
+
+
+  // Оригинальная логика обновления координат и bearing
   const fetchVehicles = useCallback(async () => {
     try {
       const response = await fetch('/api/map/1/gps');
       if (!response.ok) throw new Error('Failed to fetch vehicle data');
       const data = await response.json();
-  
+
       setVehicles((prevVehicles) =>
         prevVehicles.map((vehicle) => {
           const updatedVehicle = data.find((v: any) => v.vehicleId === vehicle.id);
-  
+
           if (updatedVehicle) {
             const newPosition: LatLngTuple = [updatedVehicle.latitude, updatedVehicle.longitude];
-  
+
             // Если координаты остались такими же, сохраняем текущий bearing
             if (
               vehicle.position[0] === newPosition[0] &&
@@ -118,16 +130,18 @@ export default function DynamicMap({
               return {
                 ...vehicle,
                 speed: updatedVehicle.speed || vehicle.speed, // Обновляем скорость
+                engineLoad: updatedVehicle.engineLoad || vehicle.engineLoad,
               };
             }
-  
+
             // Рассчитываем новый bearing, если координаты изменились
             const bearing = calculateBearing(vehicle.position, newPosition);
-  
+
             return {
               ...vehicle,
               position: newPosition,
               speed: updatedVehicle.speed || vehicle.speed,
+              engineLoad: updatedVehicle.engineLoad || vehicle.engineLoad,
               bearing, // Рассчитанный bearing
             };
           }
@@ -138,13 +152,36 @@ export default function DynamicMap({
       console.error('Error fetching vehicle data:', error);
     }
   }, [setVehicles]);
-  
+
+  // Рассчет bearing между координатами
+  const calculateBearing = (from: LatLngTuple, to: LatLngTuple): number => {
+    if (!from || !to || from.length !== 2 || to.length !== 2) {
+      console.error('Invalid coordinates provided for bearing calculation:', from, to);
+      return 0;
+    }
+
+    const [lat1, lon1] = from.map((deg) => (deg ?? 0) * (Math.PI / 180));
+    const [lat2, lon2] = to.map((deg) => (deg ?? 0) * (Math.PI / 180));
+    const deltaLon = lon2 - lon1;
+
+    const x = Math.sin(deltaLon) * Math.cos(lat2);
+    const y =
+      Math.cos(lat1) * Math.sin(lat2) -
+      Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLon);
+
+    const bearing = (Math.atan2(x, y) * 180) / Math.PI;
+    return (bearing + 360) % 360; // Нормализация
+  };
 
   useEffect(() => {
-    fetchVehicles();
-    const intervalId = setInterval(fetchVehicles, 1000); // Fetch every second
-    return () => clearInterval(intervalId); // Cleanup interval on unmount
-  }, [fetchVehicles]);
+    fetchVehicles(); // Получение координат
+    fetchVehicleSpeed(); // Получение скорости
+    const intervalId = setInterval(() => {
+      fetchVehicles();
+      fetchVehicleSpeed();
+    }, 1000); // Обновляем каждые 1000 мс
+    return () => clearInterval(intervalId); // Очистка интервала
+  }, [fetchVehicles, fetchVehicleSpeed]);
 
   return (
     <>
