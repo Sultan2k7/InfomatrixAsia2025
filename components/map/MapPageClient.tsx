@@ -5,63 +5,74 @@ import React, { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import type { LatLngTuple } from 'leaflet';
 import { VehicleDetails } from '@/components/shared/vehicle-details';
-
-// Import only the types from your existing map component
-import type { Vehicle } from '@/types/vehicles'; // Move your Vehicle interface to a separate types file
+import type { Vehicle } from '@/types/vehicles';
 
 const DynamicMap = dynamic(() => import('@/components/map/DynamicMap'), {
   ssr: false,
 });
 
+// Mock vehicles — данные, которые остаются постоянными
 const mockVehicles: Vehicle[] = [
-    {
-      id: '57432',
-      position: [43.222, 76.8512],
-      fuelAmount: 67,
-      driver: 'Михаил Абай',
-      startPoint: [43.222, 76.8512], // Almaty
-      endPoint: [51.1605, 71.4704], // Astana
-      status: 'В движении',
-      speed: 64,
-      location: 'Алматы',
-      weather: {
-        temperature: 30,
-        humidity: 32,
-        precipitation: 0,
-      },
-      engineLoad: 40,
-      arrivalTime: '16:56',
-      route: [],
-      routeIndex: 0,
-      bearing: 0,
+  {
+    id: '23',
+    position: [43.222, 76.8512],
+    fuelAmount: 67,
+    driver: 'Михаил Абай',
+    startPoint: [43.222, 76.8512], // Almaty
+    endPoint: [51.1605, 71.4704], // Astana
+    status: 'В движении',
+    speed: 64,
+    location: 'Актау',
+    weather: {
+      temperature: 30,
+      humidity: 32,
+      precipitation: 0,
     },
-    {
-      id: '57433',
-      position: [53.2198, 63.6354],
-      fuelAmount: 75,
-      driver: 'Айдар Казбеков',
-      startPoint: [53.2198, 63.6354], // Kostanay
-      endPoint: [49.8028, 73.1021], // Karaganda
-      status: 'В движении',
-      speed: 72,
-      location: 'Костанай',
-      weather: {
-        temperature: 28,
-        humidity: 35,
-        precipitation: 0,
-      },
-      engineLoad: 35,
-      arrivalTime: '18:30',
-      route: [],
-      routeIndex: 0,
-      bearing: 0,
-    },
-  ];
+    engineLoad: 40,
+    arrivalTime: '16:56',
+    route: [],
+    routeIndex: 0,
+    bearing: 0,
+  },
+];
 
 export default function MapPageClient() {
+  // Сохраняем состояние на основе mockVehicles
   const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [mapCenter, setMapCenter] = useState<LatLngTuple>([48.0196, 66.9237]);
+
+  // Функция для получения новых позиций из API
+  const fetchGpsPositions = useCallback(async () => {
+    try {
+      const response = await fetch('/api/map/gps');
+      if (!response.ok) throw new Error('Failed to fetch GPS data');
+      const data = await response.json();
+
+      // Обновляем позиции в `vehicles`, но оставляем остальные данные из `mockVehicles`
+      setVehicles((prevVehicles) =>
+        prevVehicles.map((vehicle) => {
+          const updatedData = data.find((record: any) => record.vehicleId === vehicle.id);
+          if (updatedData) {
+            return {
+              ...vehicle, // Сохраняем остальные данные из mockVehicles
+              position: [updatedData.latitude, updatedData.longitude] as LatLngTuple,
+              speed: updatedData.speed || vehicle.speed, // Обновляем скорость, если доступна
+            };
+          }
+          return vehicle; // Если данные отсутствуют, оставляем без изменений
+        })
+      );
+    } catch (error) {
+      console.error('Error fetching GPS positions:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchGpsPositions(); // Получаем данные при монтировании
+    const intervalId = setInterval(fetchGpsPositions, 1000); // Обновляем каждую секунду
+    return () => clearInterval(intervalId); // Очищаем таймер при размонтировании
+  }, [fetchGpsPositions]);
 
   const handleVehicleClick = useCallback((vehicle: Vehicle) => {
     setSelectedVehicle(vehicle);
