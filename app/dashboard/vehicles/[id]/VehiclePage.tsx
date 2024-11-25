@@ -267,7 +267,7 @@ const VehiclePage = () => {
 
   const fetchObdCheckData = async () => {
     try {
-      const response = await fetch(`/api/vehiclestest/`); // Fetch the single object
+      const response = await fetch(`/api/vehiclestest/1`); // Fetch the single object
       if (!response.ok) {
         throw new Error('Failed to fetch OBD check data');
       }
@@ -285,7 +285,7 @@ const VehiclePage = () => {
     longitude: number;
   }> => {
     try {
-      const response = await fetch('/api/vehicletest2/gps'); // Replace with your API endpoint
+      const response = await fetch('/api/vehicletest2/1/gps'); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error('Failed to fetch GPS data');
       }

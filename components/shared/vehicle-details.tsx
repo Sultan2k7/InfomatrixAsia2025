@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Vehicle } from '@/types/vehicles';
+import Link from 'next/link';
 
 export const VehicleDetails = ({
   vehicle,
@@ -12,7 +13,7 @@ export const VehicleDetails = ({
   <Card className="w-full lg:w-1/3 absolute top-0 left-0 h-full z-[1000] overflow-y-auto">
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium">
-        Ford F-150 #{vehicle.id}
+        Toyota Prado #{vehicle.id}
       </CardTitle>
       <Button variant="ghost" size="sm" onClick={onClose}>
         X
@@ -77,9 +78,11 @@ export const VehicleDetails = ({
               <span className="text-muted-foreground">Camera Feed</span>
             </div>
           </div>
-          <Button className="w-full mt-2" variant="outline">
-            Посмотреть в реальном времени
-          </Button>
+          <Link href={`/dashboard/vehicles/1`} passHref>
+            <Button className="w-full mt-2" variant="outline">
+              Посмотреть в реальном времени
+            </Button>
+          </Link>
         </div>
         <div className="space-y-1">
           <p className="text-sm font-medium leading-none">Прибытие</p>

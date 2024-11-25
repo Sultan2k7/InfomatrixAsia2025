@@ -1,14 +1,20 @@
 // components/map/DynamicMap.tsx
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import L, { LatLngTuple, divIcon } from 'leaflet';
-import { MapContainer, TileLayer, Marker, Polyline, Tooltip, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip, useMapEvents } from 'react-leaflet';
 import type { Vehicle } from '@/types/vehicles';
-import { calculateBearingHelper } from '@/lib/utils';
-
-// Import Leaflet CSS
 import 'leaflet/dist/leaflet.css';
+
+interface DynamicMapProps {
+  vehicles: Vehicle[];
+  selectedVehicle: Vehicle | null;
+  mapCenter: LatLngTuple;
+  onVehicleClick: (vehicle: Vehicle) => void;
+  onMapDragEnd: (center: LatLngTuple) => void;
+  setVehicles: React.Dispatch<React.SetStateAction<Vehicle[]>>;
+}
 
 const mapStyles = `
 .custom-div-icon {
@@ -29,101 +35,36 @@ const mapStyles = `
   padding: 5px;
   font-size: 12px;
 }
-.start-icon {
-  color: green;
-}
-.end-icon {
-  color: red;
-}
 `;
 
-function VehicleMarker({ vehicle, onClick, isSelected }: {
-  vehicle: Vehicle;
-  onClick: () => void;
-  isSelected: boolean;
-}) {
-  const markerRef = useRef<L.Marker>(null);
-
-  useEffect(() => {
-    if (markerRef.current) {
-      markerRef.current.setLatLng(vehicle.position);
-    }
-  }, [vehicle.position]);
-
+function VehicleMarker({ vehicle, onClick }: { vehicle: Vehicle; onClick: () => void }) {
   const customIcon = divIcon({
     className: 'custom-div-icon',
-    html: `<img src="/navigation.svg" class="navigation-icon" style="transform: rotate(${vehicle.bearing}deg);" />`,
+    html: `<img 
+            src="/navigation.svg" 
+            class="navigation-icon" 
+            style="transform: rotate(${vehicle.bearing || 0}deg);" 
+          />`,
     iconSize: [32, 32],
     iconAnchor: [16, 16],
   });
 
   return (
-    <>
-      <Marker
-        position={vehicle.position}
-        icon={customIcon}
-        eventHandlers={{ click: onClick }}
-        ref={markerRef}
+    <Marker
+      position={vehicle.position}
+      icon={customIcon}
+      eventHandlers={{ click: onClick }}
+    >
+      <Tooltip
+        permanent
+        direction="top"
+        offset={[0, -20]}
+        className="speed-tooltip"
       >
-        <Tooltip
-          permanent
-          direction="top"
-          offset={[0, -20]}
-          className="speed-tooltip"
-        >
-          {vehicle.speed} км/ч
-        </Tooltip>
-      </Marker>
-      {isSelected && (
-        <>
-          <Polyline positions={vehicle.route} color="#4CAF50" weight={4} />
-          <DestinationMarker position={vehicle.startPoint} isStart={true} />
-          <DestinationMarker position={vehicle.endPoint} isStart={false} />
-        </>
-      )}
-    </>
-  );
-}
-
-function DestinationMarker({ position, isStart }: {
-  position: LatLngTuple;
-  isStart: boolean;
-}) {
-  const icon = divIcon({
-    className: `custom-div-icon ${isStart ? 'start-icon' : 'end-icon'}`,
-    html: isStart ? '🟢' : '🔴',
-    iconSize: [24, 24],
-    iconAnchor: [12, 12],
-  });
-
-  return (
-    <Marker position={position} icon={icon}>
-      <Tooltip permanent direction="top" offset={[0, -20]}>
-        {isStart ? 'Начало' : 'Конец'}
+        {vehicle.speed} км/ч
       </Tooltip>
     </Marker>
   );
-}
-
-function MapEventHandler({ onDragEnd }: {
-  onDragEnd: (center: LatLngTuple) => void;
-}) {
-  const map = useMapEvents({
-    dragend: () => {
-      const center = map.getCenter();
-      onDragEnd([center.lat, center.lng]);
-    },
-  });
-  return null;
-}
-
-interface DynamicMapProps {
-  vehicles: Vehicle[];
-  selectedVehicle: Vehicle | null;
-  mapCenter: LatLngTuple;
-  onVehicleClick: (vehicle: Vehicle) => void;
-  onMapDragEnd: (center: LatLngTuple) => void;
-  setVehicles: React.Dispatch<React.SetStateAction<Vehicle[]>>;
 }
 
 export default function DynamicMap({
@@ -134,73 +75,76 @@ export default function DynamicMap({
   onMapDragEnd,
   setVehicles,
 }: DynamicMapProps) {
-  // Move your route fetching and vehicle updating logic here
-  const fetchRoute = useCallback(
-    async (start: LatLngTuple, end: LatLngTuple, vehicleId: string) => {
-      const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${process.env.NEXT_PUBLIC_OPENROUTESERVICE_API_KEY}&start=${start[1]},${start[0]}&end=${end[1]},${end[0]}`;
+  // Calculate bearing between two coordinates
+  const calculateBearing = (from: LatLngTuple, to: LatLngTuple): number => {
+    // Проверка, что значения координат не являются undefined
+    if (!from || !to || from.length !== 2 || to.length !== 2) {
+      console.error('Invalid coordinates provided for bearing calculation:', from, to);
+      return 0; // Возвращаем 0 как значение по умолчанию
+    }
+  
+    const [lat1, lon1] = from.map((deg) => (deg ?? 0) * (Math.PI / 180)); // Установка значения по умолчанию
+    const [lat2, lon2] = to.map((deg) => (deg ?? 0) * (Math.PI / 180));   // Установка значения по умолчанию
+    const deltaLon = lon2 - lon1;
+  
+    const x = Math.sin(deltaLon) * Math.cos(lat2);
+    const y =
+      Math.cos(lat1) * Math.sin(lat2) -
+      Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLon);
+  
+    const bearing = (Math.atan2(x, y) * 180) / Math.PI; // Преобразование в градусы
+    return (bearing + 360) % 360; // Нормализация в диапазон [0, 360]
+  };
+  
 
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const coordinates = data.features[0].geometry.coordinates.map(
-          (coord: number[]) => [coord[1], coord[0]] as LatLngTuple
-        );
-        handleRouteFound(coordinates, vehicleId);
-      } catch (error) {
-        console.error('Error fetching route:', error);
-      }
-    },
-    []
-  );
-
-  const handleRouteFound = useCallback(
-    (route: LatLngTuple[], vehicleId: string) => {
+  const fetchVehicles = useCallback(async () => {
+    try {
+      const response = await fetch('/api/map/gps');
+      if (!response.ok) throw new Error('Failed to fetch vehicle data');
+      const data = await response.json();
+  
       setVehicles((prevVehicles) =>
-        prevVehicles.map((vehicle) =>
-          vehicle.id === vehicleId
-            ? { ...vehicle, route, routeIndex: 0 }
-            : vehicle
-        )
-      );
-    },
-    [setVehicles]
-  );
-
-  useEffect(() => {
-    vehicles.forEach((vehicle) => {
-      fetchRoute(vehicle.startPoint, vehicle.endPoint, vehicle.id);
-    });
-  }, []); // Empty dependency array since we only want to fetch routes once
-
-  const updateVehicles = useCallback(() => {
-    setVehicles((prevVehicles) =>
-      prevVehicles.map((vehicle) => {
-        if (
-          vehicle.route.length < 2 ||
-          vehicle.routeIndex >= vehicle.route.length - 1
-        ) {
+        prevVehicles.map((vehicle) => {
+          const updatedVehicle = data.find((v: any) => v.vehicleId === vehicle.id);
+  
+          if (updatedVehicle) {
+            const newPosition: LatLngTuple = [updatedVehicle.latitude, updatedVehicle.longitude];
+  
+            // Если координаты остались такими же, сохраняем текущий bearing
+            if (
+              vehicle.position[0] === newPosition[0] &&
+              vehicle.position[1] === newPosition[1]
+            ) {
+              return {
+                ...vehicle,
+                speed: updatedVehicle.speed || vehicle.speed, // Обновляем скорость
+              };
+            }
+  
+            // Рассчитываем новый bearing, если координаты изменились
+            const bearing = calculateBearing(vehicle.position, newPosition);
+  
+            return {
+              ...vehicle,
+              position: newPosition,
+              speed: updatedVehicle.speed || vehicle.speed,
+              bearing, // Рассчитанный bearing
+            };
+          }
           return vehicle;
-        }
-
-        const nextIndex = vehicle.routeIndex + 1;
-        const currentPoint = vehicle.route[vehicle.routeIndex];
-        const nextPoint = vehicle.route[nextIndex];
-
-        return {
-          ...vehicle,
-          position: nextPoint,
-          routeIndex: nextIndex,
-          bearing: calculateBearingHelper(currentPoint, nextPoint),
-          speed: Math.floor(Math.random() * 30) + 50,
-        };
-      })
-    );
+        })
+      );
+    } catch (error) {
+      console.error('Error fetching vehicle data:', error);
+    }
   }, [setVehicles]);
+  
 
   useEffect(() => {
-    const intervalId = setInterval(updateVehicles, 1000);
-    return () => clearInterval(intervalId);
-  }, [updateVehicles]);
+    fetchVehicles();
+    const intervalId = setInterval(fetchVehicles, 1000); // Fetch every second
+    return () => clearInterval(intervalId); // Cleanup interval on unmount
+  }, [fetchVehicles]);
 
   return (
     <>
@@ -219,11 +163,20 @@ export default function DynamicMap({
             key={vehicle.id}
             vehicle={vehicle}
             onClick={() => onVehicleClick(vehicle)}
-            isSelected={selectedVehicle?.id === vehicle.id}
           />
         ))}
         <MapEventHandler onDragEnd={onMapDragEnd} />
       </MapContainer>
     </>
   );
+}
+
+function MapEventHandler({ onDragEnd }: { onDragEnd: (center: LatLngTuple) => void }) {
+  const map = useMapEvents({
+    dragend: () => {
+      const center = map.getCenter();
+      onDragEnd([center.lat, center.lng]);
+    },
+  });
+  return null;
 }

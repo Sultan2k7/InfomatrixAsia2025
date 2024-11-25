@@ -267,7 +267,7 @@ const VehiclePage = () => {
 
   const fetchObdCheckData = async () => {
     try {
-      const response = await fetch(`/api/vehiclestest/`); // Fetch the single object
+      const response = await fetch(`/api/vehiclestest/1`); // Fetch the single object
       if (!response.ok) {
         throw new Error('Failed to fetch OBD check data');
       }
@@ -285,7 +285,7 @@ const VehiclePage = () => {
     longitude: number;
   }> => {
     try {
-      const response = await fetch('/api/vehicletest2/gps'); // Replace with your API endpoint
+      const response = await fetch('/api/vehicletest2/1/gps'); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error('Failed to fetch GPS data');
       }
@@ -347,7 +347,7 @@ const VehiclePage = () => {
     const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
 
     // Convert the timestamp to UTC, then adjust it by the local timezone offset
-    const userDate = new Date(date.getTime() - timeZoneOffset);
+    const userDate = new Date(date.getTime() - 2 * timeZoneOffset);
 
     // Return the formatted date as a string in the user's local timezone
     return userDate.toLocaleString();
