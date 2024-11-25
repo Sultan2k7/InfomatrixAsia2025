@@ -213,7 +213,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
 
     const fetchObdCheckData = async () => {
         try {
-          const response = await fetch('/api/vehicletest2/');
+          const response = await fetch('/api/vehicletest2/1');
           if (!response.ok) {
             throw new Error('Failed to fetch OBD check data');
           }
