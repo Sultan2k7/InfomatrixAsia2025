@@ -21,7 +21,7 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
-  role          Role      @default(USER)
+  role          Role      @default(ADMIN)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   Request       Request[]
@@ -43,39 +43,27 @@ model Request {
 
 model Vehicle {
   id             String   @id @default(cuid())
-  driverId       String?  // Assuming driverId is a String based on previous context
-  driver         Driver?  @relation(fields: [driverId], references: [id])
-  vehicleNumber  String?  @default("UNKNOWN")
+  driverId       String?
+  licensePlate   String?
   currentMission String?
   location       String?
-  latitude       Float?
-  longitude      Float?
-  startLatitude  Float?
-  startLongitude Float?
-  endLatitude    Float?
-  endLongitude   Float?
   speed          Int?     @default(0)
-  malfunctions   Int?     // Assuming malfunctions is an Int
+  maintenance    Json?
+  malfunctions   Json?
+  error_time     DateTime @default(now())
   vehicleType    String?
-  status         String?  @default("active")
-  route          Json?
-  routeIndex     Int?
-  bearing        Float?
-  weather        Json?
-  engineLoad     Int?
-  arrivalTime    String?  // Assuming arrivalTime is stored as a String
+  status         String?   @default("active")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
 
 model Driver {
-  id             String   @id @default(cuid()) // Ensure this is also a String
-  name           String
-  department     String
-  experience     String
-  DateoOfBirth   DateTime @default(now())
-  phoneNumber    String
-  vehicles       Vehicle[] // Back-reference
+  id                           Int      @id @default(autoincrement())
+  name                         String
+  department                   String
+  experience                   String
+  DateoOfBirth                 DateTime @default(now())
+  phoneNumber                  String
 }
 
 model Report {
@@ -177,12 +165,4 @@ model Obd_check{
   id                           Int   @id @default(autoincrement())
   all                          Json
   createdAt   DateTime @default(now())
-}
-
-
-
-model obd_checktest{
-  id                          Int @id @default(autoincrement())
-  all                         Json
-  createdAt    DateTime @default(now())
 }
