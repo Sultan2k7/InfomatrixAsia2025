@@ -45,16 +45,26 @@ export default function ReportCard({ report }: ReportCardProps) {
           <p className="text-sm text-gray-600 mb-1">
             <strong>Медиа:</strong>
           </p>
-          <img
-            src={report.media}
-            alt="Media related to the report"
-            className="rounded-md shadow-sm max-w-full"
-          />
+          {report.media.endsWith('.mp4') ? (
+            <video
+              src={report.media}
+              controls
+              className="rounded-md shadow-sm max-w-full"
+            >
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img
+              src={report.media}
+              alt="Media related to the report"
+              className="rounded-md shadow-sm max-w-full"
+            />
+          )}
         </div>
       )}
       <button
         className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
-        onClick={() => window.open(`${report.media}`, '_blank') }
+        onClick={() => window.open(report.media, '_blank')}
       >
         Подробнее
       </button>

@@ -74,15 +74,9 @@ export const VehicleDetails = ({
         <div className="space-y-1">
           <p className="text-sm font-medium leading-none">Камеры</p>
           <div className="aspect-video bg-muted">
-            <video 
-              className="w-full h-full" 
-              src="/vids/edet.mp4" 
-              autoPlay 
-              loop 
-              muted 
-            >
-              Your browser does not support the video tag.
-            </video>
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="text-muted-foreground">Camera Feed</span>
+            </div>
           </div>
           <Link href={`/dashboard/vehicles/1`} passHref>
             <Button className="w-full mt-2" variant="outline">
