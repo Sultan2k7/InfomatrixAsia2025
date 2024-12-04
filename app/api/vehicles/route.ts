@@ -9,7 +9,7 @@ const vehicleSchema = z.object({
   phoneNumber: z.string().min(1, 'Номер телефона обязателен'),
   vehicleType: z.enum(['Автомобиль', 'Фургон', 'Грузовик']),
   currentMission: z.string().optional(),
-  location: z.string().optional(),
+
 });
 
 export async function GET() {
@@ -41,7 +41,6 @@ export async function POST(req: Request) {
       vehicleNumber,
       vehicleType,
       currentMission,
-      location,
       phoneNumber,
     } = vehicleSchema.parse(body);
 
@@ -58,7 +57,6 @@ export async function POST(req: Request) {
       data: {
         vehicleType,
         currentMission,
-        location,
         driverId: user.id,
       },
     });
