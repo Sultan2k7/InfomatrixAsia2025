@@ -54,6 +54,16 @@ export default function MapPageClient() {
         prevVehicles.map((vehicle) => {
           const updatedData = data.find((record: any) => record.vehicleId === vehicle.id);
           if (updatedData) {
+            const newPosition: LatLngTuple = [updatedData.latitude, updatedData.longitude];
+            
+            if(vehicle.position[0] === newPosition[0] &&
+               vehicle.position[1] === newPosition[1] ){
+                return {
+                  ...vehicle,
+                  speed: 0,
+                  position: [updatedData.latitude, updatedData.longitude] as LatLngTuple,
+                };
+              }
             return {
               ...vehicle, // Сохраняем остальные данные из mockVehicles
               position: [updatedData.latitude, updatedData.longitude] as LatLngTuple,

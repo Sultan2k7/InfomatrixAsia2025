@@ -129,7 +129,7 @@ export default function DynamicMap({
             ) {
               return {
                 ...vehicle,
-                speed: updatedVehicle.speed || vehicle.speed, // Обновляем скорость
+                speed: 0, // Если координаты остались такими же, то это означает что скорость равна 0
                 engineLoad: updatedVehicle.engineLoad || vehicle.engineLoad,
               };
             }
