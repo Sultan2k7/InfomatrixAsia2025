@@ -48,14 +48,6 @@ export function AboutUs() {
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </div>
-          <div className="relative aspect-video sm:aspect-square">
-            <Image
-              src="/truck.svg"
-              alt="3GIS команда"
-              fill
-              className="object-cover rounded-lg transition-all duration-300 hover:scale-105"
-            />
-          </div>
         </div>
       </Container>
     </section>
