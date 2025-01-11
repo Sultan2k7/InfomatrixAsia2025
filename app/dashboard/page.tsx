@@ -14,15 +14,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import {
-  MapPin,
-  Truck,
-  AlertTriangle,
-  Users,
-  BarChart2,
-  Activity,
-  Calendar,
-} from 'lucide-react';
+import { MapPin, Truck, AlertTriangle, Users, BarChart2, Activity, Calendar } from 'lucide-react';
 
 const data = [
   { name: 'Пн', incidents: 4 },
@@ -36,10 +28,10 @@ const data = [
 
 export default function DashboardHome() {
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold">Панель управления 3GIS</h1>
+    <div className="p-4 sm:p-6 space-y-6">
+      <h1 className="text-2xl sm:text-3xl font-bold">Панель управления 3GIS</h1>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
@@ -98,43 +90,45 @@ export default function DashboardHome() {
         </Card>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-7">
+        <Card className="lg:col-span-4">
           <CardHeader>
             <CardTitle>Статистика инцидентов за неделю</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="incidents" fill="#8884d8" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={data}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="incidents" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
-        <Card className="col-span-3">
+        <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle>Состояние автопарка</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex items-center">
-                <div className="w-40 mr-4">В эксплуатации</div>
+              <div className="flex flex-col sm:flex-row items-center">
+                <div className="w-full sm:w-40 mb-2 sm:mb-0 sm:mr-4">В эксплуатации</div>
                 <Progress value={75} className="flex-1" />
-                <div className="w-10 text-right">75%</div>
+                <div className="w-full sm:w-10 text-left sm:text-right mt-2 sm:mt-0">75%</div>
               </div>
-              <div className="flex items-center">
-                <div className="w-40 mr-4">На техобслуживании</div>
+              <div className="flex flex-col sm:flex-row items-center">
+                <div className="w-full sm:w-40 mb-2 sm:mb-0 sm:mr-4">На техобслуживании</div>
                 <Progress value={15} className="flex-1" />
-                <div className="w-10 text-right">15%</div>
+                <div className="w-full sm:w-10 text-left sm:text-right mt-2 sm:mt-0">15%</div>
               </div>
-              <div className="flex items-center">
-                <div className="w-40 mr-4">Не используется</div>
+              <div className="flex flex-col sm:flex-row items-center">
+                <div className="w-full sm:w-40 mb-2 sm:mb-0 sm:mr-4">Не используется</div>
                 <Progress value={10} className="flex-1" />
-                <div className="w-10 text-right">10%</div>
+                <div className="w-full sm:w-10 text-left sm:text-right mt-2 sm:mt-0">10%</div>
               </div>
             </div>
           </CardContent>
@@ -146,20 +140,20 @@ export default function DashboardHome() {
           <CardTitle>Быстрые действия</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Button>
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <Button className="w-full">
               <Truck className="mr-2 h-4 w-4" />
               Добавить ТС
             </Button>
-            <Button>
+            <Button className="w-full">
               <Users className="mr-2 h-4 w-4" />
               Управление водителями
             </Button>
-            <Button>
+            <Button className="w-full">
               <BarChart2 className="mr-2 h-4 w-4" />
               Просмотр отчетов
             </Button>
-            <Button>
+            <Button className="w-full">
               <Activity className="mr-2 h-4 w-4" />
               Мониторинг маршрутов
             </Button>
@@ -172,24 +166,28 @@ export default function DashboardHome() {
           <CardTitle>Последние события</CardTitle>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="incidents">
-            <TabsList>
+          <Tabs defaultValue="incidents" className="w-full">
+            <TabsList className="w-full justify-start">
               <TabsTrigger value="incidents">Инциденты</TabsTrigger>
               <TabsTrigger value="maintenance">Техобслуживание</TabsTrigger>
             </TabsList>
             <TabsContent value="incidents">
               <ul className="space-y-2">
-                <li className="flex items-center">
-                  <AlertTriangle className="mr-2 h-4 w-4 text-yellow-500" />
-                  <span>Превышение скорости на маршруте A-12</span>
-                  <span className="ml-auto text-sm text-muted-foreground">
+                <li className="flex flex-col sm:flex-row sm:items-center">
+                  <div className="flex items-center">
+                    <AlertTriangle className="mr-2 h-4 w-4 text-yellow-500 flex-shrink-0" />
+                    <span>Превышение скорости на маршруте A-12</span>
+                  </div>
+                  <span className="mt-1 sm:mt-0 sm:ml-auto text-sm text-muted-foreground">
                     2 часа назад
                   </span>
                 </li>
-                <li className="flex items-center">
-                  <AlertTriangle className="mr-2 h-4 w-4 text-red-500" />
-                  <span>Отклонение от маршрута B-7</span>
-                  <span className="ml-auto text-sm text-muted-foreground">
+                <li className="flex flex-col sm:flex-row sm:items-center">
+                  <div className="flex items-center">
+                    <AlertTriangle className="mr-2 h-4 w-4 text-red-500 flex-shrink-0" />
+                    <span>Отклонение от маршрута B-7</span>
+                  </div>
+                  <span className="mt-1 sm:mt-0 sm:ml-auto text-sm text-muted-foreground">
                     5 часов назад
                   </span>
                 </li>
@@ -197,17 +195,21 @@ export default function DashboardHome() {
             </TabsContent>
             <TabsContent value="maintenance">
               <ul className="space-y-2">
-                <li className="flex items-center">
-                  <Calendar className="mr-2 h-4 w-4 text-blue-500" />
-                  <span>Плановое ТО для ТС #127</span>
-                  <span className="ml-auto text-sm text-muted-foreground">
+                <li className="flex flex-col sm:flex-row sm:items-center">
+                  <div className="flex items-center">
+                    <Calendar className="mr-2 h-4 w-4 text-blue-500 flex-shrink-0" />
+                    <span>Плановое ТО для ТС #127</span>
+                  </div>
+                  <span className="mt-1 sm:mt-0 sm:ml-auto text-sm text-muted-foreground">
                     Завтра
                   </span>
                 </li>
-                <li className="flex items-center">
-                  <Calendar className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Завершено ТО для ТС #093</span>
-                  <span className="ml-auto text-sm text-muted-foreground">
+                <li className="flex flex-col sm:flex-row sm:items-center">
+                  <div className="flex items-center">
+                    <Calendar className="mr-2 h-4 w-4 text-green-500 flex-shrink-0" />
+                    <span>Завершено ТО для ТС #093</span>
+                  </div>
+                  <span className="mt-1 sm:mt-0 sm:ml-auto text-sm text-muted-foreground">
                     Вчера
                   </span>
                 </li>
@@ -219,3 +221,4 @@ export default function DashboardHome() {
     </div>
   );
 }
+
