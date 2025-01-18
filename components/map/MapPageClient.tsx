@@ -11,68 +11,29 @@ const DynamicMap = dynamic(() => import('@/components/map/DynamicMap'), {
   ssr: false,
 });
 
-// Mock vehicles — данные, которые остаются постоянными
-const mockVehicles: Vehicle[] = [
-  {
-    id: '23',
-    position: [43.222, 76.8512],
-    fuelAmount: 67,
-    driver: 'Михаил Абай',
-    startPoint: [43.222, 76.8512], // Almaty
-    endPoint: [51.1605, 71.4704], // Astana
-    status: 'В движении',
-    speed: 0,
-    location: 'Актау',
-    weather: {
-      temperature: 30,
-      humidity: 32,
-      precipitation: 0,
-    },
-    engineLoad: 40,
-    arrivalTime: '16:56',
-    route: [],
-    routeIndex: 0,
-    bearing: 0,
-  },
-];
-
 export default function MapPageClient() {
-  // Сохраняем состояние на основе mockVehicles
-  const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [mapCenter, setMapCenter] = useState<LatLngTuple>([48.0196, 66.9237]);
 
-  // Функция для получения новых позиций из API
-  const fetchGpsPositions = useCallback(async () => {
+  const fetchVehiclesWithGps = useCallback(async () => {
     try {
       const response = await fetch('/api/map/1/gps');
-      if (!response.ok) throw new Error('Failed to fetch GPS data');
-      const data = await response.json();
-
-      // Обновляем позиции в `vehicles`, но оставляем остальные данные из `mockVehicles`
-      setVehicles((prevVehicles) =>
-        prevVehicles.map((vehicle) => {
-          const updatedData = data.find((record: any) => record.vehicleId === vehicle.id);
-          if (updatedData) {
-            return {
-              ...vehicle, // Сохраняем остальные данные из mockVehicles
-              position: [updatedData.latitude, updatedData.longitude] as LatLngTuple,
-              speed: updatedData.speed || vehicle.speed, // Обновляем скорость, если доступна
-            };
-          }
-          return vehicle; // Если данные отсутствуют, оставляем без изменений
-        })
-      );
+      if (!response.ok) throw new Error('Failed to fetch vehicles with GPS data');
+      const data: Vehicle[] = await response.json();
+      console.log('Fetched vehicles with GPS:', data); // Log the data
+      setVehicles(data);
     } catch (error) {
-      console.error('Error fetching GPS positions:', error);
+      console.error('Error fetching vehicles with GPS data:', error);
     }
   }, []);
+  
 
   useEffect(() => {
-    fetchGpsPositions(); // Получаем данные при монтировании
-    const intervalId = setInterval(fetchGpsPositions, 1000); // Обновляем каждую секунду
-    return () => clearInterval(intervalId); // Очищаем таймер при размонтировании
-  }, [fetchGpsPositions]);
+    fetchVehiclesWithGps();
+    const intervalId = setInterval(fetchVehiclesWithGps, 1000); // Refresh data every second
+    return () => clearInterval(intervalId); // Clear interval on component unmount
+  }, [fetchVehiclesWithGps]);
 
   const handleVehicleClick = useCallback((vehicle: Vehicle) => {
     setSelectedVehicle(vehicle);

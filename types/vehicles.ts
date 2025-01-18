@@ -9,7 +9,7 @@ export interface Vehicle {
   endPoint: LatLngTuple;
   status: string;
   speed: number;
-  location: string;
+  location: Location;
   weather: {
     temperature: number;
     humidity: number;
@@ -20,4 +20,11 @@ export interface Vehicle {
   route: LatLngTuple[];
   routeIndex: number;
   bearing: number;
+}
+
+export interface Location {
+  latitude: number;
+  longitude: number;
+  altitude?: number; // Optional
+  timestamp: string;
 }

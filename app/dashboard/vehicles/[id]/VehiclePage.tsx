@@ -61,7 +61,14 @@ interface OBDCheckData {
   acceleratorPedalPosition: number;
   engineCoolantTemperature: number;
   evapEmissionControlPressure: number;
-  gps_coordinates: LatLngTuple;
+  location: Location;
+  timestamp: string;
+}
+
+export interface Location {
+  latitude: number;
+  longitude: number;
+  altitude?: number; // Optional
   timestamp: string;
 }
 
@@ -90,7 +97,7 @@ type OBDData = {
   abs_status: boolean;
   airbag_deployment_status: boolean;
   tire_pressure: number;
-  gps_coordinates: LatLngTuple;
+  location: Location;
   altitude: number;
   heading: number;
   distance_traveled: number;
@@ -121,7 +128,7 @@ const obdData: OBDData = {
   abs_status: true,
   airbag_deployment_status: false,
   tire_pressure: 32.0,
-  gps_coordinates: [48.0196, 66.9237],
+  location: {latitude:48.0196, longitude: 66.9237, timestamp: '2025-01-01T12:00:00Z'},
   altitude: 150.0,
   heading: 85.0,
   distance_traveled: 200.0,
@@ -226,7 +233,7 @@ const dtcDescriptions: { [key: string]: string } = {
 const VehiclePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [coordinates, setCoordinates] = useState<LatLngTuple>(
-    obdData.gps_coordinates
+    [obdData.location.latitude, obdData.location.longitude]
   );
   const router = useRouter();
   const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null);
@@ -251,10 +258,6 @@ const VehiclePage = () => {
     const updateData = async () => {
       try {
         await fetchObdCheckData();
-        const gpsData = await fetchGPSData();
-        if (gpsData && gpsData.latitude && gpsData.longitude) {
-          setCoordinates([gpsData.latitude, gpsData.longitude]);
-        }
       } catch (error) {
         console.error('Error updating data:', error);
       }
@@ -267,7 +270,7 @@ const VehiclePage = () => {
 
   const fetchObdCheckData = async () => {
     try {
-      const response = await fetch(`/api/vehiclestest/1`); // Fetch the single object
+      const response = await fetch(`/api/map/1/gps`); // Fetch the single object
       if (!response.ok) {
         throw new Error('Failed to fetch OBD check data');
       }
@@ -280,22 +283,6 @@ const VehiclePage = () => {
     }
   };
 
-  const fetchGPSData = async (): Promise<{
-    latitude: number;
-    longitude: number;
-  }> => {
-    try {
-      const response = await fetch('/api/vehicletest2/1/gps'); // Replace with your API endpoint
-      if (!response.ok) {
-        throw new Error('Failed to fetch GPS data');
-      }
-      const data = await response.json();
-      return data; // Return the data
-    } catch (error) {
-      console.error('Error fetching GPS data:', error);
-      throw error; // Re-throw the error to handle it in the calling function
-    }
-  };
   const renderBack = () => (
     <div className="button-group">
       <Button onClick={() => router.back()} className="mb-8" variant="outline">
