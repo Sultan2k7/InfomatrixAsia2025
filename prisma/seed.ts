@@ -88,6 +88,8 @@ async function main() {
         malfunctions: Math.floor(Math.random() * 5),
         vehicleType: vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)],
         status: vehicleStatuses[Math.floor(Math.random() * vehicleStatuses.length)],
+        location_time: new Date(),
+        obd: ''
       },
     });
   }

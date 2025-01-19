@@ -58,6 +58,8 @@ model Request {
 
 model Vehicle {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  driverId       String?
+  driver         Driver?       @relation(fields: [driverId], references: [id])
   licensePlate   String?
   currentMission String?
   locationId     String?  @unique @db.ObjectId
@@ -87,6 +89,7 @@ model Driver {
   experience   String
   dateOfBirth  DateTime @default(now())
   phoneNumber  String
+  vehicles     Vehicle[]
 }
 
 model Report {

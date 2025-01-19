@@ -58,6 +58,8 @@ export async function POST(req: Request) {
         vehicleType,
         currentMission,
         driverId: user.id,
+        location_time: new Date(), // or appropriate value
+        obd: '', // or appropriate value
       },
     });
 
