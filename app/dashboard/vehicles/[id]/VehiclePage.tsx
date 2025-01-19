@@ -230,6 +230,19 @@ const dtcDescriptions: { [key: string]: string } = {
   P0300: 'Пропуски зажигания',
 };
 
+interface Vehicle {
+  id: string;
+  locationId: string | null;
+  location_time: string;
+  error_time: string;
+  vehicleType: string;
+  status: string;
+  currentRouteId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  obd: OBDData;
+}
+
 const VehiclePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [coordinates, setCoordinates] = useState<LatLngTuple>(
@@ -254,34 +267,28 @@ const VehiclePage = () => {
     setModalTitle('');
   };
 
+  
+  const [vehicleData, setVehicleData] = useState<Vehicle | null>(null);
+
   useEffect(() => {
-    const updateData = async () => {
+    const fetchObdCheckData = async () => {
       try {
-        await fetchObdCheckData();
+        const response = await fetch(`/api/map/1/gps`);
+        if (!response.ok) throw new Error('Failed to fetch OBD check data');
+        const data: Vehicle = await response.json();
+        setVehicleData(data);
+        setLoading(false);
+        console.log(data);
       } catch (error) {
-        console.error('Error updating data:', error);
+        console.error('Error fetching OBD check data:', error);
+        setLoading(false);
       }
     };
 
-    updateData();
-    const interval = setInterval(updateData, 10000);
+    fetchObdCheckData();
+    const interval = setInterval(fetchObdCheckData, 10000);
     return () => clearInterval(interval);
-  }, []);
-
-  const fetchObdCheckData = async () => {
-    try {
-      const response = await fetch(`/api/map/1/gps`); // Fetch the single object
-      if (!response.ok) {
-        throw new Error('Failed to fetch OBD check data');
-      }
-      const data: OBDCheckData = await response.json(); // Single object
-      setObdCheckData(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching OBD check data:', error);
-      setLoading(false);
-    }
-  };
+  }, [id]);
 
   const renderBack = () => (
     <div className="button-group">
@@ -376,7 +383,7 @@ const VehiclePage = () => {
                   </div>
                   <div className="flex justify-between">
                     <dt>Тип:</dt>
-                    <dd>Дизель</dd>
+                    <dd>{vehicleData?.vehicleType || 'Неизвестно'}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Номерной знак:</dt>
@@ -385,6 +392,10 @@ const VehiclePage = () => {
                   <div className="flex justify-between">
                     <dt>VIN:</dt>
                     <dd>5YJ3E1EA7MF123456</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt>Статус:</dt>
+                    <dd>{vehicleData?.status || 'Неизвестно'}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Пробег:</dt>

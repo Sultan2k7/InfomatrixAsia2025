@@ -10,6 +10,7 @@ export interface Vehicle {
   status: string;
   speed: number;
   location: Location;
+  obd: JSON;
   weather: {
     temperature: number;
     humidity: number;

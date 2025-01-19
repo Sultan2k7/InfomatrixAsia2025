@@ -11,6 +11,7 @@ export async function GET(req: Request) {
         licensePlate: true,
         vehicleType: true,
         status: true,
+        obd: true,
         locationId: true,
       },
     });
@@ -62,6 +63,7 @@ export async function GET(req: Request) {
         licensePlate: vehicle.licensePlate,
         vehicleType: vehicle.vehicleType,
         status: vehicle.status,
+        obd: vehicle.obd,
         location: gps
           ? {
               latitude: gps.latitude,

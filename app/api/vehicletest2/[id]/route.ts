@@ -4,7 +4,7 @@ import prisma from '@/prisma/prisma';
 export async function GET(req: Request) {
     try {
         // Fetch all entries from the obd_check table
-        const obdCheckData = await prisma.obd_check.findMany();
+        const obdCheckData = await prisma.obd.findMany();
       
         // Check if any data is returned
         if (obdCheckData.length === 0) {
