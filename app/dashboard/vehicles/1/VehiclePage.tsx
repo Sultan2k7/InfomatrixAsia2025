@@ -8,6 +8,7 @@ import { LineChart } from '@/components/shared/line-chart-steal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Modal from '@/components/shared/obd_chart_modal';
+import Maintenance from '@/components/shared/maintenance';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
@@ -538,6 +539,15 @@ const VehiclePage = () => {
 
             <Card>
               <CardHeader>
+                <CardTitle>Тех. обслуживание</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Maintenance vehicleId={vehicleData?.id || ''} />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
                 <CardTitle>График данных</CardTitle>
               </CardHeader>
               <CardContent>
@@ -548,7 +558,7 @@ const VehiclePage = () => {
         </div>
       </div>
       {/* Modal */}
-      <Modal isOpen={isModalOpen} title={modalTitle} onClose={closeModal} />
+      <Modal isOpen={isModalOpen} title={modalTitle} onClose={closeModal} vehicleId={vehicleData?.id || ''} />
     </div>
   );
 };

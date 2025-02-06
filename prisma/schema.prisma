@@ -189,7 +189,7 @@ model Counter {
   vehicle      Vehicle @relation(fields: [vehicleId], references: [id])
   title        String
   description  String?
-  nextDistance Int
+  currentDistance Int
   needDistance Int
 }
 
