@@ -84,7 +84,7 @@ export default function DynamicMap({
 }: DynamicMapProps) {
   const fetchVehiclesWithGps = useCallback(async () => {
     try {
-      const response = await fetch('/api/map/1/gps'); // Adjust to match your new API route
+      const response = await fetch('/api/map'); // Adjust to match your new API route
       if (!response.ok) throw new Error('Failed to fetch vehicles with GPS data');
       const data: Vehicle[] = await response.json();
       setVehicles(data);

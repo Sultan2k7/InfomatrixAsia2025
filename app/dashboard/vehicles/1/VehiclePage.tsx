@@ -274,7 +274,7 @@ const VehiclePage = () => {
   useEffect(() => {
     const fetchObdCheckData = async () => {
       try {
-        const response = await fetch(`/api/map/1/gps`);
+        const response = await fetch(`/api/map`);
         if (!response.ok) throw new Error('Failed to fetch OBD check data');
         
         // Указываем, что ожидаем массив объектов Vehicle

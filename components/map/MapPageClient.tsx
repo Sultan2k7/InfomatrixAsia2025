@@ -18,7 +18,7 @@ export default function MapPageClient() {
 
   const fetchVehiclesWithGps = useCallback(async () => {
     try {
-      const response = await fetch('/api/map/1/gps');
+      const response = await fetch('/api/map');
       if (!response.ok) throw new Error('Failed to fetch vehicles with GPS data');
       const data: Vehicle[] = await response.json();
       console.log('Fetched vehicles with GPS:', data); // Log the data

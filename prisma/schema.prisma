@@ -58,6 +58,7 @@ model Request {
 
 model Vehicle {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  vin            String?
   driverId       String?
   driver         Driver?       @relation(fields: [driverId], references: [id])
   licensePlate   String?
@@ -112,7 +113,7 @@ model Document {
 
 model Obd {
   id                          String   @id @default(auto()) @map("_id") @db.ObjectId
-  vehicle_id                  String?  @db.ObjectId
+  vehicleId                   String?  @db.ObjectId
   engineRpm                   Float?
   vehicleSpeed                Float?
   throttlePosition            Float?

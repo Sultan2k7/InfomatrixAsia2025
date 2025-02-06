@@ -231,27 +231,32 @@ const dtcDescriptions: { [key: string]: string } = {
 };
 
 interface Vehicle {
-  id: string;
-  locationId: string | null;
-  location_time: string;
-  error_time: string;
+  vehicleId: string;
+  licensePlate: string | null;
   vehicleType: string;
   status: string;
   currentRouteId: string | null;
   createdAt: string;
   updatedAt: string;
   obd: OBDData;
+  locationId: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    timestamp: Date;
+  };
+  driver: string | null;
 }
 
-const VehiclePage = () => {
+interface VehiclePageProps {
+  vehicleId: string;
+}
+
+const VehiclePage = ({ vehicleId }: VehiclePageProps) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [coordinates, setCoordinates] = useState<LatLngTuple>(
-    [obdData.location.latitude, obdData.location.longitude]
-  );
   const router = useRouter();
-  const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null);
+  const [vehicleData, setVehicleData] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(true);
-  const id = usePathname().split('/')[3];
 
   //Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -267,28 +272,25 @@ const VehiclePage = () => {
     setModalTitle('');
   };
 
-  
-  const [vehicleData, setVehicleData] = useState<Vehicle | null>(null);
-
   useEffect(() => {
-    const fetchObdCheckData = async () => {
+    const fetchVehicleData = async () => {
       try {
-        const response = await fetch(`/api/map/1/gps`);
-        if (!response.ok) throw new Error('Failed to fetch OBD check data');
-        const data: Vehicle = await response.json();
-        setVehicleData(data);
+        const response = await fetch(`/api/map?vehicleId=${vehicleId}`);
+        if (!response.ok) throw new Error('Failed to fetch vehicle data');
+        const data = await response.json();
+        // The API returns an array, so we take the first item
+        setVehicleData(Array.isArray(data) ? data[0] : data);
         setLoading(false);
-        console.log(data);
       } catch (error) {
-        console.error('Error fetching OBD check data:', error);
+        console.error('Error fetching vehicle data:', error);
         setLoading(false);
       }
     };
 
-    fetchObdCheckData();
-    const interval = setInterval(fetchObdCheckData, 10000);
+    fetchVehicleData();
+    const interval = setInterval(fetchVehicleData, 10000);
     return () => clearInterval(interval);
-  }, [id]);
+  }, [vehicleId]);
 
   const renderBack = () => (
     <div className="button-group">
@@ -307,24 +309,24 @@ const VehiclePage = () => {
     );
   }
 
-  if (!obdCheckData) {
+  if (!vehicleData) {
     return (
       <div>
         {renderBack()}
-        No OBD check data found
+        No vehicle data found
       </div>
     );
   }
 
-  const translatedObdData = Object.entries(obdCheckData).map(([key, value]) => {
+  const translatedObdData = vehicleData?.obd ? Object.entries(vehicleData.obd).map(([key, value]) => {
     const label = translationMap[key as keyof typeof translationMap]?.ru || key;
     const enkey = translationMap[key as keyof typeof translationMap]?.en || key;
     return {
       label,
       enkey,
-      value: Array.isArray(value) ? value.join(', ') : value,
+      value
     };
-  });
+  }) : [];
 
   const handleObdButtonClick = (enKey: string, value: number) => {
     openModal(enKey);
@@ -378,28 +380,24 @@ const VehiclePage = () => {
               <CardContent>
                 <dl className="space-y-2">
                   <div className="flex justify-between">
-                    <dt>Модель:</dt>
-                    <dd>Камаз Model B</dd>
-                  </div>
-                  <div className="flex justify-between">
                     <dt>Тип:</dt>
                     <dd>{vehicleData?.vehicleType || 'Неизвестно'}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt>Номерной знак:</dt>
-                    <dd>B213NBD</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt>VIN:</dt>
-                    <dd>5YJ3E1EA7MF123456</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Статус:</dt>
                     <dd>{vehicleData?.status || 'Неизвестно'}</dd>
                   </div>
                   <div className="flex justify-between">
+                    <dt>Номерной знак:</dt>
+                    <dd>{vehicleData?.licensePlate || 'Неизвестно'}</dd>
+                  </div>
+                  <div className="flex justify-between">
                     <dt>Пробег:</dt>
                     <dd>10000км</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt>Водитель:</dt>
+                    <dd>{vehicleData?.driver || 'Неизвестно'}</dd>
                   </div>
                 </dl>
               </CardContent>
@@ -415,11 +413,11 @@ const VehiclePage = () => {
               </CardHeader>
               <CardContent>
                 <div className="h-64 rounded-md overflow-hidden mb-4">
-                  <Map coordinates={coordinates} />
+                  <Map coordinates={vehicleData?.location ? [vehicleData.location.latitude, vehicleData.location.longitude] : [0, 0]} />
                 </div>
                 <div className="text-sm">
-                  <p>Широта: {coordinates[0].toFixed(6)}</p>
-                  <p>Долгота: {coordinates[1].toFixed(6)}</p>
+                  <p>Широта: {vehicleData?.location?.latitude?.toFixed(6) ?? 'Н/Д'}</p>
+                  <p>Долгота: {vehicleData?.location?.longitude?.toFixed(6) ?? 'Н/Д'}</p>
                 </div>
               </CardContent>
             </Card>
@@ -447,17 +445,15 @@ const VehiclePage = () => {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() =>
-                                handleObdButtonClick(item.enkey, item.value)
-                              }
+                              onClick={() => handleObdButtonClick(item.enkey, item.value as number)}
                             >
-                              {item.value}
+                              {item.value.toString()}
                             </Button>
                           ) : (
                             <span>
-                              {isValidTimestamp(item.value)
-                                ? convertToUserTimeZone(item.value)
-                                : item.value}
+                              {isValidTimestamp(String(item.value))
+                                ? convertToUserTimeZone(String(item.value))
+                                : String(item.value)}
                             </span>
                           )}
                         </dd>
@@ -542,7 +538,12 @@ const VehiclePage = () => {
         </div>
       </div>
       {/* Modal */}
-      <Modal isOpen={isModalOpen} title={modalTitle} onClose={closeModal} />
+      <Modal 
+        isOpen={isModalOpen} 
+        title={modalTitle} 
+        onClose={closeModal}
+        vehicleId={vehicleId}
+      />
     </div>
   );
 };
