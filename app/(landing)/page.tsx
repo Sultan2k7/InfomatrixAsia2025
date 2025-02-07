@@ -6,12 +6,14 @@ import { AboutUs } from '@/components/shared/about-us';
 
 export default function Home() {
   return (
-    <div>
-      <Header  />
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <AboutUs />
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <AboutUs />
+      </main>
     </div>
   );
 }

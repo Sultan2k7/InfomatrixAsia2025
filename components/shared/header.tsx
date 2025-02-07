@@ -43,7 +43,7 @@ export const Header: React.FC<Props> = ({ className }) => {
           <span className="text-xl font-bold">3GIS</span>
         </Link>
 
-        <nav className="hidden md:flex space-x-6">
+        <nav className="hidden md:flex space-x-4 lg:space-x-6">
           {navbarItems.map((item) => (
             <Link
               key={item.name}
@@ -60,7 +60,7 @@ export const Header: React.FC<Props> = ({ className }) => {
         </nav>
 
         <div className="flex items-center space-x-4">
-          <Link href="/login">
+          <Link href="/login" className="hidden sm:inline-block">
             <Button>Начать</Button>
           </Link>
           <Sheet>
@@ -85,6 +85,9 @@ export const Header: React.FC<Props> = ({ className }) => {
                     {item.name}
                   </Link>
                 ))}
+                <Link href="/login">
+                  <Button className="w-full">Начать</Button>
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>

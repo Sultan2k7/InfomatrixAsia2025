@@ -6,25 +6,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import {
-  BarChart3,
-  Boxes,
-  LayoutDashboard,
-  LogOut,
-  MapPin,
-  Settings,
-  Truck,
-  Users,
-  Loader2,
-  ChevronDown,
-  ChevronRight,
-  Plus,
-  List,
-  Bomb,
-  Fuel,
-  Leaf,
-  Bot,
-} from 'lucide-react';
+import { BarChart3, Boxes, LayoutDashboard, LogOut, MapPin, Settings, Truck, Users, Loader2, ChevronDown, ChevronRight, Plus, List, Bomb, Fuel, Leaf, Bot, Menu } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
 import 'leaflet/dist/leaflet.css';
@@ -92,6 +74,7 @@ export default function DashboardLayout({
   const router = useRouter();
   const pathname = usePathname();
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (status === 'authenticated') {
@@ -114,6 +97,21 @@ export default function DashboardLayout({
     }
   }, [status, session, router]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsSidebarOpen(true);
+      } else {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   if (status === 'loading') {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
@@ -131,10 +129,14 @@ export default function DashboardLayout({
     setOpenSubmenu(openSubmenu === name ? null : name);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <div className="flex h-screen bg-background">
       {/* Left Sidebar */}
-      <aside className="w-64 border-r bg-muted/40">
+      <aside className={`${isSidebarOpen ? 'w-64' : 'w-0'} md:w-64 border-r bg-muted/40 transition-all duration-300 ease-in-out overflow-hidden`}>
         <div className="flex h-full flex-col">
           <div className="flex h-14 items-center border-b px-4">
             <Link href="/" className="flex items-center space-x-2">
@@ -210,8 +212,16 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-hidden flex flex-col">
         <header className="flex h-14 items-center border-b px-6">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden mr-2"
+            onClick={toggleSidebar}
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
           <h1 className="text-lg font-semibold">
             {menuItems.find((item) => item.href === pathname)?.label ||
               menuItems.find((item) =>
@@ -220,7 +230,7 @@ export default function DashboardLayout({
               'Панель управления'}
           </h1>
         </header>
-        <div className="p-6">{children}</div>
+        <div className="flex-1 overflow-y-auto p-6">{children}</div>
       </main>
     </div>
   );

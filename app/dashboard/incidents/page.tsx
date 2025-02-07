@@ -73,7 +73,7 @@ export default function InvoicesPage() {
     return (
       <div>
         {renderBack()}
-        No OBD check data found
+        No reports found
       </div>
     );
   }
