@@ -123,3 +123,4 @@ export function AwesomeCarousel({ items, className }: AwesomeCarouselProps) {
     </div>
   )
 }
+

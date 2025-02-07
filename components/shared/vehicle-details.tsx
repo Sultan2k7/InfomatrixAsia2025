@@ -77,6 +77,9 @@ export const VehicleDetails = ({
         <div className="space-y-1">
           <p className="text-sm font-medium leading-none">Камеры</p>
           <div className="aspect-video bg-muted">
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="text-muted-foreground">Camera Feed</span>
+            </div>
           <div className="w-full h-full flex items-center justify-center">
             <span className="text-muted-foreground">Camera Feed</span>
           </div>
