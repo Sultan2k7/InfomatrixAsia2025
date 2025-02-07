@@ -62,7 +62,14 @@ interface OBDCheckData {
   acceleratorPedalPosition: number;
   engineCoolantTemperature: number;
   evapEmissionControlPressure: number;
-  gps_coordinates: LatLngTuple;
+  location: Location;
+  timestamp: string;
+}
+
+export interface Location {
+  latitude: number;
+  longitude: number;
+  altitude?: number; // Optional
   timestamp: string;
 }
 
@@ -91,7 +98,7 @@ type OBDData = {
   abs_status: boolean;
   airbag_deployment_status: boolean;
   tire_pressure: number;
-  gps_coordinates: LatLngTuple;
+  location: Location;
   altitude: number;
   heading: number;
   distance_traveled: number;
@@ -122,7 +129,7 @@ const obdData: OBDData = {
   abs_status: true,
   airbag_deployment_status: false,
   tire_pressure: 32.0,
-  gps_coordinates: [48.0196, 66.9237],
+  location: {latitude:48.0196, longitude: 66.9237, timestamp: '2025-01-01T12:00:00Z'},
   altitude: 150.0,
   heading: 85.0,
   distance_traveled: 200.0,
@@ -224,10 +231,24 @@ const dtcDescriptions: { [key: string]: string } = {
   P0300: 'Пропуски зажигания',
 };
 
+interface Vehicle {
+  id: string;
+  locationId: string | null;
+  location_time: string;
+  error_time: string;
+  vehicleType: string;
+  status: string;
+  currentRouteId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  obd: OBDData;
+  licensePlate: string;
+}
+
 const VehiclePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [coordinates, setCoordinates] = useState<LatLngTuple>(
-    obdData.gps_coordinates
+    [obdData.location.latitude, obdData.location.longitude]
   );
   const router = useRouter();
   const [obdCheckData, setObdCheckData] = useState<OBDCheckData | null>(null);
@@ -248,61 +269,37 @@ const VehiclePage = () => {
     setModalTitle('');
   };
 
-  const maintenanceData = [
-    { name: 'Смена масла', currentKm: 8012, maxKm: 10000 },
-    { name: 'Смена охлаждающей жидкости', currentKm: 32703, maxKm: 50000 },
-    { name: 'Проверка тормозов', currentKm: 15443, maxKm: 20000 },
-  ];
+  
+  const [vehicleData, setVehicleData] = useState<Vehicle | null>(null);
 
   useEffect(() => {
-    const updateData = async () => {
+    const fetchObdCheckData = async () => {
       try {
-        await fetchObdCheckData();
-        const gpsData = await fetchGPSData();
-        if (gpsData && gpsData.latitude && gpsData.longitude) {
-          setCoordinates([gpsData.latitude, gpsData.longitude]);
+        const response = await fetch(`/api/map`);
+        if (!response.ok) throw new Error('Failed to fetch OBD check data');
+        
+        // Указываем, что ожидаем массив объектов Vehicle
+        const data = (await response.json()) as Vehicle[];
+        
+        if (data.length > 0) {
+          setVehicleData(data[0]);  // Берем первый элемент массива
+        } else {
+          setVehicleData(null);
         }
+        
+        setLoading(false);
       } catch (error) {
-        console.error('Error updating data:', error);
+        console.error('Error fetching OBD check data:', error);
+        setLoading(false);
       }
     };
+    
 
-    updateData();
-    const interval = setInterval(updateData, 10000);
+    fetchObdCheckData();
+    const interval = setInterval(fetchObdCheckData, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [id]);
 
-  const fetchObdCheckData = async () => {
-    try {
-      const response = await fetch(`/api/vehiclestest/1`); // Fetch the single object
-      if (!response.ok) {
-        throw new Error('Failed to fetch OBD check data');
-      }
-      const data: OBDCheckData = await response.json(); // Single object
-      setObdCheckData(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching OBD check data:', error);
-      setLoading(false);
-    }
-  };
-
-  const fetchGPSData = async (): Promise<{
-    latitude: number;
-    longitude: number;
-  }> => {
-    try {
-      const response = await fetch('/api/vehicletest2/1/gps'); // Replace with your API endpoint
-      if (!response.ok) {
-        throw new Error('Failed to fetch GPS data');
-      }
-      const data = await response.json();
-      return data; // Return the data
-    } catch (error) {
-      console.error('Error fetching GPS data:', error);
-      throw error; // Re-throw the error to handle it in the calling function
-    }
-  };
   const renderBack = () => (
     <div className="button-group">
       <Button onClick={() => router.back()} className="mb-8" variant="outline">
@@ -320,24 +317,27 @@ const VehiclePage = () => {
     );
   }
 
-  if (!obdCheckData) {
+  if (!vehicleData) {
     return (
       <div>
         {renderBack()}
-        No OBD check data found
+        No vehicle data found
       </div>
     );
   }
 
-  const translatedObdData = Object.entries(obdCheckData).map(([key, value]) => {
-    const label = translationMap[key as keyof typeof translationMap]?.ru || key;
-    const enkey = translationMap[key as keyof typeof translationMap]?.en || key;
-    return {
-      label,
-      enkey,
-      value: Array.isArray(value) ? value.join(', ') : value,
-    };
-  });
+  const translatedObdData = vehicleData?.obd
+  ? Object.entries(vehicleData.obd).map(([key, value]) => {
+      const label = translationMap[key as keyof typeof translationMap]?.ru || key;
+      const enkey = translationMap[key as keyof typeof translationMap]?.en || key;
+      return {
+        label,
+        enkey,
+        value: Array.isArray(value) ? value.join(', ') : value,
+      };
+    })
+  : [];
+
 
   const handleObdButtonClick = (enKey: string, value: number) => {
     openModal(enKey);
@@ -392,23 +392,27 @@ const VehiclePage = () => {
                 <dl className="space-y-2">
                   <div className="flex justify-between">
                     <dt>Модель:</dt>
-                    <dd>Toyota Camry</dd>
+                    <dd>Камаз Model B</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Тип:</dt>
-                    <dd>Бензин</dd>
+                    <dd>{vehicleData?.vehicleType || 'Неизвестно'}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Номерной знак:</dt>
-                    <dd>B213NBD</dd>
+                    <dd>{vehicleData?.licensePlate || 'Неизвестно'}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>VIN:</dt>
                     <dd>5YJ3E1EA7MF123456</dd>
                   </div>
                   <div className="flex justify-between">
+                    <dt>Статус:</dt>
+                    <dd>{vehicleData?.status || 'Неизвестно'}</dd>
+                  </div>
+                  <div className="flex justify-between">
                     <dt>Пробег:</dt>
-                    <dd>13400км</dd>
+                    <dd>10000км</dd>
                   </div>
                 </dl>
               </CardContent>
@@ -442,36 +446,30 @@ const VehiclePage = () => {
               </CardHeader>
               <CardContent>
                 <dl className="space-y-2">
-                  {translatedObdData
-                    .filter(
-                      (item) =>
-                        item.label !== 'Коды неисправностей' &&
-                        item.label !== 'GPS координаты'
-                    )
-                    .map((item, index) => (
-                      <div key={index} className="flex justify-between">
-                        <dt>{item.label}:</dt>
-                        <dd>
-                          {typeof item.value === 'number' ? (
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() =>
-                                handleObdButtonClick(item.enkey, item.value)
-                              }
-                            >
-                              {item.value}
-                            </Button>
-                          ) : (
-                            <span>
-                              {isValidTimestamp(item.value)
-                                ? convertToUserTimeZone(item.value)
-                                : item.value}
-                            </span>
-                          )}
-                        </dd>
-                      </div>
-                    ))}
+                {translatedObdData.map((item, index) => (
+                  <div key={index} className="flex justify-between">
+                    <dt>{item.label}:</dt>
+                    <dd>
+                      {typeof item.value === 'number' ? (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleObdButtonClick(item.enkey, item.value as number)}
+                        >
+                          {item.value}
+                        </Button>
+                      ) : (
+                        <span>
+                          {typeof item.value === 'object' && 'latitude' in item.value
+                            ? `${item.value.latitude}, ${item.value.longitude}`
+                            : isValidTimestamp(item.value.toString())
+                            ? convertToUserTimeZone(item.value.toString())
+                            : item.value.toString()}
+                        </span>
+                      )}
+                    </dd>
+                  </div>
+                ))}
                 </dl>
               </CardContent>
             </Card>
@@ -544,7 +542,7 @@ const VehiclePage = () => {
                 <CardTitle>Тех. обслуживание</CardTitle>
               </CardHeader>
               <CardContent>
-                <Maintenance items={maintenanceData}/>
+                <Maintenance vehicleId={vehicleData?.id || ''} />
               </CardContent>
             </Card>
 
@@ -560,7 +558,7 @@ const VehiclePage = () => {
         </div>
       </div>
       {/* Modal */}
-      <Modal isOpen={isModalOpen} title={modalTitle} onClose={closeModal} />
+      <Modal isOpen={isModalOpen} title={modalTitle} onClose={closeModal} vehicleId={vehicleData?.id || ''} />
     </div>
   );
 };

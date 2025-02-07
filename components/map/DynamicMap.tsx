@@ -38,6 +38,13 @@ const mapStyles = `
 `;
 
 function VehicleMarker({ vehicle, onClick }: { vehicle: Vehicle; onClick: () => void }) {
+
+  if (!vehicle.location) {
+    console.warn(`No GPS data for vehicle ID: ${vehicle.id}`);
+    return null; // Don't render a marker if no GPS data
+  }
+  
+  
   const customIcon = divIcon({
     className: 'custom-div-icon',
     html: `<img 
@@ -51,7 +58,7 @@ function VehicleMarker({ vehicle, onClick }: { vehicle: Vehicle; onClick: () => 
 
   return (
     <Marker
-      position={vehicle.position}
+      position={[vehicle.location.latitude, vehicle.location.longitude]}
       icon={customIcon}
       eventHandlers={{ click: onClick }}
     >
@@ -75,31 +82,12 @@ export default function DynamicMap({
   onMapDragEnd,
   setVehicles,
 }: DynamicMapProps) {
-  // Функция для обновления только скорости из API
-  const fetchVehicleSpeed = useCallback(async () => {
+  const fetchVehiclesWithGps = useCallback(async () => {
     try {
-      const response = await fetch('/api/vehiclestest/1/'); // Ваш API эндпоинт
-      if (!response.ok) throw new Error('Failed to fetch vehicle speed');
-      const data: {
-        vehicleSpeed: number;
-        timestamp: string;
-        engineLoad: number;
-        
-      } = await response.json();
-
-      const now = new Date();
-      const lastUpdate = new Date(data.timestamp);
-
-      // Проверка на задержку обновления (1 минута)
-      const isStale = (now.getTime() - lastUpdate.getTime()) / 1000 > 60;
-
-      setVehicles((prevVehicles) =>
-        prevVehicles.map((vehicle) => ({
-          ...vehicle,
-          speed: isStale ? 0 : data.vehicleSpeed, // Устанавливаем скорость в 0, если данные устарели
-          engineLoad: isStale ? 0 : Math.round(data.engineLoad), // Устанавливаем округленную нагрузку двигателя или 0
-        }))
-      );
+      const response = await fetch('/api/map'); // Adjust to match your new API route
+      if (!response.ok) throw new Error('Failed to fetch vehicles with GPS data');
+      const data: Vehicle[] = await response.json();
+      setVehicles(data);
     } catch (error) {
       console.error('Error fetching vehicle speed:', error);
     }
@@ -109,6 +97,7 @@ export default function DynamicMap({
 
 
   // Оригинальная логика обновления координат и bearing
+  // тут короче беринг украсть можно и нужно
   const fetchVehicles = useCallback(async () => {
     try {
       const response = await fetch('/api/map/1/gps');
@@ -174,14 +163,10 @@ export default function DynamicMap({
   };
 
   useEffect(() => {
-    fetchVehicles(); // Получение координат
-    fetchVehicleSpeed(); // Получение скорости
-    const intervalId = setInterval(() => {
-      fetchVehicles();
-      fetchVehicleSpeed();
-    }, 1000); // Обновляем каждые 1000 мс
-    return () => clearInterval(intervalId); // Очистка интервала
-  }, [fetchVehicles, fetchVehicleSpeed]);
+    fetchVehiclesWithGps();
+    const intervalId = setInterval(fetchVehiclesWithGps, 1000); // Fetch updated data every second
+    return () => clearInterval(intervalId);
+  }, [fetchVehiclesWithGps]);
 
   return (
     <>
@@ -212,6 +197,7 @@ function MapEventHandler({ onDragEnd }: { onDragEnd: (center: LatLngTuple) => vo
   const map = useMapEvents({
     dragend: () => {
       const center = map.getCenter();
+      console.log('New map center:', center);
       onDragEnd([center.lat, center.lng]);
     },
   });

@@ -38,7 +38,10 @@ export const VehicleDetails = ({
         <div className="space-y-1">
           <p className="text-sm font-medium leading-none">Локация</p>
           <p className="text-sm text-muted-foreground">
-            {vehicle.location || 'Нет данных'}
+          {vehicle.location?.latitude !== undefined && vehicle.location?.longitude !== undefined
+            ? [vehicle.location.latitude, vehicle.location.longitude]
+            : 'Нет данных'}
+
           </p>
         </div>
         <div className="space-y-1">
@@ -77,6 +80,9 @@ export const VehicleDetails = ({
             <div className="w-full h-full flex items-center justify-center">
               <span className="text-muted-foreground">Camera Feed</span>
             </div>
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="text-muted-foreground">Camera Feed</span>
+          </div>
           </div>
           <Link href={`/dashboard/vehicles/1`} passHref>
             <Button className="w-full mt-2" variant="outline">

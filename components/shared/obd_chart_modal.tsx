@@ -38,29 +38,33 @@ ChartJS.register(
 
 
 interface OBDCheckData {
-  id: number;
-  all: {
-    engineRpm: number;
-    fuelLevel: number;
-    engineLoad: number;
-    massAirFlow: number;
-    fuelPressure: number;
-    vehicleSpeed: number;
-    batteryVoltage: number;
-    oilTemperature: number;
-    distanceTraveled: number;
-    throttlePosition: number;
-    catalystTemperature: number;
-    fuelConsumptionRate: number;
-    oxygenSensorReading: number;
-    intakeAirTemperature: number;
-    acceleratorPedalPosition: number;
-    engineCoolantTemperature: number;
-    evapEmissionControlPressure: number;
-    timestamp: string; 
-    [key: string]: number | string;  // Adding index signature here
-  };
-  createdAt: string;
+    id: string;
+    vehicleId: string;
+    engineRpm: number | null;
+    vehicleSpeed: number | null;
+    throttlePosition: number | null;
+    fuelLevel: number | null;
+    shortTrim1: number | null;
+    longTrim1: number | null;
+    shortTrim2: number | null;
+    longTrim2: number | null;
+    engineLoad: number | null;
+    intakeAirTemperature: number | null;
+    massAirFlow: number | null;
+    fuelPressure: number | null;
+    fuelConsumptionRate: number | null;
+    engineCoolantTemperature: number | null;
+    oxygenSensorReading: number | null;
+    catalystTemperature: number | null;
+    evapEmissionControlPressure: number | null;
+    diagnosticTroubleCode: string | null;
+    batteryVoltage: number | null;
+    oilTemperature: number | null;
+    distanceTraveled: number | null;
+    time: string;
+    createdAt: string;
+    updatedAt: string;
+    [key: string]: string | number | null; // Index signature for dynamic access
 }
 const translations = {
     vehicle_id: { en: 'vehicle_id', ru: 'ID автомобиля' },
@@ -99,9 +103,10 @@ interface ModalProps {
   isOpen: boolean;
   title: string;
   onClose: () => void;
+  vehicleId: string;  // Add vehicleId prop
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose, vehicleId }) => {
 
     const labeel = title;
     const labeelru = translations[labeel as keyof typeof translations] || labeel;
@@ -146,8 +151,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
 
     useEffect(() => {
         fetchObdCheckData();
-        return;
-    },[isOpen, timePeriod]);
+    }, [isOpen, timePeriod]);
 
     const filterDataByTimePeriod = (data: OBDCheckData[], period: 'day' | 'week' | 'month' | '3month') => {
         const now = new Date(); // Current date
@@ -158,7 +162,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
             const oneDayAgo = new Date();
             oneDayAgo.setDate(now.getDate() - 1);
             filteredData = data.filter(item => {
-              const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+              const timestamp = new Date(item.time || item.createdAt); // Convert createdAt string to Date
               return timestamp >= oneDayAgo && timestamp <= now;
             });
             break;
@@ -166,7 +170,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
             const oneWeekAgo = new Date();
             oneWeekAgo.setDate(now.getDate() - 6);
             filteredData = data.filter(item => {
-              const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+              const timestamp = new Date(item.time || item.createdAt); // Convert createdAt string to Date
               const dayOfWeek = timestamp.getDate(); // Get day of the month
               return timestamp >= oneWeekAgo && timestamp <= now;
             });
@@ -175,7 +179,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
             const oneMonthAgo = new Date();
             oneMonthAgo.setMonth(now.getMonth() - 1);
             filteredData = data.filter(item => {
-              const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+              const timestamp = new Date(item.time || item.createdAt); // Convert createdAt string to Date
               return timestamp >= oneMonthAgo && timestamp <= now;
             });
             break;
@@ -183,7 +187,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
             const threeMonthsAgo = new Date();
             threeMonthsAgo.setMonth(now.getMonth() - 3); // Set the date to 3 months ago
             filteredData = data.filter(item => {
-              const timestamp = new Date(item.all.timestamp || item.createdAt); // Convert createdAt string to Date
+              const timestamp = new Date(item.time || item.createdAt); // Convert createdAt string to Date
               return timestamp >= threeMonthsAgo && timestamp <= now;  // Include data from the last 3 months
             });
             break;
@@ -196,7 +200,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
 
     const convertToUserTimeZone = (item: OBDCheckData) => {
         // Check if 'timestamp' exists in 'item.all', otherwise use 'item.createdAt'
-        const timestamp = item.all.timestamp || item.createdAt;
+        const timestamp = item.time || item.createdAt;
       
         // Parse the chosen timestamp (either 'timestamp' or 'createdAt')
         const date = new Date(timestamp);
@@ -213,31 +217,32 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose }) => {
 
     const fetchObdCheckData = async () => {
         try {
-          const response = await fetch('/api/vehicletest2/1');
-          if (!response.ok) {
-            throw new Error('Failed to fetch OBD check data');
-          }
-          const data: OBDCheckData[] = await response.json();
-    
-          //  filter out existing ones and get rid of nulls or undefined ones
-          const filteredData = data.filter(item => item.all[labeel] !== null && item.all[labeel] !== undefined );
-    
-          //  filter by date
-          const filteredData1 = filterDataByTimePeriod(filteredData, timePeriod);
-    
-    
-          // output exactly the labeeled ones
-          const values = filteredData1.map(item => item.all[labeel]);
-          const timestamps = filteredData1.map(item =>  convertToUserTimeZone(item));
-    
-          setObdCheckDataArray(filteredData);
-          setChartValues(values as number[]);
-          setTimedump(timestamps);
-    
-          setLoading(false);
+            const response = await fetch(`/api/obd?vehicleId=${vehicleId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch OBD check data');
+            }
+            const data: OBDCheckData[] = await response.json();
+
+            // Filter out nulls and undefined values for the specific parameter (labeel)
+            const filteredData = data.filter(item => 
+                item[labeel as keyof OBDCheckData] !== null && 
+                item[labeel as keyof OBDCheckData] !== undefined
+            );
+
+            // Filter by date
+            const filteredData1 = filterDataByTimePeriod(filteredData, timePeriod);
+
+            // Get values and timestamps
+            const values = filteredData1.map(item => item[labeel as keyof OBDCheckData] as number);
+            const timestamps = filteredData1.map(item => convertToUserTimeZone(item));
+
+            setObdCheckDataArray(filteredData);
+            setChartValues(values);
+            setTimedump(timestamps);
+            setLoading(false);
         } catch (error) {
-          console.error('Error fetching OBD check data:', error);
-          setLoading(false);
+            console.error('Error fetching OBD check data:', error);
+            setLoading(false);
         }
     };
     if (!isOpen) return null;

@@ -9,24 +9,45 @@ const vehicleSchema = z.object({
   phoneNumber: z.string().min(1, 'Номер телефона обязателен'),
   vehicleType: z.enum(['Автомобиль', 'Фургон', 'Грузовик']),
   currentMission: z.string().optional(),
-  location: z.string().optional(),
+  licensePlate: z.string().min(1, 'Номерной знак обязателен'),
 });
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const vehicles = await prisma.vehicle.findMany({
-      include: {
+      select: {
+        id: true,
+        licensePlate: true,
+        vehicleType: true,
+        status: true,
+        obd: true,
+        locationId: true,
         driver: true,
       },
     });
-    return NextResponse.json(vehicles);
+
+    const formattedResponse = vehicles.map(vehicle => {
+      return {
+        vehicleId: vehicle.id,
+        licensePlate: vehicle.licensePlate,
+        vehicleType: vehicle.vehicleType,
+        status: vehicle.status,
+        obd: vehicle.obd,
+        locationId: vehicle.locationId,
+        driver: vehicle.driver,
+      };
+    });
+
+    return NextResponse.json(formattedResponse);
   } catch (error) {
+    console.error('Error fetching vehicles:', error);
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { error: 'Unable to fetch data. Please try again later.' },
       { status: 500 }
     );
   }
 }
+
 export async function POST(req: Request) {
   // @ts-ignore
   const session = await getServerSession(authOptions);
@@ -41,8 +62,8 @@ export async function POST(req: Request) {
       vehicleNumber,
       vehicleType,
       currentMission,
-      location,
       phoneNumber,
+      licensePlate,
     } = vehicleSchema.parse(body);
 
     const user = await prisma.user.findUnique({
@@ -56,10 +77,12 @@ export async function POST(req: Request) {
 
     const newVehicle = await prisma.vehicle.create({
       data: {
+        licensePlate: licensePlate,
+        vin: vehicleNumber,
         vehicleType,
-        currentMission,
-        location,
         driverId: user.id,
+        location_time: new Date(), // or appropriate value
+        obd: '', // or appropriate value
       },
     });
 

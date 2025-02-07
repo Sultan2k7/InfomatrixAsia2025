@@ -83,38 +83,13 @@ async function main() {
     await prisma.vehicle.create({
       data: {
         driverId: users.find((u) => u.role === Role.DRIVER)!.id,
-        vehicleNumber: `KZ ${Math.floor(Math.random() * 1000)}`,
+        licensePlate: `KZ ${Math.floor(Math.random() * 1000)}`,
         currentMission: Math.random() > 0.5 ? `Mission ${i + 1}` : null,
-        location: `Location ${i + 1}`,
-        speed: Math.floor(Math.random() * 120),
         malfunctions: Math.floor(Math.random() * 5),
         vehicleType: vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)],
         status: vehicleStatuses[Math.floor(Math.random() * vehicleStatuses.length)],
-        latitude: startLat + (Math.random() - 0.5) * 2,
-        longitude: startLon + (Math.random() - 0.5) * 2,
-        startLatitude: startLat,
-        startLongitude: startLon,
-        endLatitude: endLat,
-        endLongitude: endLon,
-        route: JSON.stringify(
-          Array.from({ length: 5 }, () => [
-            startLat + (Math.random() - 0.5) * 2,
-            startLon + (Math.random() - 0.5) * 2,
-          ])
-        ),
-        routeIndex: Math.floor(Math.random() * 5),
-        bearing: Math.random() * 360,
-        weather: JSON.stringify({
-          temperature: Math.random() * 30,
-          humidity: Math.random() * 100,
-          precipitation: Math.random() * 100,
-        }),
-        engineLoad: Math.floor(Math.random() * 100),
-        arrivalTime: `${Math.floor(Math.random() * 24)
-          .toString()
-          .padStart(2, '0')}:${Math.floor(Math.random() * 60)
-          .toString()
-          .padStart(2, '0')}`,
+        location_time: new Date(),
+        obd: ''
       },
     });
   }

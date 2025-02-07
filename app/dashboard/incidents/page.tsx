@@ -2,58 +2,27 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  Plus,
-  ExternalLink,
-  ArrowLeft,
-} from 'lucide-react';
+
 import ReportCard from '@/components/shared/report-card';
-import { request } from 'http';
+import { ArrowLeft } from 'lucide-react';
+import IncidentsList from './IncidentsList';
 
 interface Report {
-  map(arg0: () => any): React.ReactNode;
   id: number;
-  vehicle_id: number;
-  driver_id: number;
+  vehicle_id: string; // Add vehicle_id
+  driver_id: string; // Add driver_id
   job_id: number;
   type: string;
-  time: string; // ISO string format
+  time: string;
   location: string;
-  media: string; // URL to image or video
+  media: string;
   status: string;
-}
-
-interface ReportCardProps {
-  map(arg0: (item: any, index: any) => any): Report;
-  report: Report;
 }
 
 export default function InvoicesPage() {
   const router = useRouter();
-  const [reports, setReports] = useState<Report[]| null>(null);
+  const [reports, setReports] = useState<Report[] | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -71,11 +40,11 @@ export default function InvoicesPage() {
 
   const fetchReports = async () => {
     try {
-      const response = await fetch(`/api/reports/1/`); 
+      const response = await fetch('/api/reports/1/');
       if (!response.ok) {
         throw new Error('Failed to fetch Reports');
       }
-      const data: Report[] = await response.json(); 
+      const data: Report[] = await response.json();
       setReports(data);
       setLoading(false);
     } catch (error) {
@@ -83,7 +52,7 @@ export default function InvoicesPage() {
       setLoading(false);
     }
   };
-  
+
   const renderBack = () => (
     <div className="button-group">
       <Button onClick={() => router.back()} className="mb-8" variant="outline">
@@ -91,6 +60,7 @@ export default function InvoicesPage() {
       </Button>
     </div>
   );
+
   if (loading) {
     return (
       <div>
@@ -107,18 +77,12 @@ export default function InvoicesPage() {
       </div>
     );
   }
-  
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
         {renderBack()}
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-           {reports.map((reportik) => (
-              <ReportCard key ={reportik.id} report={reportik}/>
-           ))
-           }
-        </div>
+        <IncidentsList reports={reports} />
       </div>
     </div>
   );
