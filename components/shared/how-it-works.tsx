@@ -2,46 +2,32 @@ import { Container } from '@/components/shared'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { MapIcon, TruckIcon, BarChartIcon, BellIcon } from 'lucide-react'
 import { AwesomeCarousel } from '@/components/ui/awesome-carousel'
-import { Container } from '@/components/shared'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { MapIcon, TruckIcon, BarChartIcon, BellIcon } from 'lucide-react'
-import { AwesomeCarousel } from '@/components/ui/awesome-carousel'
 
 const steps = [
   {
     id: 1,
-    id: 1,
     title: 'Подключение транспорта',
-    description: 'Установка GPS-трекеров и датчиков на все транспортные средства для отслеживания.',
     description: 'Установка GPS-трекеров и датчиков на все транспортные средства для отслеживания.',
     icon: TruckIcon,
   },
   {
     id: 2,
-    id: 2,
     title: 'Мониторинг маршрутов',
-    description: 'Отслеживание движения в реальном времени и анализ оптимальных маршрутов.',
     description: 'Отслеживание движения в реальном времени и анализ оптимальных маршрутов.',
     icon: MapIcon,
   },
   {
     id: 3,
-    id: 3,
     title: 'Анализ данных',
-    description: 'Сбор и обработка данных о перевозках для оптимизации процессов.',
     description: 'Сбор и обработка данных о перевозках для оптимизации процессов.',
     icon: BarChartIcon,
   },
   {
     id: 4,
-    id: 4,
     title: 'Оповещения и реагирование',
     description: 'Мгновенные уведомления о нарушениях и быстрое реагирование на инциденты.',
     icon: BellIcon,
-    description: 'Мгновенные уведомления о нарушениях и быстрое реагирование на инциденты.',
-    icon: BellIcon,
   },
-]
 ]
 
 export function HowItWorks() {
@@ -52,25 +38,13 @@ export function HowItWorks() {
     ),
   }))
 
-  const carouselItems = steps.map((step) => ({
-    id: step.id,
-    content: (
-      <StepCard {...step} />
-    ),
-  }))
-
   return (
-    <section id="how-it-works" className="py-12 sm:py-20 bg-background">
     <section id="how-it-works" className="py-12 sm:py-20 bg-background">
       <Container>
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-4">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-4">
             Как работает 3GIS
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Простой процесс для обеспечения безопасности и эффективности транспортировки нефти
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Простой процесс для обеспечения безопасности и эффективности транспортировки нефти
           </p>

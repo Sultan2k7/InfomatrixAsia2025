@@ -97,6 +97,7 @@ export default function DynamicMap({
 
 
   // Оригинальная логика обновления координат и bearing
+  // тут короче беринг украсть можно и нужно
   const fetchVehicles = useCallback(async () => {
     try {
       const response = await fetch('/api/map/1/gps');
