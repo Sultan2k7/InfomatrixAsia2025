@@ -80,9 +80,6 @@ export const VehicleDetails = ({
             <div className="w-full h-full flex items-center justify-center">
               <span className="text-muted-foreground">Camera Feed</span>
             </div>
-          <div className="w-full h-full flex items-center justify-center">
-            <span className="text-muted-foreground">Camera Feed</span>
-          </div>
           </div>
           <Link href={`/dashboard/vehicles/1`} passHref>
             <Button className="w-full mt-2" variant="outline">
