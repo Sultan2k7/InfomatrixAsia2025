@@ -216,3 +216,12 @@ model Obd_fuel {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }
+
+model File {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  driverId   String
+  filename   String
+  path       String  // File path on server
+  contentType String // MIME type (e.g., "image/png", "application/pdf")
+  uploadedAt DateTime @default(now())
+}

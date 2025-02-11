@@ -1,19 +1,21 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Edit, Trash } from 'lucide-react';
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { ArrowLeft, Edit, Trash } from "lucide-react";
+import FileUpload from "@/components/shared/file-upload";
+import FileList from "@/components/shared/file-list";
 
 interface Driver {
   id: string;
@@ -39,16 +41,17 @@ const DriverPage = () => {
     fetchDriver();
   }, [id]);
 
+  // Fetch driver data
   const fetchDriver = async () => {
     try {
       const response = await fetch(`/api/user/${id}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch driver');
+        throw new Error("Failed to fetch driver");
       }
       const data = await response.json();
       setDriver(data);
     } catch (error) {
-      console.error('Error fetching driver:', error);
+      console.error("Error fetching driver:", error);
     }
   };
 
@@ -60,11 +63,12 @@ const DriverPage = () => {
     <div className="p-6">
       <Button
         variant="outline"
-        onClick={() => router.push('/dashboard/users')}
+        onClick={() => router.push("/dashboard/users")}
         className="mb-6"
       >
         <ArrowLeft className="mr-2 h-4 w-4" /> Назад к списку водителей
       </Button>
+
       <Card>
         <CardHeader>
           <div className="flex justify-between items-center">
@@ -73,12 +77,13 @@ const DriverPage = () => {
               <CardDescription>{driver.email}</CardDescription>
             </div>
             <Badge
-              variant={driver.status === 'active' ? 'default' : 'secondary'}
+              variant={driver.status === "active" ? "default" : "secondary"}
             >
               {driver.status}
             </Badge>
           </div>
         </CardHeader>
+
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -93,22 +98,32 @@ const DriverPage = () => {
               <p>Дата найма: {driver.hireDate}</p>
             </div>
           </div>
+
           <Separator className="my-4" />
+
           <div>
             <h3 className="font-semibold mb-2">Назначенное ТС</h3>
-            <p>{driver.vehicleAssigned || 'Не назначено'}</p>
+            <p>{driver.vehicleAssigned || "Не назначено"}</p>
           </div>
+
           <div className="mt-6 flex justify-end space-x-2">
-            <Button
-              variant="outline"
-              //onClick={() => router.push(`/dashboard/users/${id}/edit`)}
-            >
+            <Button variant="outline">
               <Edit className="mr-2 h-4 w-4" /> Редактировать
             </Button>
             <Button variant="destructive">
               <Trash className="mr-2 h-4 w-4" /> Удалить
             </Button>
           </div>
+
+          <Separator className="my-4" />
+
+          {/* File Upload Component */}
+          <FileUpload driverId={id as string} />
+
+          <Separator className="my-4" />
+
+          {/* File List Component */}
+          <FileList driverId={id as string} />
         </CardContent>
       </Card>
     </div>
