@@ -29,8 +29,33 @@ export default function FileList({ driverId }: FileListProps) {
       }
       const data = await response.json();
       setFiles(data);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching files:", error);
+    }
+  };
+
+  const handleFileAction = (file: FileInfo) => {
+    const viewableTypes = [
+      'application/pdf',
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'text/plain',
+      'text/html'
+    ];
+    
+    const url = `https://file.3gis.kz/file/view/${file.filename}`;
+    if (viewableTypes.includes(file.contentType)) {
+      window.open(url, '_blank');
+    } else {
+      // Force download for non-viewable files
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file.filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
@@ -41,10 +66,12 @@ export default function FileList({ driverId }: FileListProps) {
         <ul className="list-disc pl-5">
           {files.map((file) => (
             <li key={file._id} className="flex justify-between items-center">
-              <a href={`/api/files/view/${file.filename}`} target="_blank" rel="noopener noreferrer">
-                {file.filename}
-              </a>
-              <Button size="sm" variant="outline" onClick={() => window.open(`/api/files/view/${file.filename}`, "_blank")}>
+              <span>{file.filename}</span>
+              <Button 
+                size="sm" 
+                variant="outline" 
+                onClick={() => handleFileAction(file)}
+              >
                 <Eye className="mr-2 h-4 w-4" /> Открыть
               </Button>
             </li>

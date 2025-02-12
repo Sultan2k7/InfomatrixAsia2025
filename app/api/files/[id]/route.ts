@@ -7,6 +7,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
       method: "GET",
     });
 
+    console.log(`http://localhost:3001/file?driverId=${params.id}`);
+
     if (!backendResponse.ok) {
       throw new Error("Failed to fetch files");
     }
