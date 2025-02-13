@@ -28,6 +28,7 @@ import {
   ChevronsRight,
   Plus,
   ExternalLink,
+  Download,
 } from 'lucide-react';
 
 interface Vehicle {
@@ -103,13 +104,65 @@ export default function VehiclesPage() {
     currentPage * itemsPerPage
   );
 
+  const downloadCSV = () => {
+    // Create CSV headers
+    const headers = [
+      'ID',
+      'Driver Name',
+      'Phone Number',
+      'Vehicle Number',
+      'Current Mission',
+      'Location',
+      'Speed',
+      'Malfunctions',
+      'Vehicle Type',
+      'Status',
+    ];
+
+    // Convert vehicles data to CSV format
+    const csvData = sortedVehicles.map((vehicle) => [
+      vehicle.id,
+      vehicle.driver.name,
+      vehicle.phoneNumber,
+      vehicle.vehicleNumber,
+      vehicle.currentMission || '',
+      vehicle.location || '',
+      vehicle.speed,
+      vehicle.malfunctions,
+      vehicle.vehicleType,
+      vehicle.status,
+    ]);
+
+    // Combine headers and data
+    const csvContent = [
+      headers.join(','),
+      ...csvData.map((row) => row.join(',')),
+    ].join('\n');
+
+    // Create and trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'vehicles.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Транспорт</h1>
-        {/* <Button onClick={() => router.push('/dashboard/vehicles/create')}>
-          <Plus className="mr-2 h-4 w-4" /> Зарегистрировать транспорт
-        </Button> */}
+        <div className="flex gap-2">
+          <Button onClick={downloadCSV} variant="outline">
+            <Download className="mr-2 h-4 w-4" /> Скачать CSV
+          </Button>
+          {/* <Button onClick={() => router.push('/dashboard/vehicles/create')}>
+            <Plus className="mr-2 h-4 w-4" /> Зарегистрировать транспорт
+          </Button> */}
+        </div>
       </div>
       <div className="flex justify-between mb-4">
         <Input
